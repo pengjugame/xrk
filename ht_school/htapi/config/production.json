@@ -1,0 +1,387 @@
+//产品环境配置
+{
+    xrk:{
+        welcome: "你好!\n欢迎来到向日葵艺术，向日葵艺术拥有一批优秀的师资，重视培养学员的综合素养，提高身体柔软度、协调性及舞台表现力.\n回复关键字查看详细:“表演”、“活动”、“课表”、“芭蕾”、“跆拳道”、“中国舞”、“拉丁摩登”、“艺术体操” ...",
+    },
+    db: {
+        host: "localhost",
+        port: "3306",
+        user: "root",
+        password: "6429804Jl%",
+        database: "weapp",
+        connectionLimit: 50
+    },
+    wx: {
+        token: "jianglin2018",
+        appid: "wx011673c19b389bde",
+        secret: "defee7668046670b2e07f120009c10a6",
+        encodingAESKey: "Khy8OE2aOBSdbprTLC5OmrGm6kIJrH6Q2lxe7q9uBIf"
+    },
+    blockchains: {
+        enable: false,
+        token: "井通商户账号",
+        address: "企业钱包地址",
+        secret: "企业钱包秘钥",
+        key: "银关KEY",
+        currency: "用户通编码",
+        issuer: "银关编码"
+    },
+    session: {
+        path: "../../session"
+    },
+    tags: {
+        "家长": "102",
+        "意向家长": "101",
+        "教师": "103",
+        "学校管理员": "100"
+    },
+    forms: {
+        teacher_register: {
+            title: "教师申请表",
+            description: "请认真填写完成并提交审核",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/teacher_register.html"
+        },
+        admin_register: {
+            title: "管理员申请表",
+            description: "请认真填写完成并提交审核",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/admin_register.html"
+        },
+        parent_register: {
+            title: "入学登记表",
+            description: "请认真填写完成并提交审核",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/parent_register.html"
+        },
+        teacher_verification: {
+            title: "教师申请批准",
+            description: "查看审核教师申请",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/teacher_verification.html"
+        },
+        parent_verification: {
+            title: "入学申请批准",
+            description: "查看审核家长缴费情况，批准入学申请",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/parent_verification.html"
+        },
+        student_check_in: {
+            title: "桃桃到学校啦",
+            description: "洋洋老师八点半接到了桃桃同学",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/parent_confirm.html"
+        },
+        student_check_out: {
+            title: "桃桃放学了，请知晓",
+            description: "桃桃妈妈，桃桃下午5点从学校放学了",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/parent_confirm_checkout.html"
+        },
+        school_check_in: {
+            title: "桃桃到学校啦",
+            description: "桃桃妈妈八点半送桃桃同学来上学",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/teacher_confirm.html"
+        },
+        school_check_out: {
+            title: "桃桃放学了，请知晓",
+            description: "洋洋老师给桃桃签退，下午5点从学校放学了",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/teacher_confirm_checkout.html"
+        },
+        parent_check: {
+            title: "桃桃放学了，请知晓",
+            description: "洋洋老师给桃桃签退，下午5点从学校放学了",
+            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            url: "http://119.29.90.92/static/parent_check.html"
+        }
+    },
+    menu: {
+        "user": {
+            "button": [{
+                "name": "向日葵艺术",
+                "sub_button": [
+                    {
+                    "type": "view",
+                    "name": "向舞地址",
+                    "url": "https://mp.weixin.qq.com/s/ihnwybY_DxmbXduIvP6O8g"
+                    }, {
+                    "type": "view",
+                    "name": "课程简介",
+                    "url": "https://mp.weixin.qq.com/s/NuVkeT181DynReMkbU7W0w"
+                    }, {
+                    "type": "view",
+                    "name": "向舞简介",
+                    "url": "https://mp.weixin.qq.com/s/h4-M5Am-p7j4S98-VThAUg"
+                    }
+                ]
+            },{
+                "name": "向舞资讯",
+                "sub_button":[
+                    {
+                    "type": "view",
+                    "name": "本期课表",
+                    "url": "https://mp.weixin.qq.com/s/k5W8mfBrH5gVLyPCTm4QXQ"
+                    }, {
+                    "type": "view",
+                    "name": "课堂风采",
+                    "url": "https://mp.weixin.qq.com/s/UcCF3ISG4OQE1nXCcX5njw"
+                    }, {
+                    "type": "view",
+                    "name": "赛事表演",
+                    "url": "https://mp.weixin.qq.com/s/IBEpFlZgUL-ba9RfZeryMg"
+                    }, {
+                    "type": "view",
+                    "name": "近期优惠",
+                    "url": "https://mp.weixin.qq.com/s/wgR0TjpbMF7lULmNvTGXmQ"
+                    }
+                ]
+            },{
+                "name": "向舞管理",
+                "sub_button":[
+                    {
+                    "name": "正式报名",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/parent_register.html"
+                    }, {
+                    "name": "免费体验",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/appointment.html"
+                    }
+                ]
+            }]
+        },
+        "parent": {
+            "button": [{
+                "name": "向日葵艺术",
+                "sub_button": [
+                    {
+                    "type": "view",
+                    "name": "向舞地址",
+                    "url": "https://mp.weixin.qq.com/s/ihnwybY_DxmbXduIvP6O8g"
+                    }, {
+                    "type": "view",
+                    "name": "课程简介",
+                    "url": "https://mp.weixin.qq.com/s/NuVkeT181DynReMkbU7W0w"
+                    }, {
+                    "type": "view",
+                    "name": "向舞简介",
+                    "url": "https://mp.weixin.qq.com/s/h4-M5Am-p7j4S98-VThAUg"
+                    }
+                ]
+            },{
+                "name": "向舞资讯",
+                "sub_button":[
+                    {
+                    "type": "view",
+                    "name": "本期课表",
+                    "url": "https://mp.weixin.qq.com/s/k5W8mfBrH5gVLyPCTm4QXQ"
+                    }, {
+                    "type": "view",
+                    "name": "课堂风采",
+                    "url": "https://mp.weixin.qq.com/s/UcCF3ISG4OQE1nXCcX5njw"
+                    }, {
+                    "type": "view",
+                    "name": "赛事表演",
+                    "url": "https://mp.weixin.qq.com/s/IBEpFlZgUL-ba9RfZeryMg"
+                    }, {
+                    "type": "view",
+                    "name": "近期优惠",
+                    "url": "https://mp.weixin.qq.com/s/wgR0TjpbMF7lULmNvTGXmQ"
+                    }
+                ]
+            },{
+                "name": "向舞管理",
+                "sub_button":[
+                    {
+                    "name": "接送信息",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/parent_check.html"
+                    }
+                ]
+            }],
+            "matchrule": {
+                "group_id": "家长"
+            }
+        },
+        "teacher": {
+            "button": [{
+                "name": "向日葵艺术",
+                "sub_button": [
+                    {
+                    "type": "view",
+                    "name": "向舞地址",
+                    "url": "https://mp.weixin.qq.com/s/ihnwybY_DxmbXduIvP6O8g"
+                    }, {
+                    "type": "view",
+                    "name": "课程简介",
+                    "url": "https://mp.weixin.qq.com/s/NuVkeT181DynReMkbU7W0w"
+                    }, {
+                    "type": "view",
+                    "name": "向舞简介",
+                    "url": "https://mp.weixin.qq.com/s/h4-M5Am-p7j4S98-VThAUg"
+                    }
+                ]
+            },{
+                "name": "向舞资讯",
+                "sub_button":[
+                    {
+                    "type": "view",
+                    "name": "本期课表",
+                    "url": "https://mp.weixin.qq.com/s/k5W8mfBrH5gVLyPCTm4QXQ"
+                    }, {
+                    "type": "view",
+                    "name": "课堂风采",
+                    "url": "https://mp.weixin.qq.com/s/UcCF3ISG4OQE1nXCcX5njw"
+                    }, {
+                    "type": "view",
+                    "name": "赛事表演",
+                    "url": "https://mp.weixin.qq.com/s/IBEpFlZgUL-ba9RfZeryMg"
+                    }, {
+                    "type": "view",
+                    "name": "近期优惠",
+                    "url": "https://mp.weixin.qq.com/s/wgR0TjpbMF7lULmNvTGXmQ"
+                    }
+                ]
+            },{
+                "name": "向舞管理",
+                "sub_button":[
+                    {
+                    "name": "预约管理",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/appointment_verification.html"
+                    },{
+                    "name": "接送信息",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/teacher_check.html"
+                    },{
+                    "name": "接送扫码",
+                    "type": "scancode_waitmsg",
+                    "key": "scan_code_check"
+                    }
+                ]
+            }],
+            "matchrule": {
+                "group_id": "教师"
+            }
+        },
+        "admin": {
+            "button": [{
+                "name": "向日葵艺术",
+                "sub_button": [
+                    {
+                    "type": "view",
+                    "name": "向舞地址",
+                    "url": "https://mp.weixin.qq.com/s/ihnwybY_DxmbXduIvP6O8g"
+                    }, {
+                    "type": "view",
+                    "name": "课程简介",
+                    "url": "https://mp.weixin.qq.com/s/NuVkeT181DynReMkbU7W0w"
+                    }, {
+                    "type": "view",
+                    "name": "向舞简介",
+                    "url": "https://mp.weixin.qq.com/s/h4-M5Am-p7j4S98-VThAUg"
+                    }
+                ]
+            },{
+                "name": "向舞资讯",
+                "sub_button":[
+                    {
+                    "type": "view",
+                    "name": "本期课表",
+                    "url": "https://mp.weixin.qq.com/s/k5W8mfBrH5gVLyPCTm4QXQ"
+                    }, {
+                    "type": "view",
+                    "name": "课堂风采",
+                    "url": "https://mp.weixin.qq.com/s/UcCF3ISG4OQE1nXCcX5njw"
+                    }, {
+                    "type": "view",
+                    "name": "赛事表演",
+                    "url": "https://mp.weixin.qq.com/s/IBEpFlZgUL-ba9RfZeryMg"
+                    }, {
+                    "type": "view",
+                    "name": "近期优惠",
+                    "url": "https://mp.weixin.qq.com/s/wgR0TjpbMF7lULmNvTGXmQ"
+                    }
+                ]
+            },{
+                "name": "向舞管理",
+                "sub_button":[
+                    {
+                    "name": "教师审核",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/teacher_verification.html"
+                    },{
+                    "name": "报名审核",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/parent_verification.html"
+                    }
+                ]
+            }],
+            "matchrule": {
+                "group_id": "学校管理员"
+            }
+        }
+    },
+    "keywords": {
+        "表演": ["1"],
+        "活动": ["2"],
+        "课表": ["3"],
+        "芭蕾": ["4"],
+        "跆拳道": ["5"],
+        "中国舞": ["6"],
+        "拉丁摩登": ["7"],
+        "艺术体操": ["8"],
+    },
+    "articles": {
+        "1": {
+            "title": "【风采展示】4月15日向日葵艺术萝岗万达演出精彩瞬间！",
+            "description": "2018年4月15日向日葵艺术培训中心接受萝岗万达广场邀请参与演出。",
+            "picurl": "https://mmbiz.qpic.cn/mmbiz_png/9ZQkrH84FFN6MeOYtLUfQibWfvcMBSC7xwsQ8Sent5LlCsQ4Zk97ic7eUccp1jJcIkevas7NJiaxYqDQX5ms0wL8g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1",
+            "url": "https://mp.weixin.qq.com/s/IBEpFlZgUL-ba9RfZeryMg"
+        },
+        "2": {
+            "title": "向日葵艺术舞蹈开年福利！",
+            "description": "新春五重礼！！",
+            "picurl": "https://mmbiz.qpic.cn/mmbiz_jpg/9ZQkrH84FFPklD7ibEuxLm91M8R0UsvxBeMLbTcbsFkUrS5gaJ7pEoWShQy1nP369EOg3vboQHDXa8Gicwye89RQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+            "url": "https://mp.weixin.qq.com/s/wgR0TjpbMF7lULmNvTGXmQ"
+        },
+        "3": {
+            "title": "本期课表",
+            "description": "6月课表",
+            "picurl": "http://119.29.90.92/static/static/data/bqkb.jpg",
+            "url": "https://mp.weixin.qq.com/s/k5W8mfBrH5gVLyPCTm4QXQ"
+        },
+        "4": {
+            "title": "芭蕾的美丽，让电影来告诉你",
+            "description": "芭蕾的美丽，让电影来告诉你。",
+            "picurl": "https://mmbiz.qpic.cn/mmbiz_jpg/sXvd8562MJ4JBXzYgM0T25nQgWlA2g8QSaIoIFoib3F8B74FgxPpS0qyicJmdPBNpnXyJHib8PLbItMKsj3SxgickQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+            "url": "https://mp.weixin.qq.com/s/1A6PEOdcy-sCqwtf_sJOlg"
+        }, 
+        "5": {
+            "title": "跆拳道，是孩子成长的一门“必修课”",
+            "description": "跆拳道，是孩子成长的一门“必修课”",
+            "picurl": "https://mmbiz.qpic.cn/mmbiz_png/9ZQkrH84FFMlicHGmA8admmTcPeicbwsbX2icSibicElF0hGypjQkTNjBib6sJibnwub5oicBQIpRvpyHr0HHzwjicpkVkw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1",
+            "url": "https://mp.weixin.qq.com/s/S3qE_BfAdvE0ceZzPTSz2w"
+        }, 
+        "6": {
+            "title": "为什么要学习中国舞？",
+            "description": "为什么要学习中国舞？",
+            "picurl": "https://mmbiz.qpic.cn/mmbiz_jpg/cdXYNUXsW0ayQwDuSr1Hp1zuUEmlHnGia3mlWmnvyV7nqkPTatIJO9AyoeHgj71vPu7hTzChBlw4WqqrwBKF9lw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+            "url": "https://mp.weixin.qq.com/s/ojFQo20SfjXHuyits_7HOw"
+        },  
+        "7": {
+            "title": "拉丁舞让少儿“形神具佳”",
+            "description": "拉丁舞让少儿“形神具佳”",
+            "picurl": "https://mmbiz.qpic.cn/mmbiz_jpg/9ZQkrH84FFMlicHGmA8admmTcPeicbwsbX64bk3R2JlibErezKMGGubq8tJOXxeFTdaGjRtSon7o9VWMp8T66GOHw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+            "url": "https://mp.weixin.qq.com/s/ezLSGYA168wrO22UJE9S6Q"
+        }, 
+        "8": {
+            "title": "为什么是艺术体操？",
+            "description": "为什么是艺术体操？",
+            "picurl": "https://mmbiz.qpic.cn/mmbiz_png/9ZQkrH84FFMlicHGmA8admmTcPeicbwsbX0S8jTHrYT4eRK5bQ2IAKe4CmhHInj3ZSRIEwyCbE1LpInDDpKorJ1w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1",
+            "url": "https://mp.weixin.qq.com/s/9w_Hg7SdnHBR-nmugAt53w"
+        },       
+    }
+}
