@@ -1,334 +1,655 @@
 'use strict';
 
 /**--users 操作---**/
-//从微信接口中添加用户
-function add_user() {
-    return "insert into afd_users set ? "
-}
+/*users: {
+    exist_user: exist_user(),
+    select_user_subscribe: select_user_subscribe(),
+    add_user: add_user(),
+    update_user_subscribe: update_user_subscribe(),
+    update_user_unsubscribe: update_user_unsubscribe()
+}*/
 
 function exist_user() {
-    return "select * from afd_users where openid = ? "
+    return "select * from xrk_users where openid = ? "
 }
 
-function subscribe() {
-    return "update afd_users SET subscribe = 1 where openid = ? "
+function select_user_subscribe() {
+    return "select * from xrk_users where subscribe = 1"
 }
 
-function unsubscribe() {
-    return "update afd_users SET subscribe = 0 where openid = ? "
+function add_user() {
+    return "insert into xrk_users set ? "
 }
 
-/**--school_admin表 操作---**/
-function exist_school_admin() {
-    return "select * from afd_school_admin where openid = ? "
+function update_user_subscribe() {
+    return "update xrk_users SET subscribe = 1 where openid = ? "
 }
 
-function add_school_admin() {
-    return "insert into afd_school_admin set  ? "
+function update_user_unsubscribe() {
+    return "update xrk_users SET subscribe = 0 where openid = ? "
 }
 
-function update_school_admin() {
-    return "update afd_school_admin SET name = ?, mobile = ?, schoolid = ? where openid = ?  "
-}
-
-function active_school_admin() {
-    return "update afd_school_admin SET active = 1 where openid = ?  "
-}
-
-function deactive_school_admin() {
-    return "update afd_school_admin SET active = 0 where openid = ?  "
-}
-
-/**--teachers表 操作---**/
-function exist_teachers() {
-    return "select * from afd_teachers where openid = ?"
-}
-
-function delete_teacher() {
-    return "delete from afd_teachers where teacherid = ?"
-}
-
-function select_teachers() {
-    return "SELECT a.name , a.mobile, a.teacherid , a.active , a.openid ," + " CASE a.sex WHEN '1' THEN '男' else '女'  end as sex  , b.name AS school_name FROM afd_teachers a " + "LEFT JOIN afd_school b ON a.schoolid = b.schoolid WHERE a.schoolid = ? "
-}
-
-function add_teachers() {
-    return "insert into afd_teachers set  ? "
-}
-
-function update_teachers() {
-    return "update afd_teachers SET name = ?, mobile = ?, schoolid = ? where openid = ?  "
-}
-
-function active_teachers() {
-    return "update afd_teachers SET active = 1 where teacherid = ?  "
-}
-
-function deactive_teachers() {
-    return "update afd_teachers SET active = 0 where teacherid = ?  "
-}
-
-/**--afd_children表 操作---**/
-function exist_child() {
-    return "select * from afd_children where childid = ? "
-}
-
-function exist_child_active() {
-    return "select * from afd_children where childid = ? and active = 1 "
-}
-
-function all_children_in_school() {
-    return "select * from afd_children where schoolid = ? and active = 1 "
-}
-
-function children_in_school() {
-    return "select * from afd_children where schoolid = ? and childid = ? "
-}
-
-function add_child() {
-    return "insert into afd_children set  ? "
-}
-
-function update_child_basic() {
-    return "update afd_children set name = ? , birthday = ? , picture = ? , sex = ? where childid = ? "
-}
-
-function active_child() {
-    return "update afd_children set active = 1 where childid = ? "
-}
-
-function deactive_child() {
-    return "update afd_children set active = 0 where childid = ? "
-}
-
-function delete_child() {
-    return "delete from afd_children  where childid = ? "
-}
-/**--afd_parent表 操作---**/
-function exist_parent() {
-    return "select * from afd_parent where openid = ?"
-}
-
-function add_parent() {
-    return "insert into afd_parent set  ? "
-}
-
-function delete_parent() {
-    return "delete from afd_parent where parentid = ? "
-}
-
-function get_childid() {
-    return "select childid1 from afd_parent where parentid = ? "
-}
-
-//跟新缴费状态
-function active_parent() {
-    return "update afd_parent set active = 1 where parentid = ? "
-}
-
-function deactive_parent() {
-    return "update afd_parent set active = 0 where parentid = ? "
-}
-
-function select_parents() {
-    return "SELECT a.openid,a.parentid,a. NAME AS parent_name,a.mobile, b.childid ,b. NAME AS child_name,b.sex,b.birthday," + "b.schoolid,c. NAME AS school_name,b.active FROM afd_parent a LEFT JOIN afd_children b ON a.childid1 = b.childid " + "LEFT JOIN afd_school c ON c.schoolid = b.schoolid"
-}
-
-//只考虑一个孩子
-function select_parents_by_child() {
-    return "SELECT * from afd_parent where childid1 = ? "
-}
-
-//查询这个家长有多少个小孩
-function has_children() {
-    return "SELECT a.openid,a.parentid,a. NAME AS parent_name,a.mobile, b.childid ,b. NAME AS child_name,b.sex,b.birthday," + "b.schoolid,c. NAME AS school_name,b.active FROM afd_parent a LEFT JOIN afd_children b ON a.childid1 = b.childid " + "LEFT JOIN afd_school c ON c.schoolid = b.schoolid WHERE  a.openid =  ? UNION " + "SELECT a.openid,a.parentid,a. NAME AS parent_name,a.mobile,b.childid ,b. NAME AS child_name,b.sex,b.birthday," + "b.schoolid,c. NAME AS school_name,b.active FROM afd_parent a LEFT JOIN afd_children b ON a.childid2 = b.childid " + "LEFT JOIN afd_school c ON c.schoolid = b.schoolid WHERE  a.openid =  ? UNION " + "SELECT a.openid,a.parentid,a. NAME AS parent_name,a.mobile,b.childid ,b. NAME AS child_name,b.sex,b.birthday," + "b.schoolid,c. NAME AS school_name,b.active FROM afd_parent a LEFT JOIN afd_children b ON a.childid3 = b.childid " + "LEFT JOIN afd_school c ON c.schoolid = b.schoolid WHERE  a.openid =  ? UNION " + "SELECT a.openid,a.parentid,a. NAME AS parent_name,a.mobile,b.childid ,b. NAME AS child_name,b.sex,b.birthday," + "b.schoolid,c. NAME AS school_name,b.active FROM afd_parent a LEFT JOIN afd_children b ON a.childid4 = b.childid " + "LEFT JOIN afd_school c ON c.schoolid = b.schoolid WHERE  a.openid =  ? UNION " + "SELECT a.openid,a.parentid,a. NAME AS parent_name,a.mobile,b.childid ,b. NAME AS child_name,b.sex,b.birthday," + "b.schoolid,c. NAME AS school_name,b.active FROM afd_parent a LEFT JOIN afd_children b ON a.childid5 = b.childid " + "LEFT JOIN afd_school c ON c.schoolid = b.schoolid WHERE  a.openid =  ? UNION " + "SELECT a.openid,a.parentid,a. NAME AS parent_name,a.mobile,b.childid ,b. NAME AS child_name,b.sex,b.birthday," + "b.schoolid,c. NAME AS school_name,b.active FROM afd_parent a LEFT JOIN afd_children b ON a.childid6 = b.childid " + "LEFT JOIN afd_school c ON c.schoolid = b.schoolid WHERE  a.openid =  ?  "
-}
-
-/**--afd_school表 操作---**/
-function add_school() {
-    return "insert into afd_school set  ? "
-}
-
-function delete_school() {
-    return "delete from afd_school where schoolid =  ? "
-}
-
-function update_school() {
-    return "update afd_school set name = ?, address = ?, leader = ?, mobile = ? where schoolid =  ? "
-}
-
-function select_all_school() {
-    return "select * from afd_school  "
-}
+/**--schools表 操作---**/
+/*shcools:{
+    exist_school: exist_school(),
+    select_school: select_school(),
+    select_school_active: select_school_active(),
+    add_school: add_school(),
+    delete_school: delete_school(),
+    update_school_base: update_school_base(),
+    active_school: active_school(),
+    deactive_school: deactive_school()
+}*/
 
 function exist_school() {
-    return "select * from afd_school where schoolid = ? "
-}
-
-/**--afd_charge_list表 操作---**/
-function add_charge_item() {
-    return "insert into afd_charge_list set  ? "
-}
-
-function select_child_list() {
-    return "select * from afd_charge_list where childid = ? order by payment_time desc"
-}
-
-function select_school_list() {
-    return "select * from afd_charge_list where schoolid = ? order by childid, payment_time desc"
-}
-
-/**--afd_check表 操作---**/
-function add_check() {
-    return "insert into afd_check set  ? "
-}
-
-function update_check() {
-   return "update afd_check set checkname = ?, checktime = ? where checkid = ?  "
-}
-
-function select_child() {
-    return "select * from afd_check where childid = ? and checktime > ? and checktime <= ? order by checktime desc "
-}
-
-function select_child_with_type() {
-    return "select * from afd_check where childid = ? and type = ? and checktime > ? and checktime <= ? order by checktime desc "
+    return "select * from xrk_schools where schoolid = ? "
 }
 
 function select_school() {
-    return "select * from afd_check where schoolid = ? and checktime > ? and checktime <= ? order by checktime desc "
+    return "select * from xrk_schools  "
 }
 
-function not_check_children() {
-    return "SELECT * FROM afd_children b WHERE b.active = 1 AND b.schoolid = ? " +
-        "AND b.childid NOT IN ( SELECT a.childid FROM afd_check a " +
-        "WHERE a.schoolid = ? AND date_format(a.checktime, '%y-%m-%d')= date_format(now(), '%y-%m-%d') " +
-        "AND type = ? )";
+function select_school_active() {
+    return "select * from xrk_schools where schoolactive = 1 "
 }
 
-/**--afd_qr表 操作---**/
-function exist_qr() {
-    return "select * from afd_qr where schoolid = ? and qr_key = ? and type = ? ";
+function add_school() {
+    return "insert into xrk_schools set  ? "
 }
 
-function add_qr() {
-    return "insert into afd_qr set  ? "
+function delete_school() {
+    return "delete from xrk_schools where schoolid =  ? "
 }
 
-/**--afd_blockchains表 操作---**/
-function add_blockchains() {
-  return "insert into afd_blockchains set  ? "
+function update_school_base() {
+    return "update xrk_schools set schoolname = ?, schooladdress = ?, schoolleader = ?, schoolmobile = ? where schoolid =  ? "
 }
 
-function select_blockchains() {
-  return "select schoolid, timestamp, task from afd_blockchains where schoolid = ? order by timestamp "
+function active_school() {
+    return "update xrk_schools SET schoolactive = 1 where schoolid = ? "
 }
 
-function delete_blockchains() {
-  return "delete from afd_blockchains where schoolid = ? and timestamp = ? "
+function deactive_school() {
+    return "update xrk_schools SET schoolactive = 0 where schoolid = ? "
 }
 
-/**--afd_register表 操作---**/
-function register_info() {
-    return "select * from afd_register where openid = ? "
+/**--schooladmins表 操作---**/
+/*schooladmins:{
+    exist_schooladmin: exist_schooladmin(),
+    select_schooladmin_in_school: select_schooladmin_in_school(),
+    select_schooladmin_in_school_active: select_schooladmin_in_school_active(),
+    add_schooladmin: add_schooladmin(),
+    update_schooladmin_base: update_schooladmin_base(),
+    active_schooladmin: active_schooladmin(),
+    deactive_schooladmin: deactive_schooladmin()
+}*/
+
+function exist_schooladmin() {
+    return "select * from xrk_schooladmins where schooladminopenid = ? "
 }
 
-function select_all() {
-    return 'select a.child_name as child_name, a.child_birthday as child_birthday, a.parent_name as parent_name,' + 'a.parent_mobile as parent_mobile, a.registerid as registerid,a.openid as openid,b.name as name ' + 'from afd_register a left join afd_school b on a.schoolid = b.schoolid ORDER BY a.register_time DESC'
+function select_schooladmin_in_school() {
+    return "SELECT a.schooladminid , a.schooladminname , a.schooladminmobile , a.schooladminusex , a.schooladminopenid , a.schooladminactive , " 
+            + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails " 
+            + "FROM xrk_schooladmins a " 
+            + "JOIN xrk_schools b ON a.schoolid = b.schoolid " 
+            + "WHERE b.schoolid = ? AND b.schoolactive = 1"
+
 }
 
-function register() {
-    return "insert into afd_register set  ? "
+function select_schooladmin_in_school_active() {
+    return "SELECT a.schooladminid , a.schooladminname , a.schooladminmobile , a.schooladminusex , a.schooladminopenid , " 
+            + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails " 
+            + "FROM xrk_schooladmins a " 
+            + "JOIN xrk_schools b ON a.schoolid = b.schoolid " 
+            + "WHERE b.schoolid = ? AND b.schoolactive = 1 AND a.schooladminactive = 1"
 }
 
-function delete_register() {
-    return "delete from afd_register where registerid = ? "
+function add_schooladmin() {
+    return "insert into xrk_schooladmins set  ? "
 }
 
-function update_register() {
-    return "update afd_register set child_name = ?, child_birthday = ?, parent_name = ?, parent_mobile = ?, schoolid = ? where openid = ? "
+function update_schooladmin_base() {
+    return "update xrk_schooladmins SET schooladminname = ?, schooladminmobile = ?, schooladminusex = ? , schoolid = ? where schooladminid = ? "
+}
+
+function active_schooladmin() {
+    return "update xrk_schooladmins SET schooladminactive = 1 where schooladminid = ? "
+}
+
+function deactive_schooladmin() {
+    return "update xrk_schooladmins SET schooladminactive = 0 where schooladminid = ? "
+}
+
+/**--teachers表 操作---**/
+/*teachers:{
+    exist_teacher: exist_teacher(),
+    select_teacher_in_school: select_teacher_in_school(),
+    select_teacher_in_school_active: select_teacher_in_school_active(),
+    add_teacher: add_teacher(),
+    update_teacher_base: update_teacher_base(),
+    active_teacher: active_teacher(),
+    deactive_teacher: deactive_teacher()
+}*/
+
+function exist_teacher() {
+    return "select * from xrk_teachers where teacheropenid = ?"
+}
+
+function select_teacher_in_school() {
+    return "SELECT a.teacherid , a.teachername , a.teachermobile , a.teacherusex , a.teacherdetails , a.teacheractive , a.teacheropenid , a.teacheractive , " 
+            + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails " 
+            + "FROM xrk_teachers a " 
+            + "JOIN xrk_schools b ON a.schoolid = b.schoolid " 
+            + "WHERE b.schoolid = ? "
+}
+
+function select_teacher_in_school_active() {
+    return "SELECT a.teacherid , a.teachername , a.teachermobile , a.teacherusex , a.teacherdetails , a.teacheractive , a.teacheropenid , " 
+            + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails " 
+            + "FROM xrk_teachers a " 
+            + "JOIN xrk_schools b ON a.schoolid = b.schoolid " 
+            + "WHERE b.schoolid = ? AND a.teacheractive = 1"
+}
+
+function add_teacher() {
+    return "insert into xrk_teachers set  ? "
+}
+
+function update_teacher_base() {
+    return "update xrk_teachers SET teachername = ?, teachermobile = ?, teacherusex = ? , teacherdetails = ?, schoolid = ? where teacherid = ?  "
+}
+
+function active_teacher() {
+    return "update xrk_teachers SET teacheractive = 1 where teacherid = ?  "
+}
+
+function deactive_teacher() {
+    return "update xrk_teachers SET teacheractive = 0 where teacherid = ?  "
+}
+
+/**--students表 操作---**/
+
+/*students:{
+    exist_student: exist_student(),
+    select_student: select_student(),
+    select_student_in_class: select_student_in_class(),
+    select_student_in_school: select_student_in_school(),
+    add_student: add_student(),
+    update_student_base: update_student_base(),
+    update_student_times: update_student_times(),
+    active_student: active_student(),
+    deactive_student: deactive_student()
+}*/
+
+function exist_student() {
+    return "select * from xrk_students where studentopenid = ? "
+}
+
+function select_student() {
+    return "select * from xrk_students where studentid = ? "
+}
+
+function select_student_in_class() {
+    return "select * from xrk_students where classid = ? "
+}
+
+function select_student_in_school() {
+    return "select * from xrk_students where schoolid = ? "
+}
+
+function add_student() {
+    return "insert into xrk_students set  ? "
+}
+
+function update_student_base() {
+    return "update xrk_students set studentname = ? , studentmobile = ? , studentusex = ? , studentdetails = ? , classcardid = ? , classid = ? , schoolid = ? , studenttimes = ? where studentid = ? "
+}
+
+function update_student_times() {
+    return "update xrk_students set studenttimes = ? where studentid = ? "
+}
+
+function active_student() {
+    return "update xrk_students set studentactive = 1 where studentid = ? "
+}
+
+function deactive_student() {
+    return "update xrk_students set studentactive = 0 where studentid = ? "
+}
+
+/**--courses表 操作---**/
+/*courses:{
+    select_course: select_course(),
+    select_courses: select_courses(),
+    select_active_courses: select_active_courses(),
+    add_course: add_course(),
+    delete_course: delete_course(),
+    update_course_base: update_course_base(),
+    active_course: active_course(),
+    deactive_course: deactive_course()
+}*/
+
+function select_course() {
+    return "select * from xrk_courses where courseid = ? " 
+}
+
+function select_courses() {
+    return "select * from xrk_courses " 
+}
+
+function select_active_courses() {
+    return "select * from xrk_courses where courseactive = 1 " 
+}
+
+function add_course() {
+    return "insert into xrk_courses set  ? "
+}
+
+function delete_course() {
+    return "delete from xrk_courses where courseid = ? "
+}
+
+function update_course_base() {
+    return "update xrk_courses set coursename = ? , coursetimes = ? , coursetime = ? , coursemaxnumusers = ? , coursedetails = ? where courseid = ? "
+}
+
+function active_course() {
+    return "update xrk_courses SET courseactive = 1 where courseid = ? "
+}
+
+function deactive_course() {
+    return "update xrk_courses SET courseactive = 0 where courseid = ? "
+}
+
+/**--classes表 操作---**/
+
+/*classes:{
+    select_class_active: select_class_active(),
+    select_student_classes: select_student_classes(),
+    select_teacher_classes: select_teacher_classes(),
+    select_school_classes: select_school_classes(),
+    select_class_students: select_class_students(),
+    select_school_students: select_school_students(),
+    add_class: add_class(),
+    delete_class: delete_class(),
+    update_class_base: update_class_base(),
+    active_class: active_class(),
+    deactive_class: deactive_class()
+}*/
+
+function select_class_active() {
+    return "select a.classid , a.classname , a.classaddress , a.classdatatime , " 
+            + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , " 
+            + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails " 
+            + "FROM xrk_classes a " 
+            + "JOIN xrk_schools b ON a.schoolid = b.schoolid " 
+            + "JOIN xrk_courses c ON a.courseid = c.courseid " 
+            + "JOIN xrk_teachers d ON a.teacherid = d.teacherid " 
+            + "where a.classactive = 1 AND b.schoolactive = 1 "
+}
+
+function select_student_classes() {
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
+            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
+            + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
+            + "FROM xrk_students a " 
+            + "JOIN xrk_classes b ON a.classid = b.classid " 
+            + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
+            + "JOIN xrk_courses d ON b.courseid = d.courseid " 
+            + "JOIN xrk_teachers e ON b.teacherid = e.teacherid " 
+            + "where a.studentopenid = ? "
+}
+
+function select_teacher_classes() {
+    return "select a.teacherid , a.teachername , a.teachermobile , a.teacherusex , a.teacherdetails , a.teacheractive , " 
+            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , d.schoolactive " 
+            + "FROM xrk_teachers a " 
+            + "JOIN xrk_classes b ON a.teacherid = b.teacherid " 
+            + "JOIN xrk_courses c ON b.courseid = c.courseid " 
+            + "JOIN xrk_schools d ON b.schoolid = d.schoolid " 
+            + "where a.teacherid = ? "
+}
+
+function select_school_classes() {
+    return "select a.schoolid , a.schoolname , a.schooladdress , a.schoolleader , a.schoolmobile , a.schooldetails , a.schoolactive , "  
+            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive "
+            + "FROM xrk_schools a " 
+            + "JOIN xrk_classes b ON a.schoolid = b.schoolid " 
+            + "JOIN xrk_courses c ON b.courseid = c.courseid " 
+            + "JOIN xrk_teachers d ON b.teacherid = d.teacherid " 
+            + "where a.schoolid = ? "
+}
+
+function select_class_students() {
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
+            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
+            + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
+            + "FROM xrk_students a " 
+            + "JOIN xrk_classes b ON a.classid = b.classid " 
+            + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
+            + "JOIN xrk_courses d ON b.courseid = d.courseid " 
+            + "JOIN xrk_teachers e ON b.teacherid = e.teacherid " 
+            + "where b.classid = ? "
+}
+
+function select_school_students() {
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
+            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
+            + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
+            + "FROM xrk_students a " 
+            + "JOIN xrk_classes b ON a.classid = b.classid " 
+            + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
+            + "JOIN xrk_courses d ON b.courseid = d.courseid " 
+            + "JOIN xrk_teachers e ON b.teacherid = e.teacherid " 
+            + "where c.schoolid = ? "
+}
+
+function add_class() {
+    return "insert into xrk_classes set  ? "
+}
+
+function delete_class() {
+    return "delete from xrk_classes where classid = ? "
+}
+
+function update_class_base() {
+    return "update xrk_classes set classname = ? , classaddress = ? , classdatatime = ? , courseid = ? , teacherid = ? , schoolid = ? where classid = ? "
+}
+
+function active_class() {
+    return "update xrk_classes SET classactive = 1 where classid = ? "
+}
+
+function deactive_class() {
+    return "update xrk_classes SET classactive = 0 where classid = ? "
+}
+
+/**--classcards表 操作---**/
+/*classcards:{
+    select_classcard_active: select_classcard_active(),
+    select_student_classcards: select_student_classcards(),
+    select_class_students_classcards: select_class_students_classcards(),
+    select_school_students_classcards: select_school_students_classcards(),
+    add_classcard: add_classcard(),
+    delete_classcard: delete_classcard(),
+    update_classcard_base: update_classcard_base(),
+    active_classcard: active_classcard(),
+    deactive_classcard: deactive_classcard()
+}*/
+
+function select_classcard_active() {
+    return "select a.classcardid , a.classcardname , a.classcardprice , " 
+            + "b.courseid , b.coursename , b.coursetimes , b.coursetime , b.coursemaxnumusers , b.coursedetails "
+            + "FROM xrk_classcards a " 
+            + "JOIN xrk_courses b ON a.courseid = b.courseid " 
+            + "where a.classcardactive = 1 "
+}
+
+function select_student_classcards() {
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive ," 
+            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
+            + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
+            + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 
+            + "f.courseid , f.coursename , f.coursetimes , f.coursetime , f.coursemaxnumusers , f.coursedetails , f.courseactive " 
+            + "FROM xrk_students a " 
+            + "JOIN xrk_classes b ON a.classid = b.classid " 
+            + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
+            + "JOIN xrk_teachers d ON b.teacherid = d.teacherid " 
+            + "JOIN xrk_classcards e ON a.classcardid = e.classcardid " 
+            + "JOIN xrk_courses f ON e.courseid = f.courseid " 
+            + "where a.studentid = ? "
+}
+
+function select_class_students_classcards() {
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
+            + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
+            + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 
+            + "f.courseid , f.coursename , f.coursetimes , f.coursetime , f.coursemaxnumusers , f.coursedetails , f.courseactive " 
+            + "FROM xrk_students a " 
+            + "JOIN xrk_classes b ON a.classid = b.classid " 
+            + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
+            + "JOIN xrk_teachers d ON b.teacherid = d.teacherid " 
+            + "JOIN xrk_classcards e ON a.classcardid = e.classcardid " 
+            + "JOIN xrk_courses f ON e.courseid = f.courseid " 
+            + "where b.classid = ? "
+}
+
+function select_school_students_classcards() {
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
+            + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
+            + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 
+            + "f.courseid , f.coursename , f.coursetimes , f.coursetime , f.coursemaxnumusers , f.coursedetails , f.courseactive " 
+            + "FROM xrk_students a " 
+            + "JOIN xrk_classes b ON a.classid = b.classid " 
+            + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
+            + "JOIN xrk_teachers d ON b.teacherid = d.teacherid " 
+            + "JOIN xrk_classcards e ON a.classcardid = e.classcardid " 
+            + "JOIN xrk_courses f ON e.courseid = f.courseid " 
+            + "where c.schoolid = ? "
+}
+
+function add_classcard() {
+    return "insert into xrk_classcards SET  ? "
+}
+
+function delete_classcard() {
+    return "delete from xrk_classcards where classcardid = ? "
+}
+
+function update_classcard_base() {
+    return "update xrk_classcards SET classcardname = ? , classcardprice = ? , courseid = ? where classcardid = ? "
+}
+
+function active_classcard() {
+    return "update xrk_classcards SET classcardactive = 1 where classcardid = ? "
+}
+
+function deactive_classcard() {
+    return "update xrk_classcards SET classcardactive = 0 where classcardid = ? "
+}
+
+/**--purchases表 操作---**/
+/*purchases:{
+    exist_purchase: exist_purchase(),
+    select_purchase: select_purchase(),
+    select_purchase_in_school: select_purchase_in_school(),
+    select_purchase_in_school_active: select_purchase_in_school_active(),
+    select_purchase_in_school_deactive: select_purchase_in_school_deactive(),
+    add_purchase: add_purchase(),
+    delete_purchase: delete_purchase(),
+    update_purchase_base: update_purchase_base(),
+    active_purchase: active_purchase(),
+    deactive_purchase: deactive_purchase()
+}*/
+
+function exist_purchase() {
+    return "select * from xrk_purchases where purchaseopenid = ?"
+}
+
+function select_purchase() {
+    return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
+            + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
+            + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentdetails , e.studenttimes , e.studentopenid , e.studentactive " 
+            + "FROM xrk_purchases a " 
+            + "JOIN xrk_classcards b ON a.classcardid = b.classcardid " 
+            + "JOIN xrk_courses c ON b.courseid = c.courseid " 
+            + "JOIN xrk_schools d ON a.schoolid = d.schoolid " 
+            + "JOIN xrk_students e ON a.studentid = e.studentid " 
+            + "WHERE a.purchaseopenid = ? "
+}
+
+function select_purchase_in_school() {
+    return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
+            + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
+            + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentdetails , e.studenttimes , e.studentopenid , e.studentactive " 
+            + "FROM xrk_purchases a " 
+            + "JOIN xrk_classcards b ON a.classcardid = b.classcardid " 
+            + "JOIN xrk_courses c ON b.courseid = c.courseid " 
+            + "JOIN xrk_schools d ON a.schoolid = d.schoolid " 
+            + "JOIN xrk_students e ON a.studentid = e.studentid " 
+            + "WHERE d.schoolid = ? "
+}
+
+function select_purchase_in_school_active() {
+    return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
+            + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
+            + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentdetails , e.studenttimes , e.studentopenid , e.studentactive " 
+            + "FROM xrk_purchases a " 
+            + "JOIN xrk_classcards b ON a.classcardid = b.classcardid " 
+            + "JOIN xrk_courses c ON b.courseid = c.courseid " 
+            + "JOIN xrk_schools d ON a.schoolid = d.schoolid " 
+            + "JOIN xrk_students e ON a.studentid = e.studentid " 
+            + "WHERE d.schoolid = ? AND a.purchaseactive = 1 "
+}
+
+function select_purchase_in_school_deactive() {
+    return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
+            + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
+            + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentdetails , e.studenttimes , e.studentopenid , e.studentactive " 
+            + "FROM xrk_purchases a " 
+            + "JOIN xrk_classcards b ON a.classcardid = b.classcardid " 
+            + "JOIN xrk_courses c ON b.courseid = c.courseid " 
+            + "JOIN xrk_schools d ON a.schoolid = d.schoolid " 
+            + "JOIN xrk_students e ON a.studentid = e.studentid " 
+            + "WHERE d.schoolid = ? AND a.purchaseactive = 0 "
+}
+
+function add_purchase() {
+    return "insert into xrk_purchases set ? "
+}
+
+function delete_purchase() {
+    return "delete from xrk_purchases where purchaseid = ? "
+}
+
+function update_purchase_base() {
+    return "update xrk_purchases SET purchasename = ?, purchasemobile = ?, purchaseusex = ?, purchasedetails = ?, purchaseaddress = ?, purchasedatatime = ?, schoolid = ?, classcardid = ?, paydetails = ? where purchaseid = ?  "
+}
+
+function active_purchase() {
+    return "update xrk_purchases SET purchaseactive = 1, paytime = ?, studentid = ?  where purchaseid = ?  "
+}
+
+function deactive_purchase() {
+    return "update xrk_purchases SET purchaseactive = 0 where purchaseid = ?  "
 }
 
 //所有允许操作的SQL语句列表
 module.exports = {
     users: {
-        add: add_user(),
-        exist: exist_user(),
-        subscribe: subscribe(),
-        unsubscribe: unsubscribe()
+        exist_user: exist_user(),
+        select_user_subscribe: select_user_subscribe(),
+        add_user: add_user(),
+        update_user_subscribe: update_user_subscribe(),
+        update_user_unsubscribe: update_user_unsubscribe()
     },
-    charge_list: {
-        add: add_charge_item(),
-        select_child: select_child_list(),
-        select_school: select_school_list()
-    },
-    check: {
-        add: add_check(),
-        update_check:update_check(),
-        select_child: select_child(),
-        select_child_with_type: select_child_with_type(),
+    schools:{
+        exist_school: exist_school(),
         select_school: select_school(),
-        not_check_children: not_check_children()
+        select_school_active: select_school_active(),
+        add_school: add_school(),
+        delete_school: delete_school(),
+        update_school_base: update_school_base(),
+        active_school: active_school(),
+        deactive_school: deactive_school()
     },
-    school_admin: {
-        add: add_school_admin(),
-        exist: exist_school_admin(),
-        update: update_school_admin(),
-        active: active_school_admin(),
-        deactive: deactive_school_admin()
+    schooladmins:{
+        exist_schooladmin: exist_schooladmin(),
+        select_schooladmin_in_school: select_schooladmin_in_school(),
+        select_schooladmin_in_school_active: select_schooladmin_in_school_active(),
+        add_schooladmin: add_schooladmin(),
+        update_schooladmin_base: update_schooladmin_base(),
+        active_schooladmin: active_schooladmin(),
+        deactive_schooladmin: deactive_schooladmin()
     },
-    teachers: {
-        add: add_teachers(),
-        select: select_teachers(),
-        exist: exist_teachers(),
-        update: update_teachers(),
-        active: active_teachers(),
-        deactive: deactive_teachers(),
-        delete: delete_teacher()
+    teachers:{
+        exist_teacher: exist_teacher(),
+        select_teacher_in_school: select_teacher_in_school(),
+        select_teacher_in_school_active: select_teacher_in_school_active(),
+        add_teacher: add_teacher(),
+        update_teacher_base: update_teacher_base(),
+        active_teacher: active_teacher(),
+        deactive_teacher: deactive_teacher()
     },
-    children: {
-        exist: exist_child(),
-        exist_active: exist_child_active(),
-        add: add_child(),
-        update_basic: update_child_basic(),
-        active: active_child(),
-        all_in_school: all_children_in_school(),
-        in_school: children_in_school(),
-        deactive: deactive_child(),
-        delete: delete_child()
+    students:{
+        exist_student: exist_student(),
+        select_student: select_student(),
+        select_student_in_class: select_student_in_class(),
+        select_student_in_school: select_student_in_school(),
+        add_student: add_student(),
+        update_student_base: update_student_base(),
+        update_student_times: update_student_times(),
+        active_student: active_student(),
+        deactive_student: deactive_student()
     },
-    parent: {
-        get_childid: get_childid(),
-        get_all: select_parents(),
-        get_by_child: select_parents_by_child(),
-        exist: exist_parent(),
-        add: add_parent(),
-        active: active_parent(),
-        deactive: deactive_parent(),
-        hasChildren: has_children(),
-        delete: delete_parent()
+    courses:{
+        select_course: select_course(),
+        select_courses: select_courses(),
+        select_active_courses: select_active_courses(),
+        add_course: add_course(),
+        delete_course: delete_course(),
+        update_course_base: update_course_base(),
+        active_course: active_course(),
+        deactive_course: deactive_course()
     },
-    school: {
-        add: add_school(),
-        delete: delete_school(),
-        update: update_school(),
-        all: select_all_school(),
-        exist: exist_school()
+    classes:{
+        select_class_active: select_class_active(),
+        select_student_classes: select_student_classes(),
+        select_teacher_classes: select_teacher_classes(),
+        select_school_classes: select_school_classes(),
+        select_class_students: select_class_students(),
+        select_school_students: select_school_students(),
+        add_class: add_class(),
+        delete_class: delete_class(),
+        update_class_base: update_class_base(),
+        active_class: active_class(),
+        deactive_class: deactive_class()
     },
-    qr: {
-        exist: exist_qr(),
-        add: add_qr()
+    classcards:{
+        select_classcard_active: select_classcard_active(),
+        select_student_classcards: select_student_classcards(),
+        select_class_students_classcards: select_class_students_classcards(),
+        select_school_students_classcards: select_school_students_classcards(),
+        add_classcard: add_classcard(),
+        delete_classcard: delete_classcard(),
+        update_classcard_base: update_classcard_base(),
+        active_classcard: active_classcard(),
+        deactive_classcard: deactive_classcard()
     },
-    blockchains: {
-      add: add_blockchains(),
-      select: select_blockchains(),
-      delete: delete_blockchains()
-    },
-    register: {
-        select_all: select_all(),
-        select: register_info(),
-        register: register(),
-        delete: delete_register(),
-        update: update_register()
+    purchases:{
+        exist_purchase: exist_purchase(),
+        select_purchase: select_purchase(),
+        select_purchase_in_school: select_purchase_in_school(),
+        select_purchase_in_school_active: select_purchase_in_school_active(),
+        select_purchase_in_school_deactive: select_purchase_in_school_deactive(),
+        add_purchase: add_purchase(),
+        update_purchase_base: update_purchase_base(),
+        active_purchase: active_purchase(),
+        deactive_purchase: deactive_purchase()
     }
 }

@@ -18,6 +18,7 @@
     "mint-ui": "^2.2.1",
     "node-sass": "^4.5.2",
     "vue": "^2.1.10",
+    "vue-awesome-mui": "^1.7.3",
     "vue-router": "^2.2.0"
   },
   "devDependencies": {

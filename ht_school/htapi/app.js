@@ -110,38 +110,11 @@ var get_router = function(url) {
 
 var route_list = [
     {
-        url: '/register',
-        handler: require('./routes/register')
-    }, {
-        url: '/wx',
-        handler: require('./routes/wx_chat')
-    }, {
-        url: '/userinfo',
-        handler: require('./routes/userinfo')
-    }, {
-        url: '/admin',
-        handler: require('./routes/admin')
-    }, {
         url: '/school',
         handler: require('./routes/school')
     }, {
-        url: '/teacher',
-        handler: require('./routes/teacher')
-    }, {
-        url: '/parent',
-        handler: require('./routes/parent')
-    }, {
-        url: '/children',
-        handler: require('./routes/children')
-    }, {
-        url: '/charge',
-        handler: require('./routes/charge')
-    }, {
-        url: '/check',
-        handler: require('./routes/check')
-    }, {
-        url: '/qr',
-        handler: require('./routes/qrcode')
+        url: '/classcard',
+        handler: require('./routes/classcard')
     }
 ];
 

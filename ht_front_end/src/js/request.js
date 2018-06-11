@@ -456,3 +456,21 @@ export const adminRegister = (vm) => {
     console.log(err);
   })
 }
+
+
+export const getschools = (vm) => {
+  http.get(route.schools).then((res) => {
+    vm.schools = res.data
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getclasscards = (vm) => {
+  http.get(route.classcards).then((res) => {
+    vm.classcards = res.data
+    console.log(vm.classcards);
+  }, (err) => {
+    console.log(err);
+  })
+}

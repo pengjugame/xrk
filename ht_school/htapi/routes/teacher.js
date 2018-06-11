@@ -1,8 +1,10 @@
 const co = require('co');
 var express = require('express');
 var htapi_code = require('../common/htapi_code');
-var i_teacher = require('../common/database/interface/i_teachers');
-var i_school_admin = require('../common/database/interface/i_school_admin');
+var i_teachers = require('../common/database/interface/i_teachers');
+var i_school_admins = require('../common/database/interface/i_school_admins');
+var i_classes = require('../common/database/interface/i_classes');
+var i_students = require('../common/database/interface/i_students');
 var {
     res_have_result,
     res_is_success,
@@ -16,49 +18,78 @@ const tags = config.tags;
 
 var router = express.Router();
 
-/*
-教师管理接口
-*/
-router.get('/', function(req, res, next) {
+
+router.get('/classes', function(req, res, next) {
     return co(function*() {
         const userinfo = get_userinfo(req.session);
-        if (userinfo.openid == '') {
+        if (!check_userinfo(userinfo)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
-        //验证openid对应的身份
-        const teacher_res = yield i_teacher.exist(userinfo.openid)
-        if (res_have_result(teacher_res)) {
-            res.send(teacher_res.result);
-            return Promise.resolve(true);
-        }
-
-        res.send(htapi_code(false));
-        return Promise.resolve(null);
-    });
-});
-
-//查询当前学校下所有教师数据(管理员专用)
-router.get('/all', function(req, res, next) {
-    return co(function*() {
-        const userinfo = get_userinfo(req.session);
-        if (userinfo.openid == '') {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-        //根据openid 去管理员表中查询出基本信息
-        const admin_res = yield i_school_admin.exist(userinfo.openid);
-        if (!res_have_result(admin_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-        const teacher_res = yield i_teacher.select(admin_res.result[0].schoolid);
+        const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
         if (!res_have_result(teacher_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-        res.send(teacher_res.result);
+
+        const class_res = yield i_classes.select_teacher_classes(teacher_res.result[0].teacherid);
+        if (!res_have_result(class_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        res.send(class_res.result);
+        return Promise.resolve(true);
+    });
+});
+
+router.get('/classstudents', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
+        if (!res_have_result(teacher_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const student_res = yield i_students.select_student_in_class(req.query.classid);
+        if (!res_have_result(student_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        res.send(student_res.result);
+        return Promise.resolve(true);
+    });
+});
+
+router.put('/studenttimes', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
+        if (!res_have_result(teacher_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const student_res = yield i_students.update_student_times(req.body.studenttimes,req.body.studentid);
+        if (!res_have_result(student_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        res.send(htapi_code(true));
         return Promise.resolve(true);
     });
 });
@@ -70,83 +101,29 @@ router.post('/', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
+
         var param = {
-            "sex": 0,
-            "teacherid": "",
-            "name": "",
-            "mobile": "",
-            "schoolid": "",
-            "active": 0
+            "teachername": req.body.teachername,
+            "teachermobile": req.body.teachermobile,
+            "teacherusex": req.body.teacherusex,
+            "teacherdetails": req.body.teacherdetails,
+            "schoolid": req.body.schoolid,
+            "teacheropenid": userinfo.openid,
+            "teacheractive": 0
         }
-        req.body['teacherid'] = getHash(JSON.stringify(req.body));
-        Object.assign(param, userinfo);
-        Object.assign(param, req.body);
-        const register_res = yield i_teacher.add(param);
-        var response = ""
+        param['teacherid'] = getHash(JSON.stringify(param));
+
+        const register_res = yield i_teachers.add_teacher(param);
         if (!res_is_success(register_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
+
+        var response = ""
         response = htapi_code(true);
-        response["teacherid"] = req.body['teacherid'];
+        response["teacherid"] = param.teacherid;
         res.send(response);
-        return Promise.resolve(true);
-    });
-});
 
-router.delete('/', function(req, res, next) {
-    return co(function*() {
-        const userinfo = get_userinfo(req.session);
-        if (userinfo.openid == '') {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-        //session中用户必须是管理员根据openid 去管理员表中查询出基本信息
-        const admin_res = yield i_school_admin.exist(userinfo.openid)
-        if (!res_have_result(admin_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-        const teacher_res = yield i_teacher.delete(req.query.teacherid);
-        if (!res_is_success(teacher_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-        //TODO:给用户移除教师分类tag 100不能写死
-        wxapi.moveUserToGroup(req.query.openid, 0, function(err, data, res) {
-            console.log("delete moveUserToGroup: " + req.query.openid + " err:" + err);
-        });
-        res.send(htapi_code(true));
-        return Promise.resolve(true);
-    });
-});
-
-router.put('/', function(req, res, next) {
-    return co(function*() {
-        const userinfo = get_userinfo(req.session);
-        if (userinfo.openid == '') {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-        //session中用户必须是管理员根据openid 去管理员表中查询出基本信息
-        const admin_res = yield i_school_admin.exist(userinfo.openid);
-        if (!res_have_result(admin_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-        //如果active == 0 则修改为 1 反之亦然
-        if (req.body.active == 0) {
-            yield i_teacher.active(req.body.teacherid);
-            wxapi.moveUserToGroup(req.body.openid, tags["教师"], function(err, data, res) {
-                console.log("teacher moveUserToGroup: " + req.body.openid + " err:" + err);
-            });
-        } else {
-            yield i_teacher.deactive(req.body.teacherid)
-            wxapi.moveUserToGroup(req.body.openid, 0, function(err, data, res) {
-                console.log("delete moveUserToGroup: " + req.body.openid + " err:" + err);
-            });
-        }
-        res.send(htapi_code(true));
         return Promise.resolve(true);
     });
 });

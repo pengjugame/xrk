@@ -4,9 +4,7 @@
 const co = require('co');
 var express = require('express');
 var htapi_code = require('../common/htapi_code');
-var i_school = require('../common/database/interface/i_school');
-var i_teacher = require('../common/database/interface/i_teachers');
-var i_children = require('../common/database/interface/i_children');
+var i_schools = require('../common/database/interface/i_schools');
 var {
     res_is_success,
     check_userinfo,
@@ -20,17 +18,11 @@ var router = express.Router();
 /*
 学校管理接口
 */
-router.get('/', function(req, res, next) {
+router.get('/schools', function(req, res, next) {
     return co(function*() {
-        const userinfo = get_userinfo(req.session);
-        if (!check_userinfo(userinfo)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-
-        const school_res = yield i_school.all();
+        const school_res = yield i_schools.select_school_active();
         if (!res_is_success(school_res)) {
-            res.send([]);
+            res.send(htapi_code(false));
             return Promise.resolve(null);
         }
         res.send(school_res.result);
