@@ -474,3 +474,13 @@ export const getclasscards = (vm) => {
     console.log(err);
   })
 }
+
+export const pustpurchase = (vm) => {
+  http.post(route.purchase, vm.form).then((res) => {
+    if (res_is_success(res)) {
+      vm.form.purchaseid = res.data.purchaseid
+    }
+  }, (err) => {
+    console.log(err);
+  })
+}

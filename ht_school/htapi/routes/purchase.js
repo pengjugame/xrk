@@ -59,14 +59,19 @@ router.post('/purchase', function(req, res, next) {
             "paydetails": req.body.paydetails,
             "purchaseactive": 0,
         }
-        param['purchaseid'] = getHash(JSON.stringify(param));
         const student_res = yield i_purchases.add_purchase(param);
         if (!res_have_result(student_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
+
+        console.log(" post purchase:" + JSON.stringify(student_res));
         
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["purchaseid"] = student_res.purchaseid;
+        res.send(response);
+
         return Promise.resolve(true);
     });
 });
@@ -96,7 +101,6 @@ router.put('/purchaseactive', function(req, res, next) {
             "studenttimes": 0,
             "studentactive": 1,
         }
-        param['studentid'] = getHash(JSON.stringify(param));
         const student_res = yield i_students.add_student(param);
         if (!res_have_result(student_res)) {
             res.send(htapi_code(false));

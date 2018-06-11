@@ -11,4 +11,5 @@ var get_url = function(url) {
 export const route = {
   schools: get_url('/school/schools'),
   classcards: get_url('/classcard/classcards'),
+  purchase: get_url('/purchases/purchase'),
 }

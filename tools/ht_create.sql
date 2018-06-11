@@ -31,14 +31,13 @@ DROP TABLE IF EXISTS `xrk_schools`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xrk_schools` (
-  `schoolid` varchar(32) NOT NULL COMMENT '教学点 id',
+  `schoolid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '教学点 id',
   `schoolname` varchar(64) NOT NULL COMMENT '名称',
   `schooladdress` varchar(200) NOT NULL COMMENT '地址',
   `schoolleader` varchar(16) NOT NULL COMMENT '负责人姓名',
   `schoolmobile` varchar(20) NOT NULL COMMENT '负责人手机',
   `schooldetails` varchar(1024) COMMENT '分校介绍',
   `schoolactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '已开学1，未开学0',
-  PRIMARY KEY (`schoolid`),
   UNIQUE (`schoolname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学校';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -51,14 +50,13 @@ DROP TABLE IF EXISTS `xrk_schooladmins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xrk_schooladmins` (
-  `schooladminid` varchar(32) NOT NULL COMMENT '管理员 id',
+  `schooladminid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT  COMMENT '管理员 id',
   `schooladminname` varchar(16) NOT NULL COMMENT '姓名',
   `schooladminmobile` varchar(20) NOT NULL COMMENT '手机',
   `schooladminusex` tinyint(1) NOT NULL DEFAULT '2' COMMENT '0 未知 1 男 2 女,性，值为0时是未知',
-  `schoolid` varchar(32) COMMENT '分校ID',
+  `schoolid` INT UNSIGNED COMMENT '分校ID',
   `schooladminopenid` varchar(64) COMMENT '用户ID',
   `schooladminactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '在职1，离职0',
-  PRIMARY KEY (`schooladminid`),
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
   FOREIGN KEY (`schooladminopenid`) REFERENCES xrk_users(`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学校管理员';
@@ -72,15 +70,14 @@ DROP TABLE IF EXISTS `xrk_teachers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xrk_teachers` (
-  `teacherid` varchar(32) NOT NULL COMMENT '教师 id',
+  `teacherid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '教师 id',
   `teachername` varchar(16) NOT NULL COMMENT '教师姓名',
   `teachermobile` varchar(20) NOT NULL COMMENT '手机号码',
   `teacherusex` tinyint(1) NOT NULL DEFAULT '2' COMMENT '0 未知 1 男 2 女,性，值为0时是未知,',
   `teacherdetails` varchar(1024) COMMENT '教师介绍',
-  `schoolid` varchar(32) COMMENT '教学点ID',
+  `schoolid` INT UNSIGNED COMMENT '教学点ID',
   `teacheropenid` varchar(64) COMMENT '用户ID',
   `teacheractive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '在职1，离职0',
-  PRIMARY KEY (`teacherid`),
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
   FOREIGN KEY (`teacheropenid`) REFERENCES xrk_users(`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教师';
@@ -94,14 +91,13 @@ DROP TABLE IF EXISTS `xrk_courses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xrk_courses` (
-  `courseid` varchar(32) NOT NULL COMMENT '课程 id',
+  `courseid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '课程 id',
   `coursename` varchar(64) NOT NULL COMMENT '名称',
   `coursetimes` int(1) NOT NULL COMMENT '课时次数',
   `coursetime` int(1) NOT NULL COMMENT '课时分钟',
   `coursemaxnumusers` int(1) NOT NULL COMMENT '上课最大人数',
   `coursedetails` varchar(1024) COMMENT '课程介绍',
   `courseactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '有效1,失效0',
-  PRIMARY KEY (`courseid`),
   UNIQUE (`coursename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -114,15 +110,14 @@ DROP TABLE IF EXISTS `xrk_classes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xrk_classes` (
-  `classid` varchar(32) NOT NULL COMMENT '班级 id',
+  `classid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '班级 id',
   `classname` varchar(64) NOT NULL COMMENT '名称',
   `classaddress` varchar(200) COMMENT '上课地址',
   `classdatatime` varchar(200) COMMENT '上课时间',
-  `courseid` varchar(32) COMMENT '课程ID',
-  `teacherid` varchar(32) COMMENT '教师ID',
-  `schoolid` varchar(32) COMMENT '教学点ID',
+  `courseid` INT UNSIGNED COMMENT '课程ID',
+  `teacherid` INT UNSIGNED COMMENT '教师ID',
+  `schoolid` INT UNSIGNED COMMENT '教学点ID',
   `classactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '有效1,失效0',
-  PRIMARY KEY (`classid`),
   UNIQUE  (`classname`),
   FOREIGN KEY (`courseid`) REFERENCES xrk_courses(`courseid`),
   FOREIGN KEY (`teacherid`) REFERENCES xrk_teachers(`teacherid`),
@@ -138,12 +133,11 @@ DROP TABLE IF EXISTS `xrk_classcards`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xrk_classcards` (
-  `classcardid` varchar(32) NOT NULL COMMENT '课卡 id',
+  `classcardid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '课卡 id',
   `classcardname` varchar(100) NOT NULL COMMENT '名称',
   `classcardprice` int(1) NOT NULL COMMENT '价格 单位人民币',
-  `courseid` varchar(32) COMMENT '课程ID',
+  `courseid` INT UNSIGNED COMMENT '课程ID',
   `classcardactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '有效1,失效0',
-  PRIMARY KEY (`classcardid`),
   UNIQUE  (`classcardname`),
   FOREIGN KEY (`courseid`) REFERENCES xrk_courses(`courseid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课卡';
@@ -158,18 +152,17 @@ DROP TABLE IF EXISTS `xrk_students`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xrk_students` (
-  `studentid` varchar(32) NOT NULL COMMENT '学生 id',
+  `studentid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '学生 id',
   `studentname` varchar(16) NOT NULL COMMENT '学生姓名',
   `studentmobile` varchar(20) NOT NULL COMMENT '手机号码',
   `studentusex` tinyint(1) NOT NULL DEFAULT '2' COMMENT '0 未知 1 男 2 女,性，值为0时是未知,',
   `studentdetails` varchar(1024) COMMENT '学生介绍',
-  `classcardid` varchar(32) NOT NULL COMMENT '课卡ID',
-  `classid` varchar(32) COMMENT '班级ID',
-  `schoolid` varchar(32) COMMENT '教学点ID',
+  `classcardid` INT UNSIGNED NOT NULL COMMENT '课卡ID',
+  `classid` INT UNSIGNED COMMENT '班级ID',
+  `schoolid` INT UNSIGNED COMMENT '教学点ID',
   `studentopenid` varchar(64) COMMENT '用户ID',
   `studenttimes` int(1) NOT NULL DEFAULT '0' COMMENT '已上课次数',
   `studentactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '在上课1,已毕业0',
-  PRIMARY KEY (`studentid`),
   FOREIGN KEY (`classcardid`) REFERENCES xrk_classcards(`classcardid`),
   FOREIGN KEY (`classid`) REFERENCES xrk_classes(`classid`),
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
@@ -186,21 +179,20 @@ DROP TABLE IF EXISTS `xrk_purchases`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xrk_purchases` (
-  `purchaseid` varchar(32) NOT NULL COMMENT '预学生 id',
+  `purchaseid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT  COMMENT '预学生 id',
   `purchasename` varchar(16) NOT NULL COMMENT '预学生姓名',
   `purchasemobile` varchar(20) NOT NULL COMMENT '手机号码',
   `purchaseusex` tinyint(1) NOT NULL DEFAULT '2' COMMENT '0 未知 1 男 2 女,性，值为0时是未知,',
   `purchasedetails` varchar(1024) COMMENT '预学生介绍',
-  `classcardid` varchar(32) NOT NULL COMMENT '课卡ID',
+  `classcardid` INT UNSIGNED NOT NULL COMMENT '课卡ID',
   `purchaseaddress` varchar(200) COMMENT '上课地址',
   `purchasedatatime` varchar(200) COMMENT '上课时间',
-  `schoolid` varchar(32) COMMENT '教学点ID',
+  `schoolid` INT UNSIGNED COMMENT '教学点ID',
   `purchaseopenid` varchar(64) NOT NULL COMMENT '用户ID',
   `paydetails` varchar(1024) COMMENT '支付方式',
   `paytime` varchar(1024) COMMENT '支付时间',
-  `studentid` varchar(32) COMMENT '学生 id',
+  `studentid` INT UNSIGNED COMMENT '学生 id',
   `purchaseactive` tinyint(1) NOT NULL DEFAULT '0' COMMENT '已支付1,未支付0',
-  PRIMARY KEY (`purchaseid`),
   FOREIGN KEY (`classcardid`) REFERENCES xrk_classcards(`classcardid`),
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
   FOREIGN KEY (`purchaseopenid`) REFERENCES xrk_users(`openid`),
@@ -208,10 +200,10 @@ CREATE TABLE `xrk_purchases` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='预学生';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `weapp`.`xrk_schools` (`schoolid`, `schoolname`, `schooladdress`, `schoolleader`, `schoolmobile`, `schooldetails`, `schoolactive`) VALUES ('1', '广州萝岗万达店', '广州萝岗万达广场室外步行街南区B250', '江星', '13570187950', '向日葵艺术旗舰店', '1');
-INSERT INTO `weapp`.`xrk_courses` (`courseid`, `coursename`, `coursetimes`, `coursetime`, `coursemaxnumusers`, `coursedetails`, `courseactive`) VALUES ('1', '中国舞', '30', '30', '20', '向日葵艺术旗舰店', '1');
-INSERT INTO `weapp`.`xrk_classcards` (`classcardid`, `classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('1', '中国舞二班', '300', '1', '1');
-INSERT INTO `weapp`.`xrk_classcards` (`classcardid`, `classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('2', '中国舞四班', '300', '1', '1');
-INSERT INTO `weapp`.`xrk_classcards` (`classcardid`, `classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('3', '中国舞三班', '300', '1', '1');
-INSERT INTO `weapp`.`xrk_classcards` (`classcardid`, `classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('4', '中国舞五班', '300', '1', '1');
-INSERT INTO `weapp`.`xrk_classcards` (`classcardid`, `classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('5', '中国舞四班', '300', '1', '1');
+INSERT INTO `weapp`.`xrk_schools` (`schoolname`, `schooladdress`, `schoolleader`, `schoolmobile`, `schooldetails`, `schoolactive`) VALUES ('广州萝岗万达店', '广州萝岗万达广场室外步行街南区B250', '江星', '13570187950', '向日葵艺术旗舰店', '1');
+INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursetimes`, `coursetime`, `coursemaxnumusers`, `coursedetails`, `courseactive`) VALUES ('中国舞', '30', '30', '20', '向日葵艺术旗舰店', '1');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('中国舞二班', '300', '1', '1');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('中国舞四班', '300', '1', '1');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('中国舞三班', '300', '1', '1');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('中国舞五班', '300', '1', '1');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ( '中国舞六班', '300', '1', '1');
