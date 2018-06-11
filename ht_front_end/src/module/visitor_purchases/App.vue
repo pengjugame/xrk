@@ -50,11 +50,6 @@
 			</div>
 
       <div class="mui-input-row">
-        <label>课卡：</label>
-        <input type="text" v-model="form.classcardid" placeholder="填写课卡ID">
-      </div>
-
-      <div class="mui-input-row">
         <label>上课时间：</label>
         <input type="text" class="mui-input-clear" placeholder="希望上课时间" v-model="form.purchasedatatime" >
       </div>
@@ -62,6 +57,11 @@
       <div class="mui-input-row">
         <label>上课地点：</label>
         <input type="text" class="mui-input-clear" placeholder="希望上课地点" v-model="form.purchaseaddress" >
+      </div>
+
+      <div class="mui-input-row">
+        <label>课卡：</label>
+        <input type="text" v-model="form.classcardid" placeholder="填写课卡ID">
       </div>
 
       <div class="mui-input-row">
@@ -76,7 +76,7 @@
 			</div>
       
       <div class="mui-button-row">
-          <button type="button" class="mui-btn mui-btn-warning">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+          <button type="button" class="mui-btn mui-btn-warning" @click="submit" v-text="confirmText" >确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
       </div>
 
     </div>
@@ -128,7 +128,7 @@
     <div class="mui-popover-arrow"></div>
     <div class="mui-scroll-wrapper">
       <div class="mui-scroll">
-        <ul class="mui-table-view">
+        <ul id="schoolsid" class="mui-table-view">
           <li class="mui-table-view-cell" v-for="school in schools" v-bind:value="school.schoolid" >
             {{school.schoolname}}
           </li>
@@ -153,16 +153,15 @@ export default {
         purchasemobile: '',
         purchaseusex: '',
         purchasedetails: '',
-        classcardid: '',
+        classcardid: '1',
         purchaseaddress: '',
         purchasedatatime: '',
-        schoolid: '',
+        schoolid: '1',
         purchaseopenid: '',
         paydetails: '',
         purchaseactive: 0,
       },
       schoolname: '',
-      classcardname:  '',
       schools: [],
       classcards: [],
     }
@@ -173,27 +172,28 @@ export default {
   },
   computed: {
     confirmText() {
-      this.note = '';
       if (this.form.purchaseid != '') {
-        this.d_display = "none";
-        this.border_width = 0;
-        this.textDisable = true;
-        if (this.form.purchaseactive == 0) {
-          this.note = '成功申请,请耐心等待审核';
-        } else {
-          this.note = '你已经是校长了';
-        }
+        mui.toast('预购成功,请等待审核 ^_^');
+        return '继续预购';
       }
-      return '提交申请';
+              
+      mui.alert('预购失败，请正确填写课卡ID！', '向日葵艺术预购', function() {
+					;
+			});
+      return '重新预购';
     }
   },
   methods: {
     submit() {
-      if (!this.$refs.ref_name.check() || !this.$refs.ref_tel.check()) {
+      if (this.form.classcardid == '' || this.form.purchasename == '' || this.form.purchasemobile == '')
+      {
+        mui.alert('课卡ID、姓名、电话不能为空！', '向日葵艺术预购', function() {
+					;
+				});
         return;
       }
 
-      request.adminRegister(this);
+      request.pustpurchase(this);
     }
   },
   mounted() {
@@ -204,12 +204,14 @@ export default {
 			mui('.mui-scroll-wrapper').scroll();
 
 			mui('body').on('shown', '.mui-popover', function(e) {
-				console.log('shown', e.detail.id);//detail为当前popover元素
 			});
 
 			mui('body').on('hidden', '.mui-popover', function(e) {
-				console.log('hidden', e.detail.id);//detail为当前popover元素
 			});
+
+      document.getElementById('schoolsid').addEventListener('selected',function(e){
+        console.log('当前选中的为：',e.detail.el.innerText);//detail为当前popover元素
+		  });
 		}
 }
 

@@ -110,11 +110,17 @@ var get_router = function(url) {
 
 var route_list = [
     {
+        url: '/userinfo',
+        handler: require('./routes/userinfo')
+    },{
         url: '/school',
         handler: require('./routes/school')
     }, {
         url: '/classcard',
         handler: require('./routes/classcard')
+    }, {
+        url: '/purchase',
+        handler: require('./routes/purchase')
     }
 ];
 

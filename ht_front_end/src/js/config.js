@@ -9,6 +9,7 @@ var get_url = function(url) {
   return 'http://119.29.90.92' + url
 };
 export const route = {
+  userinfo: get_url('/userinfo'),
   schools: get_url('/school/schools'),
   classcards: get_url('/classcard/classcards'),
   purchase: get_url('/purchases/purchase'),

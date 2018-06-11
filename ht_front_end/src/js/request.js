@@ -457,6 +457,26 @@ export const adminRegister = (vm) => {
   })
 }
 
+/*********************************************/
+
+//获取用户信息
+function userInfo() {
+  //:如果用户第一次进入系统 必须先通过userinfo 查询到相关数据 存入到session中
+  let code = getParams('?code')
+  let openid = getParams('?openid') || 0
+  let params = {}
+  params.code = code
+  if (openid) {
+    params.openid = openid
+  }
+  return new Promise((resolve, reject) => {
+    http.get(route.userinfo, params).then((res) => {
+      resolve(res)
+    }, (err) => {
+      reject(err)
+    })
+  })
+}
 
 export const getschools = (vm) => {
   http.get(route.schools).then((res) => {
@@ -469,17 +489,20 @@ export const getschools = (vm) => {
 export const getclasscards = (vm) => {
   http.get(route.classcards).then((res) => {
     vm.classcards = res.data
-    console.log(vm.classcards);
   }, (err) => {
     console.log(err);
   })
 }
 
 export const pustpurchase = (vm) => {
-  http.post(route.purchase, vm.form).then((res) => {
-    if (res_is_success(res)) {
-      vm.form.purchaseid = res.data.purchaseid
-    }
+  userInfo().then((res) => {
+    http.post(route.purchase, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form.purchaseid = res.data.purchaseid
+      }
+    }, (err) => {
+      console.log(err);
+    })
   }, (err) => {
     console.log(err);
   })
