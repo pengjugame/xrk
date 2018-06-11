@@ -494,11 +494,137 @@ export const getclasscards = (vm) => {
   })
 }
 
-export const pustpurchase = (vm) => {
+export const postpurchase = (vm) => {
   userInfo().then((res) => {
     http.post(route.purchase, vm.form).then((res) => {
       if (res_is_success(res)) {
         vm.form.purchaseid = res.data.purchaseid
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getpurchases = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.purchases, vm).then((res) => {
+      if (res_is_success(res)) {
+        vm.purchases = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putpurchaseactive = (purchase) => {
+  userInfo().then((res) => {
+    http.put(route.purchaseactive, purchase).then((res) => {
+      if (res_is_success(res)) {
+        purchase.purchaseactive = res.data.purchaseactive
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getschooladmin = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.schooladmin, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const postschooladmin = (vm) => {
+  userInfo().then((res) => {
+    http.post(route.schooladmin, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form.schooladminid = res.data.schooladminid
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getteacher = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.teacher, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const postteacher = (vm) => {
+  userInfo().then((res) => {
+    http.post(route.teacher, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form.teacherid = res.data.teacherid
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getstudents = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.students, vm).then((res) => {
+      if (res_is_success(res)) {
+        vm.students = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putstudent = (student) => {
+  userInfo().then((res) => {
+    http.put(route.student, student).then((res) => {
+      if (res_is_success(res)) {
+        ;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getclasses = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.classes, vm).then((res) => {
+      if (res_is_success(res)) {
+        vm.classes = res.data
       }
     }, (err) => {
       console.log(err);

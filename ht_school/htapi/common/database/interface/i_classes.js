@@ -84,7 +84,7 @@ exports.update_class_base = function(cla) {
         if (is_empty(cla) || is_empty(cla.classid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.classes.update_class_base, [cla.classname , cla.classaddress , cla.classdatatime , cla.courseid , cla.teacherid , cla.schoolid , cla.classid]);
+        return operate_db(sql.classes.update_class_base, [cla.classname , cla.classaddress , cla.classtime , cla.courseid , cla.teacherid , cla.schoolid , cla.classid]);
     });
 }
 

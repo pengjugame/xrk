@@ -113,7 +113,7 @@ CREATE TABLE `xrk_classes` (
   `classid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '班级 id',
   `classname` varchar(64) NOT NULL COMMENT '名称',
   `classaddress` varchar(200) COMMENT '上课地址',
-  `classdatatime` varchar(200) COMMENT '上课时间',
+  `classtime` varchar(200) COMMENT '上课时间',
   `courseid` INT UNSIGNED COMMENT '课程ID',
   `teacherid` INT UNSIGNED COMMENT '教师ID',
   `schoolid` INT UNSIGNED COMMENT '教学点ID',

@@ -4,6 +4,7 @@ var htapi_code = require('../common/htapi_code');
 var i_classcards = require('../common/database/interface/i_classcards');
 var i_school_admins = require('../common/database/interface/i_school_admins');
 var i_purchases = require('../common/database/interface/i_purchases');
+var i_students = require('../common/database/interface/i_students');
 var {
     res_is_success,
     res_have_result,
@@ -27,7 +28,32 @@ router.get('/purchases', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const purchase_res = yield i_purchases.select_purchase_in_school(admin_res.result[0].schoolid);
+        const purchase_res = yield i_purchases.select_purchase_in_school_deactive(admin_res.result[0].schoolid);
+        if (!res_have_result(purchase_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        res.send(purchase_res.result);
+        return Promise.resolve(true);
+    });
+});
+
+router.get('/studentpurchases', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const student_res = yield i_students.exist_student(userinfo.openid)
+        if (!res_have_result(student_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const purchase_res = yield i_purchases.select_purchase(userinfo.openid);
         if (!res_have_result(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
@@ -46,6 +72,8 @@ router.post('/purchase', function(req, res, next) {
             return Promise.resolve(null);
         }
 
+        console.log(" post purchase:" + JSON.stringify(req.body));
+
         var param = {
             "purchasename": req.body.purchasename,
             "purchasemobile": req.body.purchasemobile,
@@ -59,13 +87,13 @@ router.post('/purchase', function(req, res, next) {
             "paydetails": req.body.paydetails,
             "purchaseactive": 0,
         }
-        const student_res = yield i_purchases.add_purchase(param);
-        if (!res_have_result(student_res)) {
+        const purchase_res = yield i_purchases.add_purchase(param);
+        if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
-        console.log(" post purchase:" + JSON.stringify(student_res));
+        console.log(" post purchase result:" + JSON.stringify(purchase_res));
         
         var response = ""
         response = htapi_code(true);
@@ -102,18 +130,26 @@ router.put('/purchaseactive', function(req, res, next) {
             "studentactive": 1,
         }
         const student_res = yield i_students.add_student(param);
-        if (!res_have_result(student_res)) {
+        if (!res_is_success(student_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
-        const purchase_res = yield i_purchases.active_purchase(new Date(), param.studentid , req.body.purchaseid);
-        if (!res_have_result(purchase_res)) {
+        const purchase_res = yield i_purchases.active_purchase(new Date(), student_res.studentid , req.body.purchaseid);
+        if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
+
+        wxapi.moveUserToGroup(param.studentopenid, tags["学生"], function(err, data, res) {
+            console.log("student moveUserToGroup: " + param.studentopenid + " err:" + err);
+        });
         
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["purchaseactive"] = 1;
+        res.send(response);
+
         return Promise.resolve(true);
     });
 });

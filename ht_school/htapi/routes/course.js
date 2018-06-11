@@ -1,22 +1,31 @@
 const co = require('co');
 var express = require('express');
 var htapi_code = require('../common/htapi_code');
-var i_teachers = require('../common/database/interface/i_teachers');
+var i_courses = require('../common/database/interface/i_courses');
 var i_school_admins = require('../common/database/interface/i_school_admins');
 var {
-    res_have_result,
     res_is_success,
+    res_have_result,
     getHash,
     get_userinfo,
-    is_empty,
-    check_userinfo
+    check_userinfo,
 } = require('../common/database/tool');
-const config = require('config');
-const tags = config.tags;
-
 var router = express.Router();
 
-router.post('/', function(req, res, next) {
+router.get('/courses', function(req, res, next) {
+    return co(function*() {
+        const course_res = yield i_courses.select_courses();
+        if (!res_have_result(course_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        res.send(course_res.result);
+        return Promise.resolve(true);
+    });
+});
+
+router.post('/course', function(req, res, next) {
     return co(function*() {
         const userinfo = get_userinfo(req.session);
         if (!check_userinfo(userinfo)) {
@@ -24,32 +33,37 @@ router.post('/', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        var param = {
-            "teachername": req.body.teachername,
-            "teachermobile": req.body.teachermobile,
-            "teacherusex": req.body.teacherusex,
-            "teacherdetails": req.body.teacherdetails,
-            "schoolid": req.body.schoolid,
-            "teacheropenid": userinfo.openid,
-            "teacheractive": 0
-        }
-
-        const teacher_res = yield i_teachers.add_teacher(param);
-        if (!res_is_success(teacher_res)) {
+        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        if (!res_have_result(admin_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
+        var param = {
+            "coursename": req.body.coursename,
+            "coursetimes": req.body.coursetimes,
+            "coursetime": req.body.coursetime,
+            "coursemaxnumusers": req.body.coursemaxnumusers,
+            "coursedetails": req.body.coursedetails,
+            "courseactive": 1
+        }
+
+        const course_res = yield i_courses.add_course(param);
+        if (!res_is_success(course_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+        
         var response = ""
         response = htapi_code(true);
-        response["teacherid"] = teacher_res.teacherid;
+        response["courseid"] = course_res.courseid;
         res.send(response);
 
         return Promise.resolve(true);
     });
 });
 
-router.get('/teachers', function(req, res, next) {
+router.put('/course', function(req, res, next) {
     return co(function*() {
         const userinfo = get_userinfo(req.session);
         if (!check_userinfo(userinfo)) {
@@ -63,17 +77,18 @@ router.get('/teachers', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const teacher_res = yield i_teachers.select_teacher_in_school(admin_res.result[0].schoolid);
-        if (!res_have_result(teacher_res)) {
+        const course_res = yield i_courses.update_course_base(req.body);
+        if (!res_is_success(course_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-        res.send(teacher_res.result);
+        
+        res.send(htapi_code(true));
         return Promise.resolve(true);
     });
 });
 
-router.put('/teacheractive', function(req, res, next) {
+router.put('/courseactive', function(req, res, next) {
     return co(function*() {
         const userinfo = get_userinfo(req.session);
         if (!check_userinfo(userinfo)) {
@@ -87,22 +102,12 @@ router.put('/teacheractive', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const teacher_res = yield i_teachers.active_teacher(req.body.teacheractive, req.body.teacherid);
-        if (!res_is_success(teacher_res)) {
+        const course_res = yield i_courses.active_course(req.body.courseactive, req.body.courseid);
+        if (!res_is_success(course_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-
-        if (req.body.teacheractive == 1) {
-            wxapi.moveUserToGroup(req.body.teacheropenid, tags["教师"], function(err, data, res) {
-                console.log("teacher moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
-            });
-        } else {
-            wxapi.moveUserToGroup(req.body.teacheropenid, 0, function(err, data, res) {
-                console.log("delete moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
-            });
-        }
-
+        
         res.send(htapi_code(true));
         return Promise.resolve(true);
     });

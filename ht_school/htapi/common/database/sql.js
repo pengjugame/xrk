@@ -279,7 +279,7 @@ function deactive_course() {
 }*/
 
 function select_class_active() {
-    return "select a.classid , a.classname , a.classaddress , a.classdatatime , " 
+    return "select a.classid , a.classname , a.classaddress , a.classtime , " 
             + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails , " 
             + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails " 
@@ -292,7 +292,7 @@ function select_class_active() {
 
 function select_student_classes() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
             + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
@@ -306,7 +306,7 @@ function select_student_classes() {
 
 function select_teacher_classes() {
     return "select a.teacherid , a.teachername , a.teachermobile , a.teacherusex , a.teacherdetails , a.teacheractive , " 
-            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
             + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
             + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , d.schoolactive " 
             + "FROM xrk_teachers a " 
@@ -318,7 +318,7 @@ function select_teacher_classes() {
 
 function select_school_classes() {
     return "select a.schoolid , a.schoolname , a.schooladdress , a.schoolleader , a.schoolmobile , a.schooldetails , a.schoolactive , "  
-            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
             + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive "
             + "FROM xrk_schools a " 
@@ -330,7 +330,7 @@ function select_school_classes() {
 
 function select_class_students() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
             + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
@@ -344,7 +344,7 @@ function select_class_students() {
 
 function select_school_students() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
             + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
@@ -365,7 +365,7 @@ function delete_class() {
 }
 
 function update_class_base() {
-    return "update xrk_classes set classname = ? , classaddress = ? , classdatatime = ? , courseid = ? , teacherid = ? , schoolid = ? where classid = ? "
+    return "update xrk_classes set classname = ? , classaddress = ? , classtime = ? , courseid = ? , teacherid = ? , schoolid = ? where classid = ? "
 }
 
 function active_class() {
@@ -399,7 +399,7 @@ function select_classcard_active() {
 
 function select_student_classcards() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive ," 
-            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
             + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 
@@ -415,7 +415,7 @@ function select_student_classcards() {
 
 function select_class_students_classcards() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
             + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 
@@ -431,7 +431,7 @@ function select_class_students_classcards() {
 
 function select_school_students_classcards() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classdatatime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
             + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 

@@ -45,8 +45,8 @@
       </div>
 
       <div class="mui-input-row" >
-          <label>学员备注：</label>
-					<input type="text" class="mui-input-clear" placeholder="学员备注" v-model="form.purchasedetails" >
+          <label>学生备注：</label>
+					<input type="text" class="mui-input-clear" placeholder="学生备注" v-model="form.purchasedetails" >
 			</div>
 
       <div class="mui-input-row">
@@ -61,22 +61,22 @@
 
       <div class="mui-input-row">
         <label>课卡：</label>
-        <input type="text" v-model="form.classcardid" placeholder="填写课卡ID">
+        <input type="text" class="mui-input-clear" v-model="form.classcardid" placeholder="填写课卡ID">
       </div>
 
       <div class="mui-input-row">
         <label>校区：</label>
-        <input type="text" value="广州萝岗万达店" readonly v-model="schoolname" v-bind:value="form.schoolid" >
+        <input type="text" value="广州萝岗万达店" v-model="schoolname" readonly>
         <a href="#middlePopover" class="mui-navigate-right" ></a>
       </div>
  
       <div class="mui-input-row" >
           <label>支付方式：</label>
-					<input type="text" class="mui-input-clear" placeholder="支付方式" v-model="paydetails" >
+					<input type="text" class="mui-input-clear" placeholder="支付方式" v-model="form.paydetails" >
 			</div>
       
       <div class="mui-button-row">
-          <button type="button" class="mui-btn mui-btn-warning" @click="submit" v-text="confirmText" >确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+          <button type="button" :disabled=textDisable class="mui-btn mui-btn-warning" v-on:submit.prevent="submit" v-text="confirmText" ></button>
       </div>
 
     </div>
@@ -129,9 +129,10 @@
     <div class="mui-scroll-wrapper">
       <div class="mui-scroll">
         <ul id="schoolsid" class="mui-table-view">
-          <li class="mui-table-view-cell" v-for="school in schools" v-bind:value="school.schoolid" >
-            {{school.schoolname}}
-          </li>
+          <template v-for="school in schools">
+            <li class="mui-table-view-cell mui-selected" v-if="school.schoolname == schoolname"  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
+            <li class="mui-table-view-cell " v-else  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
+          </template>
         </ul>
       </div>
     </div>
@@ -161,9 +162,10 @@ export default {
         paydetails: '',
         purchaseactive: 0,
       },
-      schoolname: '',
+      schoolname: '广州萝岗万达店',
       schools: [],
       classcards: [],
+      textDisable: false,
     }
   },
   created() {
@@ -172,15 +174,18 @@ export default {
   },
   computed: {
     confirmText() {
-      if (this.form.purchaseid != '') {
-        mui.toast('预购成功,请等待审核 ^_^');
-        return '继续预购';
+      if (this.form.purchasename == '') {
+        return '确定';
       }
-              
-      mui.alert('预购失败，请正确填写课卡ID！', '向日葵艺术预购', function() {
-					;
-			});
-      return '重新预购';
+
+      this.textDisable = true;
+
+      if (this.form.purchaseactive == 0) {
+        mui.toast('申请成功,请等待审核 ^_^');
+        return '预购申请中...';
+      }
+      
+      return '预购审核成功';
     }
   },
   methods: {
@@ -193,28 +198,19 @@ export default {
         return;
       }
 
-      request.pustpurchase(this);
+      request.postpurchase(this);
     }
   },
   mounted() {
-			mui.init();
-			
-			mui.plusReady(function () {});
-			
-			mui('.mui-scroll-wrapper').scroll();
+    mui.init();
 
-			mui('body').on('shown', '.mui-popover', function(e) {
-			});
+    mui('.mui-scroll-wrapper').scroll();
 
-			mui('body').on('hidden', '.mui-popover', function(e) {
-			});
-
-      document.getElementById('schoolsid').addEventListener('selected',function(e){
-        console.log('当前选中的为：',e.detail.el.innerText);//detail为当前popover元素
-		  });
-		}
+    document.getElementById('schoolsid').addEventListener('selected',function(e){
+      this.schoolname = e.detail.el.innerText;
+		});
+	}
 }
-
 </script>
 
 <style>

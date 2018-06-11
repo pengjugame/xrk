@@ -116,8 +116,23 @@ var route_list = [
         url: '/school',
         handler: require('./routes/school')
     }, {
+        url: '/course',
+        handler: require('./routes/course')
+    }, {
+        url: '/class',
+        handler: require('./routes/class')
+    }, {
         url: '/classcard',
         handler: require('./routes/classcard')
+    }, {
+        url: '/student',
+        handler: require('./routes/student')
+    }, {
+        url: '/teacher',
+        handler: require('./routes/teacher')
+    }, {
+        url: '/schooladmin',
+        handler: require('./routes/schooladmin')
     }, {
         url: '/purchase',
         handler: require('./routes/purchase')

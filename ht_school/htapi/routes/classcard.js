@@ -45,17 +45,16 @@ router.post('/classcard', function(req, res, next) {
             "courseid": req.body.courseid,
             "classcardactive": 1
         }
-        param['classcardid'] = getHash(JSON.stringify(param));
 
         const classcard_res = yield i_classcards.add_classcard(param);
-        if (!res_have_result(classcard_res)) {
+        if (!res_is_success(classcard_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
         
         var response = ""
         response = htapi_code(true);
-        response["classcardid"] = param.classcardid;
+        response["classcardid"] = classcard_res.classcardid;
         res.send(response);
 
         return Promise.resolve(true);
@@ -77,7 +76,7 @@ router.put('/classcard', function(req, res, next) {
         }
 
         const classcard_res = yield i_classcards.update_classcard_base(req.body);
-        if (!res_have_result(classcard_res)) {
+        if (!res_is_success(classcard_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
@@ -102,7 +101,7 @@ router.put('/classcardactive', function(req, res, next) {
         }
 
         const classcard_res = yield i_classcards.active_classcard(req.body.classcardactive, req.body.classid);
-        if (!res_have_result(classcard_res)) {
+        if (!res_is_success(classcard_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
