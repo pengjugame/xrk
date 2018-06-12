@@ -11,11 +11,24 @@ Vue.use(Mui)
 Vue.use(VueRouter)
 
 export default new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'teacher_classes',
-      component: require("./App.vue")
+      component: require("./App.vue"),
+      children: [
+        {
+          path: '/classes',
+          name: 'classes',
+          component: require("./classes.vue")
+        },
+        {
+          path: 'classstudents',
+          name: 'classstudents',
+          component: require("./classstudents.vue")
+        } 
+      ]
     }
   ]
 })
