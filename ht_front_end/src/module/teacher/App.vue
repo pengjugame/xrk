@@ -98,7 +98,7 @@ export default {
   },
   created() {
     request.getschools(this);
-    request.getteacher(this);
+    request.getteacher(this.form);
   },
   computed: {
     confirmText() {

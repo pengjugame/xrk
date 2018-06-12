@@ -98,7 +98,7 @@ export default {
   },
   created() {
     request.getschools(this);
-    request.getschooladmin(this);
+    request.getschooladmin(this.form);
   },
   computed: {
     confirmText() {

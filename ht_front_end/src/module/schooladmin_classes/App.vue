@@ -60,12 +60,6 @@
         <input type="text" class="mui-input-clear" placeholder="请输入教师ID" v-model="form.teacherid" >
       </div>
 
-      <div class="mui-input-row">
-        <label>校区：</label>
-        <input type="text" value="广州萝岗万达店" v-model="schoolname" readonly>
-        <a href="#middlePopover" class="mui-navigate-right" ></a>
-      </div>
-      
       <div class="mui-button-row">
           <button type="button" class="mui-btn mui-btn-warning" v-on:submit.prevent="submit" >确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
       </div>
@@ -103,7 +97,7 @@
   </div>
   </div>
 
-  <div id="classcardsview" class="mui-control-content">
+  <div id="teachersview" class="mui-control-content">
   <div class="mui-card" v-for="teacher in teachers" >
     <div class="mui-card-header">
       <label>{{teacher.teachername}}</label>
@@ -173,20 +167,6 @@
   </div>
   </div>
 
-  <div id="middlePopover" class="mui-popover">
-    <div class="mui-popover-arrow"></div>
-    <div class="mui-scroll-wrapper">
-      <div class="mui-scroll">
-        <ul id="schoolsid" class="mui-table-view">
-          <template v-for="school in schools">
-            <li class="mui-table-view-cell mui-selected" v-if="school.schoolname == schoolname"  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
-            <li class="mui-table-view-cell " v-else  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
-          </template>
-        </ul>
-      </div>
-    </div>
-  </div>
-
 </div>
 </template>
 
@@ -212,20 +192,20 @@ export default {
       theachers: [],
       courses: [],
       classes: [],
-      schools: [],
-      schoolname: '广州萝岗万达店',
+      schooladmin:  {},
     }
   },
   created() {
-    request.getschools(this);
     request.getcourses(this);
     request.getteachers(this);
     request.getclasses(this);
+    request.getschooladmin(this.schooladmin);
   },
   computed: {
   },
   methods: {
     submit() {
+      this.form.schoolid = this.schooladmin.schoolid;
       request.postclass(this);
     }
   },

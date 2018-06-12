@@ -510,7 +510,7 @@ export const postpurchase = (vm) => {
 
 export const getpurchases = (vm) => {
   userInfo().then((res) => {
-    http.get(route.purchases, vm).then((res) => {
+    http.get(route.purchases).then((res) => {
       if (res_is_success(res)) {
         vm.purchases = res.data
       }
@@ -536,11 +536,11 @@ export const putpurchaseactive = (purchase) => {
   })
 }
 
-export const getschooladmin = (vm) => {
+export const getschooladmin = (schooladmin) => {
   userInfo().then((res) => {
-    http.get(route.schooladmin, vm.form).then((res) => {
+    http.get(route.schooladmin).then((res) => {
       if (res_is_success(res)) {
-        vm.form = res.data
+        schooladmin = res.data
       }
     }, (err) => {
       console.log(err);
@@ -564,11 +564,11 @@ export const postschooladmin = (vm) => {
   })
 }
 
-export const getteacher = (vm) => {
+export const getteacher = (teacher) => {
   userInfo().then((res) => {
-    http.get(route.teacher, vm.form).then((res) => {
+    http.get(route.teacher).then((res) => {
       if (res_is_success(res)) {
-        vm.form = res.data
+        teacher = res.data
       }
     }, (err) => {
       console.log(err);
@@ -594,7 +594,7 @@ export const postteacher = (vm) => {
 
 export const getstudents = (vm) => {
   userInfo().then((res) => {
-    http.get(route.students, vm).then((res) => {
+    http.get(route.students).then((res) => {
       if (res_is_success(res)) {
         vm.students = res.data
       }
@@ -622,7 +622,7 @@ export const putstudent = (student) => {
 
 export const getclasses = (vm) => {
   userInfo().then((res) => {
-    http.get(route.classes, vm).then((res) => {
+    http.get(route.classes).then((res) => {
       if (res_is_success(res)) {
         vm.classes = res.data
       }
@@ -675,6 +675,20 @@ export const putteacheractive = (teacher) => {
     http.put(route.teacheractive, teacher).then((res) => {
       if (res_is_success(res)) {
         teacher.teacheractive = res.data.teacheractive
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getteachers = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.teachers).then((res) => {
+      if (res_is_success(res)) {
+        vm.teachers = res.data
       }
     }, (err) => {
       console.log(err);

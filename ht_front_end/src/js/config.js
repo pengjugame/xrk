@@ -24,4 +24,7 @@ export const route = {
   classcard: get_url('/classcard/classcard'),
   course: get_url('/course/course'),
   teacheractive: get_url('/teacher/teacheractive'),
-}
+  teachers: get_url('/teacher/teachers'),
+  classstudents: get_url('/student/classstudents'),
+  studenttimes: get_url('/student/studenttimes'),
+  teacherclasses: get_url('/class/teacherclasses'),
