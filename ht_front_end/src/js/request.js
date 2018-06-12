@@ -697,3 +697,47 @@ export const getteachers = (vm) => {
     console.log(err);
   })
 }
+
+export const getteacherclasses = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.teacherclasses).then((res) => {
+      if (res_is_success(res)) {
+        vm.classes = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getclassstudents = (vm,classid) => {
+  userInfo().then((res) => {
+	let params = {}
+	params.classid = classid
+    http.get(route.classstudents,params).then((res) => {
+      if (res_is_success(res)) {
+        vm.students = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putstudenttimes = (student) => {
+  userInfo().then((res) => {
+    http.put(route.studenttimes, student).then((res) => {
+      if (res_is_success(res)) {
+        ;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
