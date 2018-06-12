@@ -251,7 +251,7 @@ function delete_course() {
 }
 
 function update_course_base() {
-    return "update xrk_courses set coursename = ? , coursetimes = ? , coursetime = ? , coursemaxnumusers = ? , coursedetails = ? where courseid = ? "
+    return "update xrk_courses set coursename = ? , coursetimes = ? , coursetime = ? , coursedetails = ? where courseid = ? "
 }
 
 function active_course() {
@@ -279,9 +279,9 @@ function deactive_course() {
 }*/
 
 function select_class_active() {
-    return "select a.classid , a.classname , a.classaddress , a.classtime , " 
+    return "select a.classid , a.classname , a.classaddress , a.classtime , c.classmaxnumusers , c.classnumusers , " 
             + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails , " 
-            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursedetails , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails " 
             + "FROM xrk_classes a " 
             + "JOIN xrk_schools b ON a.schoolid = b.schoolid " 
@@ -292,9 +292,9 @@ function select_class_active() {
 
 function select_student_classes() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
-            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
+            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursedetails , d.courseactive , " 
             + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
             + "FROM xrk_students a " 
             + "JOIN xrk_classes b ON a.classid = b.classid " 
@@ -306,8 +306,8 @@ function select_student_classes() {
 
 function select_teacher_classes() {
     return "select a.teacherid , a.teachername , a.teachermobile , a.teacherusex , a.teacherdetails , a.teacheractive , " 
-            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
-            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursedetails , c.courseactive , " 
             + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , d.schoolactive " 
             + "FROM xrk_teachers a " 
             + "JOIN xrk_classes b ON a.teacherid = b.teacherid " 
@@ -318,8 +318,8 @@ function select_teacher_classes() {
 
 function select_school_classes() {
     return "select a.schoolid , a.schoolname , a.schooladdress , a.schoolleader , a.schoolmobile , a.schooldetails , a.schoolactive , "  
-            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
-            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , c.classmaxnumusers , c.classnumusers , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursedetails , c.courseactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive "
             + "FROM xrk_schools a " 
             + "JOIN xrk_classes b ON a.schoolid = b.schoolid " 
@@ -330,9 +330,9 @@ function select_school_classes() {
 
 function select_class_students() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
-            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
+            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursedetails , d.courseactive , " 
             + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
             + "FROM xrk_students a " 
             + "JOIN xrk_classes b ON a.classid = b.classid " 
@@ -344,9 +344,9 @@ function select_class_students() {
 
 function select_school_students() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
-            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursemaxnumusers , d.coursedetails , d.courseactive , " 
+            + "d.courseid , d.coursename , d.coursetimes , d.coursetime , d.coursedetails , d.courseactive , " 
             + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
             + "FROM xrk_students a " 
             + "JOIN xrk_classes b ON a.classid = b.classid " 
@@ -365,7 +365,7 @@ function delete_class() {
 }
 
 function update_class_base() {
-    return "update xrk_classes set classname = ? , classaddress = ? , classtime = ? , courseid = ? , teacherid = ? , schoolid = ? where classid = ? "
+    return "update xrk_classes set classname = ? , classaddress = ? , classtime = ? , courseid = ? , classmaxnumusers = ? , classnumusers = ? , teacherid = ? , schoolid = ? where classid = ? "
 }
 
 function active_class() {
@@ -391,7 +391,7 @@ function deactive_class() {
 
 function select_classcard_active() {
     return "select a.classcardid , a.classcardname , a.classcardprice , " 
-            + "b.courseid , b.coursename , b.coursetimes , b.coursetime , b.coursemaxnumusers , b.coursedetails "
+            + "b.courseid , b.coursename , b.coursetimes , b.coursetime , b.coursedetails "
             + "FROM xrk_classcards a " 
             + "JOIN xrk_courses b ON a.courseid = b.courseid " 
             + "where a.classcardactive = 1 "
@@ -399,11 +399,11 @@ function select_classcard_active() {
 
 function select_student_classcards() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive ," 
-            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
             + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 
-            + "f.courseid , f.coursename , f.coursetimes , f.coursetime , f.coursemaxnumusers , f.coursedetails , f.courseactive " 
+            + "f.courseid , f.coursename , f.coursetimes , f.coursetime  , f.coursedetails , f.courseactive " 
             + "FROM xrk_students a " 
             + "JOIN xrk_classes b ON a.classid = b.classid " 
             + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
@@ -415,11 +415,11 @@ function select_student_classcards() {
 
 function select_class_students_classcards() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
             + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 
-            + "f.courseid , f.coursename , f.coursetimes , f.coursetime , f.coursemaxnumusers , f.coursedetails , f.courseactive " 
+            + "f.courseid , f.coursename , f.coursetimes , f.coursetime , f.coursedetails , f.courseactive " 
             + "FROM xrk_students a " 
             + "JOIN xrk_classes b ON a.classid = b.classid " 
             + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
@@ -431,11 +431,11 @@ function select_class_students_classcards() {
 
 function select_school_students_classcards() {
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentopenid , a.studentactive , " 
-            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , " 
+            + "b.classid , b.classname , b.classaddress , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , " 
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive , " 
             + "e.classcardid , e.classcardname , e.classcardprice , e.classcardactive , " 
-            + "f.courseid , f.coursename , f.coursetimes , f.coursetime , f.coursemaxnumusers , f.coursedetails , f.courseactive " 
+            + "f.courseid , f.coursename , f.coursetimes , f.coursetime , f.coursedetails , f.courseactive " 
             + "FROM xrk_students a " 
             + "JOIN xrk_classes b ON a.classid = b.classid " 
             + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
@@ -486,7 +486,7 @@ function exist_purchase() {
 function select_purchase() {
     return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
             + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , " 
-            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursedetails , c.courseactive , " 
             + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
             + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentdetails , e.studenttimes , e.studentopenid , e.studentactive " 
             + "FROM xrk_purchases a " 
@@ -500,7 +500,7 @@ function select_purchase() {
 function select_purchase_in_school() {
     return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
             + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , " 
-            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursedetails , c.courseactive , " 
             + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
             + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentdetails , e.studenttimes , e.studentopenid , e.studentactive " 
             + "FROM xrk_purchases a " 
@@ -514,7 +514,7 @@ function select_purchase_in_school() {
 function select_purchase_in_school_active() {
     return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
             + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , " 
-            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursedetails , c.courseactive , " 
             + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
             + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentdetails , e.studenttimes , e.studentopenid , e.studentactive " 
             + "FROM xrk_purchases a " 
@@ -528,7 +528,7 @@ function select_purchase_in_school_active() {
 function select_purchase_in_school_deactive() {
     return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
             + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , " 
-            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursemaxnumusers , c.coursedetails , c.courseactive , " 
+            + "c.courseid , c.coursename , c.coursetimes , c.coursetime , c.coursedetails , c.courseactive , " 
             + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
             + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentdetails , e.studenttimes , e.studentopenid , e.studentactive " 
             + "FROM xrk_purchases a " 

@@ -106,11 +106,6 @@
         <label>上课分钟：</label>
         <input type="text" v-model="classcard.coursetime" readonly>
       </div>
-
-      <div class="mui-input-row">
-        <label>上课最大人数：</label>
-        <input type="text" v-model="classcard.coursemaxnumusers" readonly>
-      </div>
  
       <div class="mui-input-row" >
         <label>课程介绍：</label>

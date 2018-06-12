@@ -34,8 +34,8 @@
       </div>
       <div class="mui-input-row" v-else >
         <label>性别：</label> 
-        <input name="text" v-if="form.schooladminusex=='0'" value="男" readonly>
-        <input name="text" v-else value="女" readonly>
+        <input type="text" v-if="form.schooladminusex=='0'" value="男" readonly>
+        <input type="text" v-else value="女" readonly>
       </div>
 
       <div class="mui-input-row" >

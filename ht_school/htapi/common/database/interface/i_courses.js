@@ -54,7 +54,7 @@ exports.update_course_base = function(course) {
         if (is_empty(course) || is_empty(course.courseid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.courses.update_course_base, [course.coursename,course.coursetimes,course.coursetime,course.coursemaxnumusers,course.coursedetails,course.courseid]);
+        return operate_db(sql.courses.update_course_base, [course.coursename,course.coursetimes,course.coursetime,course.coursedetails,course.courseid]);
     });
 }
 

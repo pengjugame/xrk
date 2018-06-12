@@ -633,3 +633,53 @@ export const getclasses = (vm) => {
     console.log(err);
   })
 }
+
+export const getcourses = (vm) => {
+  http.get(route.courses).then((res) => {
+    vm.courses = res.data
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const postclasscard = (vm) => {
+  userInfo().then((res) => {
+    http.post(route.classcard, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form.classcardid = res.data.classcardid;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const postcourse = (vm) => {
+  userInfo().then((res) => {
+    http.post(route.course, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form.courseid = res.data.courseid;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putteacheractive = (teacher) => {
+  userInfo().then((res) => {
+    http.put(route.teacheractive, teacher).then((res) => {
+      if (res_is_success(res)) {
+        teacher.teacheractive = res.data.teacheractive
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}

@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
             "teacherdetails": req.body.teacherdetails,
             "schoolid": req.body.schoolid,
             "teacheropenid": userinfo.openid,
-            "teacheractive": 0
+            "teacheractive": 0,
         }
 
         const teacher_res = yield i_teachers.add_teacher(param);

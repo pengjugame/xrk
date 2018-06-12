@@ -43,7 +43,6 @@ router.post('/course', function(req, res, next) {
             "coursename": req.body.coursename,
             "coursetimes": req.body.coursetimes,
             "coursetime": req.body.coursetime,
-            "coursemaxnumusers": req.body.coursemaxnumusers,
             "coursedetails": req.body.coursedetails,
             "courseactive": 1
         }

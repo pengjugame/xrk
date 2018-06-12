@@ -40,8 +40,8 @@ router.post('/classcard', function(req, res, next) {
         }
 
         var param = {
-            "classcardname": req.body.classname,
-            "classcardprice": req.body.classaddress,
+            "classcardname": req.body.classcardname,
+            "classcardprice": req.body.classcardprice,
             "courseid": req.body.courseid,
             "classcardactive": 1
         }

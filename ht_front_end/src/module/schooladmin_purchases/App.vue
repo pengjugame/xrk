@@ -38,8 +38,8 @@
 
       <div class="mui-input-row">
         <label>性别：</label> 
-        <input name="text" v-if="purchase.purchaseusex == '0'" value="男" readonly>
-        <input name="text" v-else value="女" readonly>
+        <input type="text" v-if="purchase.purchaseusex == '0'" value="男" readonly>
+        <input type="text" v-else value="女" readonly>
       </div>
 
       <div class="mui-input-row" >
@@ -96,11 +96,6 @@
       <div class="mui-input-row">
         <label>上课分钟：</label>
         <input type="text" v-model="classcard.coursetime" readonly>
-      </div>
-
-      <div class="mui-input-row">
-        <label>上课最大人数：</label>
-        <input type="text" v-model="classcard.coursemaxnumusers" readonly>
       </div>
  
       <div class="mui-input-row" >

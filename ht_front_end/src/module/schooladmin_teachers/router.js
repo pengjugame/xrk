@@ -14,7 +14,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'teacher',
+      name: 'schooladmin_teachers',
       component: require("./App.vue")
     }
   ]

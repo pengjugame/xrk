@@ -20,4 +20,8 @@ export const route = {
   students: get_url('/student/students'),
   student: get_url('/student/student'),
   classes: get_url('/class/classes'),
+  courses: get_url('/course/courses'),
+  classcard: get_url('/classcard/classcard'),
+  course: get_url('/course/course'),
+  teacheractive: get_url('/teacher/teacheractive'),
 }

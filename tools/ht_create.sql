@@ -95,7 +95,6 @@ CREATE TABLE `xrk_courses` (
   `coursename` varchar(64) NOT NULL COMMENT '名称',
   `coursetimes` int(1) NOT NULL COMMENT '课时次数',
   `coursetime` int(1) NOT NULL COMMENT '课时分钟',
-  `coursemaxnumusers` int(1) NOT NULL COMMENT '上课最大人数',
   `coursedetails` varchar(1024) COMMENT '课程介绍',
   `courseactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '有效1,失效0',
   UNIQUE (`coursename`)
@@ -114,6 +113,8 @@ CREATE TABLE `xrk_classes` (
   `classname` varchar(64) NOT NULL COMMENT '名称',
   `classaddress` varchar(200) COMMENT '上课地址',
   `classtime` varchar(200) COMMENT '上课时间',
+  `classmaxnumusers` int(1) NOT NULL COMMENT '上课最大人数',
+  `classnumusers` int(1) NOT NULL COMMENT '上课当前人数',
   `courseid` INT UNSIGNED COMMENT '课程ID',
   `teacherid` INT UNSIGNED COMMENT '教师ID',
   `schoolid` INT UNSIGNED COMMENT '教学点ID',
@@ -201,7 +202,7 @@ CREATE TABLE `xrk_purchases` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `weapp`.`xrk_schools` (`schoolname`, `schooladdress`, `schoolleader`, `schoolmobile`, `schooldetails`, `schoolactive`) VALUES ('广州萝岗万达店', '广州萝岗万达广场室外步行街南区B250', '江星', '13570187950', '向日葵艺术旗舰店', '1');
-INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursetimes`, `coursetime`, `coursemaxnumusers`, `coursedetails`, `courseactive`) VALUES ('中国舞', '30', '30', '20', '向日葵艺术旗舰店', '1');
+INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursetimes`, `coursetime`, `coursedetails`, `courseactive`) VALUES ('中国舞', '40', '30', '向日葵艺术旗舰店', '1');
 INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('中国舞二班', '300', '1', '1');
 INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('中国舞四班', '300', '1', '1');
 INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `courseid`, `classcardactive`) VALUES ('中国舞三班', '300', '1', '1');
