@@ -75,7 +75,6 @@ export default {
   },
   methods: {
     updatestudenttimes(student) {
-	  console.log(student);
       request.putstudenttimes(student);
     },
 	minusplusstudenttimes(plus,student){

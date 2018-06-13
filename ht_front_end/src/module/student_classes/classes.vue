@@ -47,7 +47,7 @@
 	
     <div class="mui-card-footer">
 	  <label>向日葵艺术</label>
-      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'classstudents', params: cla }" tag="button" >学生管理</router-link>
+      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'student', params: cla }" tag="button" >详细信息</router-link>
     </div>
   </div>
   </div>
@@ -69,9 +69,9 @@ export default {
   created() {
     if(this.init = 1)
 		return;
-	this.init = 1;
 	
-	request.getteacherclasses(this);
+	request.getstudentclasses(this);
+	this.init = 1;
   },
   computed: {
   },

@@ -8,19 +8,19 @@
   </div>
 
   <div class="mui-card">
-    <div class="mui-card-header">向日葵艺术校长申请</div>
+    <div class="mui-card-header">向日葵艺术校长注册</div>
     <div class="mui-card-content mui-input-group ">
       <div class="mui-input-row">
         <label>姓名：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入姓名" v-model="form.schooladminid" :disabled=textDisable >
+        <input type="text" class="mui-input-clear" placeholder="请输入姓名" v-model="form.schooladminname" >
       </div>
 
       <div class="mui-input-row">
         <label>手机：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入手机号码" v-model="form.schooladminmobile" :disabled=textDisable >
+        <input type="text" class="mui-input-clear" placeholder="请输入手机号码" v-model="form.schooladminmobile" >
       </div>
 
-      <div class="mui-input-row" v-if="textDisable==false" >
+      <div class="mui-input-row" >
         <label>性别：</label> 
         <div class=" mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="0" v-model="form.schooladminusex" >
@@ -32,25 +32,20 @@
           <label>女</label>
         </div>
       </div>
-      <div class="mui-input-row" v-else >
-        <label>性别：</label> 
-        <input type="text" v-if="form.schooladminusex=='0'" value="男" readonly>
-        <input type="text" v-else value="女" readonly>
-      </div>
 
-      <div class="mui-input-row" >
-          <label>备注：</label>
-					<input type="text" class="mui-input-clear" placeholder="备注" v-model="form.schooladmindetails" :disabled=textDisable >
-			</div>
+		<div class="mui-input-row" >
+			<label>备注：</label>
+			<input type="text" class="mui-input-clear" placeholder="备注" v-model="form.schooladmindetails" >
+		</div>
 
       <div class="mui-input-row">
         <label>校区：</label>
-        <input type="text" value="广州萝岗万达店" v-model="schoolname" readonly :disabled=textDisable>
-        <a href="#middlePopover" class="mui-navigate-right" :style="{display:btn_display}" ></a>
+        <input type="text" value="广州萝岗万达店" v-model="schoolname" readonly >
+        <a href="#middlePopover" class="mui-navigate-right" ></a>
       </div>
       
       <div class="mui-button-row">
-          <button type="button" :disabled=textDisable class="mui-btn mui-btn-warning" v-on:submit.prevent="submit" v-text="confirmText" ></button>
+          <button type="button" :style="{display:textDisable}" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
       </div>
 
     </div>
@@ -92,8 +87,7 @@ export default {
       },
       schoolname: '广州萝岗万达店',
       schools: [],
-      btn_display: 'block',
-      textDisable: false,
+	  textDisable: false,
     }
   },
   created() {
@@ -102,26 +96,24 @@ export default {
   },
   computed: {
     confirmText() {
-      if (this.form.schooladminname == '') {
-        return '确定';
-      }
+		if (this.form.schooladminid == '') {
+			return '确定';
+		}
 
-      this.btn_display = "none";
-      this.textDisable = true;
+		if (this.form.schooladminactive == 0) {
+			mui.toast('提交成功,请等待 :-)');
+			return '更新';
+		}
 
-      if (this.form.schooladminactive == 0) {
-        mui.toast('申请成功,请等待审核 ^_^');
-        return '申请成功';
-      }
-      
-      return '审核成功';
+		this.textDisable = true;
+		return '注册成功';
     }
   },
   methods: {
     submit() {
       if (this.form.schooladminname == '' || this.form.schooladminmobile == '')
       {
-        mui.alert('姓名、电话不能为空！', '向日葵艺术校长申请', function() {
+        mui.alert('姓名、电话不能为空！', '向日葵艺术校长注册', function() {
 					;
 				});
         return;

@@ -13,9 +13,14 @@ Vue.use(VueRouter)
 export default new VueRouter({
   routes: [
     {
-      path: '/',
-      name: 'teacher_students',
-      component: require("./App.vue")
-    }
+	  path: '/',
+	  name: 'student',
+	  component: require("./student.vue"),
+    },
+	{
+	  path: '/schoolclasses',
+	  name: 'schoolclasses',
+	  component: require("./schoolclasses.vue"),
+	} 	
   ]
 })

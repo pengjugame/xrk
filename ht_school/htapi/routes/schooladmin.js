@@ -47,6 +47,24 @@ router.post('/', function(req, res, next) {
             "schooladminopenid": userinfo.openid,
             "schooladminactive": 1
         }
+		
+		const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid)
+        if (res_have_result(admin_res)) {
+			if(admin_res.schooladminactive != 0){
+				res.send(htapi_code(true));
+				return Promise.resolve(true);
+			}
+			
+			param.schooladminid= admin_res.schooladminid;
+			const school_admin_res = yield i_school_admins.update_schooladmin_base(param);
+			if (res_is_success(school_admin_res)) {
+				res.send(htapi_code(true));
+				return Promise.resolve(true);
+			}else{
+				res.send(htapi_code(false));
+				return Promise.resolve(null);
+			}
+        }
 
         const school_admin_res = yield i_school_admins.add_schooladmin(param);
         if (!res_is_success(school_admin_res)) {
@@ -56,7 +74,7 @@ router.post('/', function(req, res, next) {
 
         var response = ""
         response = htapi_code(true);
-        response["schooladminid"] = school_admin_res.schooladminid;
+        response["schooladminid"] = school_admin_res.result[0].schooladminid;
         res.send(response);
 
         wxapi.moveUserToGroup(param.schooladminopenid, tags["学校管理员"], function(err, data, res) {

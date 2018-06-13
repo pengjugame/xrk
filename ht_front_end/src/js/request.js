@@ -741,3 +741,71 @@ export const putstudenttimes = (student) => {
     console.log(err);
   })
 }
+
+export const getstudentclasses = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.studentclasses).then((res) => {
+      if (res_is_success(res)) {
+        vm.classes = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getstudentbyclass = (vm,classid) => {
+  userInfo().then((res) => {
+	let params = {}
+	params.classid = classid
+    http.get(route.studentbyclass,params).then((res) => {
+      if (res_is_success(res)) {
+        vm.student = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putstudentclass = (student) => {
+  userInfo().then((res) => {
+    http.put(route.studentbyclass, student).then((res) => {
+      if (res_is_success(res)) {
+        ;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const poststudent = (vm) => {
+    http.post(route.student, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form.studentid = res.data.studentid
+      }
+    }, (err) => {
+      console.log(err);
+    })
+}
+
+export const postclass = (vm) => {
+  userInfo().then((res) => {
+    http.post(route.class, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.form.classid = res.data.classid;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}

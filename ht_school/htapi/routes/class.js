@@ -72,13 +72,13 @@ router.get('/classes', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        /*const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
         if (!res_have_result(admin_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
-        }
+        }*/
 
-        const class_res = yield i_classes.select_school_classes(admin_res.result[0].schoolid);
+        const class_res = yield i_classes.select_school_classes(1);
         if (!res_have_result(class_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
@@ -121,7 +121,7 @@ router.post('/class', function(req, res, next) {
         
         var response = ""
         response = htapi_code(true);
-        response["classid"] = class_res.classid;
+        response["classid"] = class_res.result[0].classid;
         res.send(response);
 
         return Promise.resolve(true);

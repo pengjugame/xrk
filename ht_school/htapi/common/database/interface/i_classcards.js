@@ -4,7 +4,8 @@
 const co = require('co');
 const sql = require('../sql')
 const {
-    is_empty
+    is_empty,
+	verify_openid,
 } = require('../tool')
 const {
     operate_db

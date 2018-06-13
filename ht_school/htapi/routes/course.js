@@ -55,7 +55,7 @@ router.post('/course', function(req, res, next) {
         
         var response = ""
         response = htapi_code(true);
-        response["courseid"] = course_res.courseid;
+        response["courseid"] = course_res.result[0].courseid;
         res.send(response);
 
         return Promise.resolve(true);

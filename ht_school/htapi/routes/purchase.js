@@ -97,7 +97,7 @@ router.post('/purchase', function(req, res, next) {
         
         var response = ""
         response = htapi_code(true);
-        response["purchaseid"] = student_res.purchaseid;
+        response["purchaseid"] = purchase_res.result[0].purchaseid;
         res.send(response);
 
         return Promise.resolve(true);

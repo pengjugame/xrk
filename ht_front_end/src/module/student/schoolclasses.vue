@@ -19,7 +19,7 @@
       </div>
 	  
       <div class="mui-input-row">
-        <label>上课地点：</label>
+        <label>班级备注：</label>
         <input type="text" v-model="cla.classaddress" readonly>
       </div>
 	  
@@ -47,7 +47,7 @@
 	
     <div class="mui-card-footer">
 	  <label>向日葵艺术</label>
-      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'classstudents', params: cla }" tag="button" >学生管理</router-link>
+      <router-link v-if="cla.classnumusers < cla.classmaxnumusers " class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'student', params: cla }" tag="button" >选择</router-link>
     </div>
   </div>
   </div>
@@ -61,17 +61,15 @@ import * as tool from 'src/js/util'
 export default {
   data() {
     return {
-      classes: [{classid:'1',classname:'testclass',coursename:'testcourse',classtime:'testtime',classaddress:'testaddress',
-				classmaxnumusers:'testmax',teachername:'testteachername',schoolname:'schoolname'}],
-	  init: 0
+      classes: [{classid:'1',classname:'testclass',coursename:'testcourse',
+				classtime:'7.16-7.25 9:00-10:30',classaddress:'testaddress',
+				classmaxnumusers:'30',classnumusers:'20',teachername:'testteachername',schoolname:'schoolname'},
+				{classid:'1',classname:'testclass',coursename:'testcourse',classtime:'testtime',classaddress:'testaddress',
+				classmaxnumusers:'30',classnumusers:'30',teachername:'testteachername',schoolname:'schoolname'},],
     }
   },
   created() {
-    if(this.init = 1)
-		return;
-	this.init = 1;
-	
-	request.getteacherclasses(this);
+	request.getclasses(this);
   },
   computed: {
   },

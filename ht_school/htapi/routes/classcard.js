@@ -54,7 +54,7 @@ router.post('/classcard', function(req, res, next) {
         
         var response = ""
         response = htapi_code(true);
-        response["classcardid"] = classcard_res.classcardid;
+        response["classcardid"] = classcard_res.result[0].classcardid;
         res.send(response);
 
         return Promise.resolve(true);

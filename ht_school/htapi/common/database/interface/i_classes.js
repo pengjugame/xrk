@@ -4,11 +4,21 @@
 const co = require('co');
 const sql = require('../sql')
 const {
-    is_empty
+    is_empty,
+	verify_openid,
 } = require('../tool')
 const {
     operate_db
 } = require('../db_handle')
+
+exports.select_class = function(classid) {
+    return co(function*() {
+        if (is_empty(classid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.classes.select_class, [classid]);
+    });
+}
 
 exports.select_class_active = function() {
     return co(function*() {
@@ -84,7 +94,16 @@ exports.update_class_base = function(cla) {
         if (is_empty(cla) || is_empty(cla.classid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.classes.update_class_base, [cla.classname , cla.classaddress , cla.classtime , cla.courseid , cla.teacherid , cla.schoolid , cla.classid]);
+        return operate_db(sql.classes.update_class_base, [cla.classname , cla.classaddress , cla.classtime , cla.courseid , cla.classmaxnumusers , cla.classnumusers , cla.teacherid , cla.schoolid , cla.classid]);
+    });
+}
+
+exports.update_class_numusers = function(classnumusers,classid) {
+    return co(function*() {
+        if (is_empty(cla) || is_empty(cla.classid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.classes.update_class_numusers, [classnumusers,classid]);
     });
 }
 
