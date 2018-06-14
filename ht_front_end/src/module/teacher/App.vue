@@ -29,7 +29,7 @@
 				</div>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<div class="mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="1" v-model="form.teacherusex" checked >
+				  <input name="radio" type="radio" value="1" v-model="form.teacherusex" >
 				  <label>女</label>
 				</div>
 			</div>

@@ -41,8 +41,6 @@ router.post('/course', function(req, res, next) {
 
         var param = {
             "coursename": req.body.coursename,
-            "coursetimes": req.body.coursetimes,
-            "coursetime": req.body.coursetime,
             "coursedetails": req.body.coursedetails,
             "courseactive": 1
         }
@@ -55,7 +53,7 @@ router.post('/course', function(req, res, next) {
         
         var response = ""
         response = htapi_code(true);
-        response["courseid"] = course_res.result[0].courseid;
+        response["courseid"] = course_res.result.insertId;
         res.send(response);
 
         return Promise.resolve(true);

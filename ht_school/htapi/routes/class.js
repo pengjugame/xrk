@@ -28,13 +28,13 @@ router.get('/studentclasses', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const class_res = yield i_classes.select_student_classes(userinfo.openid);
-        if (!res_have_result(class_res)) {
+        const student_classes_res = yield i_classes.select_student_classes(userinfo.openid);
+        if (!res_have_result(student_classes_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
-        res.send(class_res.result);
+        res.send(student_classes_res.result);
         return Promise.resolve(true);
     });
 });
@@ -66,19 +66,46 @@ router.get('/teacherclasses', function(req, res, next) {
 
 router.get('/classes', function(req, res, next) {
     return co(function*() {
-        const userinfo = get_userinfo(req.session);
+        /*const userinfo = get_userinfo(req.session);
         if (!check_userinfo(userinfo)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
-        }
+        }*/
 
         /*const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
         if (!res_have_result(admin_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }*/
-
+		
         const class_res = yield i_classes.select_school_classes(1);
+        if (!res_have_result(class_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        res.send(class_res.result);
+        return Promise.resolve(true);
+    });
+});
+
+router.get('/classesbycourse', function(req, res, next) {
+    return co(function*() {
+        /*const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }*/
+
+        /*const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        if (!res_have_result(admin_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }*/
+		
+		console.log(req.query.courseid);
+		
+        const class_res = yield i_classes.select_school_classes_by_course(req.query.courseid,1);
         if (!res_have_result(class_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
@@ -105,11 +132,14 @@ router.post('/class', function(req, res, next) {
 
         var param = {
             "classname": req.body.classname,
-            "classaddress": req.body.classaddress,
+            "classdate": req.body.classdate,
             "classtime": req.body.classtime,
             "courseid": req.body.courseid,
             "teacherid": req.body.teacherid,
             "schoolid": req.body.schoolid,
+            "classmaxnumusers": req.body.classmaxnumusers,
+            "classnumusers": 0,
+            "classdetails": req.body.classdetails,
             "classactive": 1,
         }
 
@@ -121,7 +151,7 @@ router.post('/class', function(req, res, next) {
         
         var response = ""
         response = htapi_code(true);
-        response["classid"] = class_res.result[0].classid;
+        response["classid"] = class_res.result.insertId;
         res.send(response);
 
         return Promise.resolve(true);

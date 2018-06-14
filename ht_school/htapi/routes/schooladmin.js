@@ -74,7 +74,7 @@ router.post('/', function(req, res, next) {
 
         var response = ""
         response = htapi_code(true);
-        response["schooladminid"] = school_admin_res.result[0].schooladminid;
+        response["schooladminid"] = school_admin_res.result.insertId;
         res.send(response);
 
         wxapi.moveUserToGroup(param.schooladminopenid, tags["学校管理员"], function(err, data, res) {

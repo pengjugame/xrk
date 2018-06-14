@@ -32,4 +32,5 @@ export const route = {
   classstudents: get_url('/student/classstudents'),
   studentclasses: get_url('/class/studentclasses'),
   studentbyclass: get_url('/student/studentbyclass'),
+  classesbycourse: get_url('/class/classesbycourse'),
 };

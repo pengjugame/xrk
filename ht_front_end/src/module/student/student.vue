@@ -33,11 +33,17 @@
 				<label>学生备注：</label>
 				<input type="text" v-model="form.studentdetails" class="mui-input-clear" placeholder="请输入购买信息">
 			</div>
+			
+			<div class="mui-input-row">
+				<label>选择课程：</label>
+				<input type="text" v-model="coursename" readonly>
+				<li id="menu-btn" class="mui-navigate-right" ></li>
+			</div>
 
 			<div class="mui-input-row">
 				<label>选择班级：</label>
-				<input type="text" v-model="classname" readonly>
-				<router-link class="mui-navigate-right" :to="{ name:'schoolclasses' }" tag="a" ></router-link>
+				<input type="text" v-model="classname" readonly >
+				<router-link class="mui-navigate-right" :to="{ name:'schoolclasses',params: {courseid:courseid}}" tag="a" ></router-link>
 			</div>
 			
 			<div class="mui-input-row">
@@ -47,7 +53,7 @@
 			</div>
 			
 			<div class="mui-button-row">
-				<button type="button" :style="{display:textDisable}" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
+				<button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
 			</div>
 			
 		</div>
@@ -62,12 +68,25 @@
 			<ul id="schoolsid" class="mui-table-view">
 				<template v-for="school in schools">
 					<li class="mui-table-view-cell mui-selected" v-if="school.schoolname == schoolname"  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
-					<li class="mui-table-view-cell " v-else  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
+					<li class="mui-table-view-cell" v-else  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
 				</template>
 			</ul>
 		  </div>
 		</div>
 	</div>
+	
+	<div id="menu-wrapper" class="menu-wrapper hidden">
+		<div id="menu" class="menu">
+			<ul class="mui-table-view mui-table-view-inverted" v-model="coursename">
+				<template v-for="course in courses">
+					<li class="mui-table-view-cell mui-selected" v-if="course.coursename == coursename" v-on:mouseover="selectcourse(course)">{{course.coursename}}</li>
+					<li class="mui-table-view-cell" v-else v-on:mouseover="selectcourse(course)">{{course.coursename}}</li>
+				</template">
+			</ul>
+		</div>
+	</div>
+	
+	<div id="menu-backdrop" class="menu-backdrop"></div>
   
 	</div>
 
@@ -96,9 +115,12 @@ export default {
 	  },
 	  classid: '',
 	  classname : '',
+	  courseid: '',
+	  coursename: '',
+	  courses: [],
+	  schoolid: 1,
 	  schoolname: '广州萝岗万达店',
       schools: [],
-	  textDisable: false,
     }
   },
   activated: function () {
@@ -107,11 +129,10 @@ export default {
 
 	if(this.$route.params.classid != undefined)
 		this.classname = this.$route.params.classname;
-		
-	console.log(this.classid);
   },
   created() {
 	
+	request.getcourses(this);
     request.getschools(this);
   },
   computed: {
@@ -120,11 +141,11 @@ export default {
 			return '确定';
 		}
 
-		this.textDisable = true;
+		document.getElementById("submitid").disabled = "disabled"
 		
 		if (this.form.studentactive == 0) {
 			mui.toast('提交成功,请等待 :-)');
-			return '更新';
+			return '提交成功';
 		}
 
 		return '注册成功';
@@ -133,8 +154,6 @@ export default {
   methods: {
     submit() {
 		this.form.classid = this.classid;
-		
-		console.log(this.form);
 		
 		if (this.form.studentname == '' || this.form.studentmobile == '' || this.form.classid == '')
 		{
@@ -146,9 +165,334 @@ export default {
 		
 		request.poststudent(this);
     },
+	selectcourse(course){
+		this.courseid = course.courseid;
+		this.coursename = course.coursename;
+		
+		var menuWrapper = document.getElementById("menu-wrapper");
+		var menu = document.getElementById("menu");
+		var menuWrapperClassList = menuWrapper.classList;
+		var backdrop = document.getElementById("menu-backdrop");
+		document.body.classList.remove('menu-open');
+		menuWrapper.className = 'menu-wrapper fade-out-up animated';
+		menu.className = 'menu bounce-out-up animated';
+		setTimeout(function() {
+			backdrop.style.opacity = 0;
+			menuWrapper.classList.add('hidden');
+		}, 500);
+	},
   },
   mounted() {
     mui.init();
+
+	var menuWrapper = document.getElementById("menu-wrapper");
+	var menu = document.getElementById("menu");
+	var menuWrapperClassList = menuWrapper.classList;
+	var backdrop = document.getElementById("menu-backdrop");
+	
+	backdrop.addEventListener('tap', toggleMenu);
+	document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
+	
+	//mui('#menu').on('tap', 'li', function() {
+	//	toggleMenu();
+	//});
+	
+	var busying = false;
+	function toggleMenu() {
+		if (busying) {
+			return;
+		}
+		busying = true;
+		if (menuWrapperClassList.contains('mui-active')) {
+			document.body.classList.remove('menu-open');
+			menuWrapper.className = 'menu-wrapper fade-out-up animated';
+			menu.className = 'menu bounce-out-up animated';
+			setTimeout(function() {
+				backdrop.style.opacity = 0;
+				menuWrapper.classList.add('hidden');
+			}, 500);
+		} else {
+			document.body.classList.add('menu-open');
+			menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
+			menu.className = 'menu bounce-in-down animated';
+			backdrop.style.opacity = 1;
+		}
+		setTimeout(function() {
+			busying = false;
+		}, 500);
+	}
   }
 }
 </script>
+
+<style>
+	html,
+	body {
+		min-height: 100%;
+		background-color: #efeff4;
+	}
+	.animated {
+		-webkit-animation-duration: 0.5s;
+		animation-duration: 0.5s;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+	}
+	@-webkit-keyframes bounceInDown {
+		0%, 60%, 75%, 90%, 100% {
+			-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		}
+		0% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+		60% {
+			opacity: 1;
+			-webkit-transform: translate3d(0, 25px, 0);
+			transform: translate3d(0, 25px, 0);
+		}
+		75% {
+			-webkit-transform: translate3d(0, -10px, 0);
+			transform: translate3d(0, -10px, 0);
+		}
+		90% {
+			-webkit-transform: translate3d(0, 5px, 0);
+			transform: translate3d(0, 5px, 0);
+		}
+		100% {
+			-webkit-transform: none;
+			transform: none;
+		}
+	}
+	@keyframes bounceInDown {
+		0%, 60%, 75%, 90%, 100% {
+			-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		}
+		0% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+		60% {
+			opacity: 1;
+			-webkit-transform: translate3d(0, 25px, 0);
+			transform: translate3d(0, 25px, 0);
+		}
+		75% {
+			-webkit-transform: translate3d(0, -10px, 0);
+			transform: translate3d(0, -10px, 0);
+		}
+		90% {
+			-webkit-transform: translate3d(0, 5px, 0);
+			transform: translate3d(0, 5px, 0);
+		}
+		100% {
+			-webkit-transform: none;
+			transform: none;
+		}
+	}
+	.bounce-in-down {
+		-webkit-animation-name: bounceInDown;
+		animation-name: bounceInDown;
+	}
+	@-webkit-keyframes fadeInDown {
+		0%, 60%, 75%, 90%, 100% {
+			-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		}
+		0% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+		60% {
+			opacity: 1;
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		75% {
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		90% {
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		100% {
+			-webkit-transform: none;
+			transform: none;
+		}
+	}
+	@keyframes fadeInDown {
+		0%, 60%, 75%, 90%, 100% {
+			-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		}
+		0% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+		60% {
+			opacity: 1;
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		75% {
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		90% {
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		100% {
+			-webkit-transform: none;
+			transform: none;
+		}
+	}
+	.fade-in-down {
+		-webkit-animation-name: fadeInDown;
+		animation-name: fadeInDown;
+	}
+	@-webkit-keyframes bounceOutUp {
+		20% {
+			-webkit-transform: translate3d(0, -10px, 0);
+			transform: translate3d(0, -10px, 0);
+		}
+		40%,
+		45% {
+			opacity: 1;
+			-webkit-transform: translate3d(0, 20px, 0);
+			transform: translate3d(0, 20px, 0);
+		}
+		100% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+	}
+	@keyframes bounceOutUp {
+		20% {
+			-webkit-transform: translate3d(0, -10px, 0);
+			transform: translate3d(0, -10px, 0);
+		}
+		40%,
+		45% {
+			opacity: 1;
+			-webkit-transform: translate3d(0, 20px, 0);
+			transform: translate3d(0, 20px, 0);
+		}
+		100% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+	}
+	.bounce-out-up {
+		-webkit-animation-name: bounceOutUp;
+		animation-name: bounceOutUp;
+	}
+	@-webkit-keyframes fadeOutUp {
+		20% {
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		40%,
+		45% {
+			opacity: 1;
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		100% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+	}
+	@keyframes fadeOutUp {
+		20% {
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		40%,
+		45% {
+			opacity: 1;
+			-webkit-transform: translate3d(0, 0px, 0);
+			transform: translate3d(0, 0px, 0);
+		}
+		100% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+	}
+	.fade-out-up {
+		-webkit-animation-name: fadeOutUp;
+		animation-name: fadeOutUp;
+	}
+	.menu-open {
+		height: 100%;
+		width: 100%;
+	}
+	.menu-open .mui-scroll-wrapper {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		overflow: hidden;
+		-webkit-backface-visibility: hidden;
+	}
+	.menu-backdrop {
+		display: none;
+	}
+	.menu-open .menu-backdrop {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		height: 100%;
+		width: 100%;
+		display: block;
+		z-index: 998;
+	}
+	.menu-wrapper {
+		position: absolute;
+		top: 0px;
+		left: 0;
+		right: 0;
+		z-index: 999;
+		text-align: center;
+		background-color: rgba(238, 134, 15, 0.952);
+		width: 100%;
+	}
+	.menu-wrapper.hidden {
+		-webkit-transform: translate3d(0, -100%, 0);
+		transform: translate3d(0, -100%, 0);
+		z-index: -1;
+	}
+	.menu {
+		width: 100%;
+	}
+	.menu .mui-table-view-inverted {
+		color: rgba(238, 134, 15, 0.952);
+		font-size: 14px;
+		background: #efeff4;
+	}
+	.menu .mui-table-view-inverted .mui-table-view-cell:after {
+		height: 2px;
+		left: 0;
+		right: 0;
+	}
+	.menu-wrapper.mui-active,
+	.menu-wrapper.mui-active .menu {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+	#info{
+		padding: 20px 10px ;
+	 }
+</style>

@@ -42,8 +42,7 @@ exports.select_teacher_in_school_active = function(schoolid) {
 
 exports.add_teacher = function(teacher) {
     return co(function*() {
-        if (is_empty(teacher) || 
-            !verify_openid(teacher.teacherid)) {
+        if (is_empty(teacher)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.teachers.add_teacher, teacher);

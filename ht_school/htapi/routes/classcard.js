@@ -42,6 +42,8 @@ router.post('/classcard', function(req, res, next) {
         var param = {
             "classcardname": req.body.classcardname,
             "classcardprice": req.body.classcardprice,
+			"classcardtimes": req.body.classcardtimes,
+			"classcardtime": req.body.classcardtime,
             "courseid": req.body.courseid,
             "classcardactive": 1
         }
@@ -54,7 +56,7 @@ router.post('/classcard', function(req, res, next) {
         
         var response = ""
         response = htapi_code(true);
-        response["classcardid"] = classcard_res.result[0].classcardid;
+        response["classcardid"] = classcard_res.result.insertId;
         res.send(response);
 
         return Promise.resolve(true);

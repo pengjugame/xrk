@@ -42,8 +42,7 @@ exports.select_schooladmin_in_school_active = function(schoolid) {
 
 exports.add_schooladmin = function(schooladmin) {
     return co(function * () {
-        if (is_empty(schooladmin) || 
-            !verify_openid(schooladmin.schooladminid)) {
+        if (is_empty(schooladmin)) {
             return Promise.resolve(null);
         }
         

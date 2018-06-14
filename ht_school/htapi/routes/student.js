@@ -89,15 +89,15 @@ router.post('/student', function(req, res, next) {
             return Promise.resolve(null);
         }
 		
-		const res = yield i_classes.update_class_numusers(class_res.result[0].classnumusers+1,param.classid);
-        if (!res_is_success(res)) {
+		const class_update_res = yield i_classes.update_class_numusers(class_res.result[0].classnumusers+1,param.classid);
+        if (!res_is_success(class_update_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 		
         var response = ""
         response = htapi_code(true);
-        response["studentid"] = student_res.result[0].studentid;
+        response["studentid"] = student_res.result.insertId;
         res.send(response);
 
         return Promise.resolve(true);

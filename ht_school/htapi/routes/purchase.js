@@ -72,8 +72,6 @@ router.post('/purchase', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        console.log(" post purchase:" + JSON.stringify(req.body));
-
         var param = {
             "purchasename": req.body.purchasename,
             "purchasemobile": req.body.purchasemobile,
@@ -92,12 +90,10 @@ router.post('/purchase', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-
-        console.log(" post purchase result:" + JSON.stringify(purchase_res));
         
         var response = ""
         response = htapi_code(true);
-        response["purchaseid"] = purchase_res.result[0].purchaseid;
+        response["purchaseid"] = purchase_res.result.insertId;
         res.send(response);
 
         return Promise.resolve(true);
@@ -126,7 +122,8 @@ router.put('/purchaseactive', function(req, res, next) {
             "classcardid": req.body.classcardid,
             "schoolid": req.body.schoolid,
             "studentopenid": req.body.purchaseopenid,
-            "studenttimes": 0,
+            "studentmaxtimes": req.body.classcardtimes,
+            "studenttimes": req.body.classcardtimes,
             "studentactive": 1,
         }
         const student_res = yield i_students.add_student(param);
@@ -135,7 +132,7 @@ router.put('/purchaseactive', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const purchase_res = yield i_purchases.active_purchase(new Date(), student_res.studentid , req.body.purchaseid);
+        const purchase_res = yield i_purchases.active_purchase(new Date(), student_res.result.insertId , req.body.purchaseid);
         if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

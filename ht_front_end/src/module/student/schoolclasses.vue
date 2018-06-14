@@ -4,23 +4,23 @@
   <div class="mui-card" v-for="cla in classes" >
     <div class="mui-card-header">
       <label>{{cla.classname}}</label>
-      <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">班级ID：{{cla.classid}}</a>
+      <label class="mui-action-back mui-pull-right">班级ID：{{cla.classid}}</label>
     </div>
 
     <div class="mui-card-content mui-input-group ">
       <div class="mui-input-row">
-        <label>课程名：</label>
+        <label>课程类别：</label>
         <input type="text" v-model="cla.coursename" readonly>
+      </div>
+	  
+      <div class="mui-input-row">
+        <label>上课日期：</label>
+        <input type="text" v-model="cla.classdate" readonly>
       </div>
 
       <div class="mui-input-row">
         <label>上课时间：</label>
         <input type="text" v-model="cla.classtime" readonly>
-      </div>
-	  
-      <div class="mui-input-row">
-        <label>班级备注：</label>
-        <input type="text" v-model="cla.classaddress" readonly>
       </div>
 	  
       <div class="mui-input-row" >
@@ -32,6 +32,11 @@
         <label>当前人数：</label>
         <input type="text" v-model="cla.classnumusers" readonly>
 	  </div>
+	  
+      <div class="mui-input-row">
+        <label>班级备注：</label>
+        <input type="text" v-model="cla.classdetails" readonly>
+      </div>
 
       <div class="mui-input-row" >
         <label>教师：</label>
@@ -68,8 +73,10 @@ export default {
 				classmaxnumusers:'30',classnumusers:'30',teachername:'testteachername',schoolname:'schoolname'},],
     }
   },
+  activated: function () {
+	request.getclassesbycourse(this,this.$route.params.courseid);
+  },
   created() {
-	request.getclasses(this);
   },
   computed: {
   },

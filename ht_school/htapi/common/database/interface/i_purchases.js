@@ -55,7 +55,7 @@ exports.select_purchase_in_school_deactive = function(schoolid) {
 
 exports.add_purchase = function(purchase) {
     return co(function*() {
-        if (is_empty(purchase) || !verify_openid(purchase.purchaseid)) {
+        if (is_empty(purchase)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.purchases.add_purchase, purchase);

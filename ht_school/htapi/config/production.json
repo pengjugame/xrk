@@ -30,10 +30,10 @@
         path: "../../session"
     },
     tags: {
-        "意向学生": "101",
-        "学生": "102",
-        "教师": "103",
-        "学校管理员": "100"
+        "意向学生": "200",
+        "学生": "199",
+        "教师": "197",
+        "学校管理员": "198"
     },
     forms: {
         teacher_register: {
@@ -62,7 +62,7 @@
         },
         parent_verification: {
             title: "入学申请批准",
-            description: "查看审核家长缴费情况，批准入学申请",
+            description: "查看审核学生缴费情况，批准入学申请",
             picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
             url: "http://119.29.90.92/static/parent_verification.html"
         },
@@ -202,7 +202,7 @@
                 ]
             }],
             "matchrule": {
-                "group_id": "家长"
+                "group_id": "学生"
             }
         },
         "teacher": {

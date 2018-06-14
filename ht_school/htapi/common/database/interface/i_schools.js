@@ -33,7 +33,7 @@ exports.select_school_active = function() {
 
 exports.add_school = function(school) {
     return co(function*() {
-        if (is_empty(school) || is_empty(school.schoolid)) {
+        if (is_empty(school)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.schools.add_school, school);

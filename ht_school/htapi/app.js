@@ -31,8 +31,8 @@ api.getGroups(function(err, result) {
                continue;
 
             if(result.groups[group].id == config.tags["学校管理员"] ||
-               result.groups[group].id == config.tags["意向家长"] ||
-               result.groups[group].id == config.tags["家长"] ||
+               result.groups[group].id == config.tags["意向学生"] ||
+               result.groups[group].id == config.tags["学生"] ||
                result.groups[group].id == config.tags["教师"])
                continue;
 
@@ -50,17 +50,17 @@ api.getGroups(function(err, result) {
 api.createGroup("教师",function(err, result){
     console.log("createGroup result:" + result);
 })
-api.createGroup("家长",function(err, result){
+api.createGroup("学生",function(err, result){
     console.log("createGroup result:" + result);
 })
-api.createGroup("意向家长",function(err, result){
+api.createGroup("意向学生",function(err, result){
     console.log("createGroup result:" + result);
 })*/
 
 var {encode_menu, encrypt, decrypt} = require('./common/database/tool')
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());
@@ -177,10 +177,10 @@ if (process.env.NODE_ENV == "production" || process.env.MENU == "yes") {
             }
             api.createCustomMenu(encode_menu(menu.parent, wxconfig.appid), function(err, res) {
                 if (err) {
-                    console.log("创建家长菜单错误:" + err);
+                    console.log("创建学生菜单错误:" + err);
                     return;
                 }
-                console.log("创建家长菜单 OK");
+                console.log("创建学生菜单 OK");
             });
             api.createCustomMenu(encode_menu(menu.teacher, wxconfig.appid), function(err, res) {
                 if (err) {

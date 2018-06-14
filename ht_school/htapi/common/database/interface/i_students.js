@@ -58,8 +58,7 @@ exports.select_student_in_school = function(schoolid) {
 
 exports.add_student = function(student) {
     return co(function*() {
-        if (is_empty(student) || 
-            !verify_openid(student.studentid)) {
+        if (is_empty(student)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.students.add_student, student);
