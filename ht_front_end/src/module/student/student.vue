@@ -79,8 +79,8 @@
 		<div id="menu" class="menu">
 			<ul class="mui-table-view mui-table-view-inverted" v-model="coursename">
 				<template v-for="course in courses">
-					<li class="mui-table-view-cell mui-selected" v-if="course.coursename == coursename" v-on:mouseover="selectcourse(course)">{{course.coursename}}</li>
-					<li class="mui-table-view-cell" v-else v-on:mouseover="selectcourse(course)">{{course.coursename}}</li>
+					<li class="mui-table-view-cell mui-selected" v-if="course.coursename == coursename" v-on:click="selectcourse(course)">{{course.coursename}}</li>
+					<li class="mui-table-view-cell" v-else v-on:click="selectcourse(course)">{{course.coursename}}</li>
 				</template">
 			</ul>
 		</div>
