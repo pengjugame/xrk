@@ -34,14 +34,9 @@
 	  </div>
 	  
       <div class="mui-input-row">
-        <label>班级备注：</label>
+        <label>年龄限制：</label>
         <input type="text" v-model="cla.classdetails" readonly>
       </div>
-
-      <div class="mui-input-row" >
-        <label>教师：</label>
-        <input type="text" v-model="cla.teachername" readonly>
-	  </div>
 
       <div class="mui-input-row" >
         <label>校区：</label>

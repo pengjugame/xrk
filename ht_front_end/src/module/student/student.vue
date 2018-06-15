@@ -28,10 +28,15 @@
 				  <label>女</label>
 				</div>
 			</div>
+
+			<div class="mui-input-row">
+				<label>年龄：</label>
+				<input type="text"  v-model="form.studentage" class="mui-input-clear" placeholder="请输入年龄">
+			</div>
 			
 			<div class="mui-input-row" >
-				<label>学生备注：</label>
-				<input type="text" v-model="form.studentdetails" class="mui-input-clear" placeholder="请输入购买信息">
+				<label>收据编号：</label>
+				<input type="text" v-model="form.studentdetails" class="mui-input-clear" placeholder="请输入收据编号">
 			</div>
 			
 			<div class="mui-input-row">
@@ -104,6 +109,7 @@ export default {
 		  studentname: '',
 		  studentmobile: '',
 		  studentusex: 1,
+		  studentage: '',
 		  studentdetails: '',
 		  classcardid: '',
 		  classid: '',
@@ -479,7 +485,7 @@ export default {
 	}
 	.menu .mui-table-view-inverted {
 		color: rgba(238, 134, 15, 0.952);
-		font-size: 14px;
+		font-size: 12px;
 		background: #efeff4;
 	}
 	.menu .mui-table-view-inverted .mui-table-view-cell:after {

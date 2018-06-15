@@ -1,0 +1,12 @@
+[Unit]
+Description=XRK
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=oneshot
+KillMode=process
+ExecStart=/usr/sbin/xrk.sh
+RemainAfterExit=yes
+User=root
