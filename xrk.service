@@ -5,7 +5,6 @@ Description=XRK
 WantedBy=multi-user.target
 
 [Service]
-Type=oneshot
 KillMode=process
 ExecStart=/usr/sbin/xrk.sh
 RemainAfterExit=yes
