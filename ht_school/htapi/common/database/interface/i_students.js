@@ -29,6 +29,15 @@ exports.select_student_by_class_openid = function(classid,studentopenid) {
     });
 }
 
+exports.select_student_by_studentdetails_studentmobile = function(studentdetails,studentmobile) {
+    return co(function*() {
+        if (is_empty(studentdetails) || is_empty(studentmobile)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.students.select_student_by_studentdetails_studentmobile, [studentdetails,studentmobile]);
+    });
+}
+
 exports.select_student = function(studentid) {
     return co(function*() {
         if (!verify_openid(studentid)) {

@@ -77,6 +77,15 @@ router.post('/student', function(req, res, next) {
             "studentactive": 0,
         }
 		
+		const exit_res = yield i_students.select_student_by_studentdetails_studentmobile(param.studentdetails,param.studentmobile);
+        if (res_have_result(exit_res)) {
+            var response = ""
+			response = htapi_code(true);
+			response["studentid"] = -1;
+			res.send(response);
+            return Promise.resolve(true);
+        }
+		
         const student_res = yield i_students.add_student(param);
         if (!res_is_success(student_res)) {
             res.send(htapi_code(false));

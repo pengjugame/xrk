@@ -147,6 +147,13 @@ export default {
 			return '确定';
 		}
 
+		if (this.form.studentid == -1 ) {
+			mui.alert('电话、收据重复！', '向日葵艺术学生注册', function() {
+				;
+			});
+			return '确定';
+		}
+
 		document.getElementById("submitid").disabled = "disabled"
 		
 		if (this.form.studentactive == 0) {

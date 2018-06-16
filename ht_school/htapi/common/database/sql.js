@@ -174,6 +174,7 @@ function deactive_teacher() {
     exist_student: exist_student(),
     select_student: select_student(),
 	select_student_by_class_openid: select_student_by_class_openid(),
+	select_student_by_studentdetails_studentmobile: select_student_by_studentdetails_studentmobile(),
     select_student_in_class: select_student_in_class(),
     select_student_in_school: select_student_in_school(),
     add_student: add_student(),
@@ -211,6 +212,13 @@ function select_student_by_class_openid(){
             + "LEFT JOIN xrk_schools c ON a.schoolid = c.schoolid " 
             + "LEFT JOIN xrk_classcards d ON a.classcardid = d.classcardid "  
             + "where a.classid = ? and a.studentopenid = ? "
+}
+
+
+function select_student_by_studentdetails_studentmobile(){
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentdetails , a.studenttimes , a.studentmaxtimes ,a.studentopenid , a.studentactive " 
+            + "FROM xrk_students a "  
+            + "where a.studentdetails = ? and a.studentmobile = ? "
 }
 
 function select_student_in_class() {
@@ -674,6 +682,7 @@ module.exports = {
         exist_student: exist_student(),
         select_student: select_student(),
 		select_student_by_class_openid: select_student_by_class_openid(),
+		select_student_by_studentdetails_studentmobile: select_student_by_studentdetails_studentmobile(),
         select_student_in_class: select_student_in_class(),
         select_student_in_school: select_student_in_school(),
         add_student: add_student(),
