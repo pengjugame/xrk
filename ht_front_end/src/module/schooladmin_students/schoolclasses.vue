@@ -26,12 +26,12 @@
       <div class="mui-input-row" >
         <label>最大人数：</label>
         <input type="text" v-model="cla.classmaxnumusers" readonly>
-	    </div>
+	  </div>
 
       <div class="mui-input-row" >
         <label>当前人数：</label>
         <input type="text" v-model="cla.classnumusers" readonly>
-	    </div>
+	  </div>
 	  
       <div class="mui-input-row">
         <label>年龄限制：</label>
@@ -41,7 +41,7 @@
       <div class="mui-input-row" >
         <label>校区：</label>
         <input type="text" v-model="cla.schoolname" readonly>
-	    </div>
+	  </div>
 
     </div>
 	

@@ -52,7 +52,7 @@
     </div>
 	
     <div class="mui-card-footer">
-	  <label>向日葵艺术</label>
+	    <label>向日葵艺术</label>
       <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'student', params: cla }" tag="button" >详细信息</router-link>
     </div>
   </div>

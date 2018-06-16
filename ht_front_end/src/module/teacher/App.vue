@@ -86,7 +86,7 @@ export default {
         teacherid: '',
         teachername: '',
         teachermobile: '',
-        teacherusex: '',
+        teacherusex: 1,
         schoolid: '1',
         teacheropenid: '',
         teacheractive: 0,

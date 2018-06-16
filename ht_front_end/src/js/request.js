@@ -193,7 +193,7 @@ export const putstudent = (student) => {
   userInfo().then((res) => {
     http.put(route.student, student).then((res) => {
       if (res_is_success(res)) {
-        ;
+        vm.updatestatus = res.data.updatestatus;
       }
     }, (err) => {
       console.log(err);
@@ -254,6 +254,20 @@ export const putteacheractive = (teacher) => {
     http.put(route.teacheractive, teacher).then((res) => {
       if (res_is_success(res)) {
         teacher.teacheractive = res.data.teacheractive
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putteacher = (vm) => {
+  userInfo().then((res) => {
+    http.put(route.teacher, vm.teacher).then((res) => {
+      if (res_is_success(res)) {
+        vm.updatestatus = res.data.updatestatus
       }
     }, (err) => {
       console.log(err);

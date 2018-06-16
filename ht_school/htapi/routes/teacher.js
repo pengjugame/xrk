@@ -34,6 +34,45 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.put('/', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+    
+        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        if (!res_have_result(admin_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        var param = {
+            "teacherid": req.body.teacherid,
+            "teachername": req.body.teachername,
+            "teachermobile": req.body.teachermobile,
+            "teacherusex": req.body.teacherusex,
+            "teacherdetails": req.body.teacherdetails,
+            "schoolid": req.body.schoolid,
+            "teacheractive": req.body.teacheractive,
+        }
+
+        const teacher_update_res = yield i_teachers.update_teacher_base(param);
+        if (!res_is_success(teacher_update_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        var response = ""
+        response = htapi_code(true);
+        response["updatestatus"] = 1;
+        res.send(response);
+
+        return Promise.resolve(true);
+    });
+});
+
 router.post('/', function(req, res, next) {
     return co(function*() {
         const userinfo = get_userinfo(req.session);

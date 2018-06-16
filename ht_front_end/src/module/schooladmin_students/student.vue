@@ -2,50 +2,45 @@
 	<div>
 
 	<div class="mui-card">
-		<router-link class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'purchases'}" tag="a" ></router-link>
+		<router-link class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classsstudents', params: {classid:oldclassid} }" tag="a" ></router-link>
 	</div>
 
 	<div class="mui-card" >
-		<div class="mui-card-header">向日葵艺术课卡预购修改</div>
+		<div class="mui-card-header">学生管理</div>
 
 		<div class="mui-card-content mui-input-group ">
 
 			<div class="mui-input-row">
 				<label>姓名：</label>
-				<input type="text"  v-model="form.purchasename" class="mui-input-clear" placeholder="请输入姓名" >
+				<input type="text"  v-model="student.studentname" class="mui-input-clear" placeholder="请输入姓名" >
 			</div>
 			
 			<div class="mui-input-row">
 				<label>手机：</label>
-				<input type="text"  v-model="form.purchasemobile" class="mui-input-clear" placeholder="请输入手机">
+				<input type="text"  v-model="student.studentmobile" class="mui-input-clear" placeholder="请输入手机">
 			</div>
 
 			<div class="mui-input-row" >
 				<label>性别：</label> 
 				<div class=" mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="0" v-model="form.purchaseusex" >
+				  <input name="radio" type="radio" value="0" v-model="student.studentusex" >
 				  <label>男</label>
 				</div>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<div class="mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="1" v-model="form.purchaseusex" >
+				  <input name="radio" type="radio" value="1" v-model="student.studentusex" >
 				  <label>女</label>
 				</div>
 			</div>
 
 			<div class="mui-input-row">
 				<label>年龄：</label>
-				<input type="text"  v-model="form.purchaseage" class="mui-input-clear" placeholder="请输入年龄">
+				<input type="text"  v-model="student.studentage" class="mui-input-clear" placeholder="请输入年龄">
 			</div>
-
+			
 			<div class="mui-input-row" >
-				<label>上课时间：</label>
-				<input type="text" v-model="form.purchasedatatime" class="mui-input-clear" placeholder="请输入希望上课时间">
-			</div>
-
-			<div class="mui-input-row" >
-				<label>上课地点：</label>
-				<input type="text" v-model="form.purchaseaddress" class="mui-input-clear" placeholder="请输入希望上课地点">
+				<label>收据编号：</label>
+				<input type="text" v-model="student.studentdetails" class="mui-input-clear" placeholder="请输入收据编号">
 			</div>
 			
 			<div class="mui-input-row">
@@ -55,9 +50,9 @@
 			</div>
 
 			<div class="mui-input-row">
-				<label>选择课卡：</label>
-				<input type="text" v-model="classcardname" readonly >
-				<router-link class="mui-navigate-right" :to="{ name:'schoolclasscards',params: {courseid:courseid}}" tag="a" ></router-link>
+				<label>选择班级：</label>
+				<input type="text" v-model="classname" readonly >
+				<router-link class="mui-navigate-right" :to="{ name:'schoolclasses',params: {courseid:courseid}}" tag="a" ></router-link>
 			</div>
 			
 			<div class="mui-input-row">
@@ -67,17 +62,20 @@
 			</div>
 
 			<div class="mui-input-row" >
-				<label>支付方式：</label>
-				<input type="text" v-model="form.paydetails" class="mui-input-clear" placeholder="请输入支付方式">
-			</div>
-
-			<div class="mui-input-row" >
-				<label>预购备注：</label>
-				<input type="text" v-model="form.purchasedetails" class="mui-input-clear" placeholder="请输入预购备注">
+				<label>状态：</label> 
+				<div class=" mui-radio mui-pull-left mui-left">
+				  <input name="radio" type="radio" value="0" v-model="student.studentactive" >
+				  <label>其他</label>
+				</div>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<div class="mui-radio mui-pull-left mui-left">
+				  <input name="radio" type="radio" value="1" v-model="student.studentactive" >
+				  <label>在读</label>
+				</div>
 			</div>
 			
 			<div class="mui-button-row">
-				<button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit(purchase)" v-text="confirmText" ></button>
+				<button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
 			</div>
 			
 		</div>
@@ -127,44 +125,49 @@ import * as tool from 'src/js/util'
 export default {
   data() {
     return {
-      form: {
-		  purchaseid: '',
-		  purchasename: '',
-		  purchasemobile: '',
-		  purchaseusex: 1,
-		  purchaseage: '',
-		  purchasedetails: '',
-		  purchaseaddress: '',
-		  purchasedatatime: '',
-		  classcardid: '',
-		  paydetails: '',
-		  schoolid: 1,
-		  purchaseopenid: '',
-		  purchaseactive: 0,
-	  },
-	  classcardid: '',
-	  classcardname: '',
+      student: {},
+	  classid: '',
+	  classname : '',
 	  courseid: '',
 	  coursename: '',
 	  courses: [],
 	  schoolid: 1,
 	  schoolname: '广州萝岗万达店',
       schools: [],
+
 	  updatestatus: 0,
+
+	  oldclassid: '',
     }
   },
-  activated: function () {
-	if(this.$route.params != undefined)
-		this.form = this.$route.params;
-	else
-		return;
+  beforeRouteEnter (to, from, next) {
+    console.log(from);
+    next(vm => {
+		if(from.name == 'classstudents'){
+			if(this.$route.params != undefined)
+				this.student = this.$route.params;
+			else
+				return;
 
-	this.classcardid = this.$route.params.classcardid;
-	this.classcardname = this.$route.params.classcardname;
-	this.courseid = this.$route.params.courseid;
-	this.coursename = this.$route.params.coursename;
-	this.schoolid = this.$route.params.schoolid;
-	this.schoolname = this.$route.params.schoolname;
+			this.classid = this.$route.params.classid;
+			this.classname = this.$route.params.classname;
+			this.courseid = this.$route.params.courseid;
+			this.coursename = this.$route.params.coursename;
+			this.schoolid = this.$route.params.schoolid;
+			this.schoolname = this.$route.params.schoolname;
+
+			this.oldclassid = this.classid;
+
+		}else if(from.name == 'schoolclasses'){
+			if(this.$route.params.classid != undefined)
+				this.classid = this.$route.params.classid;
+
+			if(this.$route.params.classname != undefined)
+				this.classname = this.$route.params.classname;
+		}
+    });
+  },
+  activated: function () {
   },
   created() {
 	request.getcourses(this);
@@ -173,29 +176,27 @@ export default {
   computed: {
     confirmText() {
 		if (this.updatestatus == 0) {
-			return '更新预购';
+			return '更新';
 		}
-		
+
 		document.getElementById("submitid").disabled = "disabled"
-		
-		mui.toast('提交成功,请等待 :-)');
 		return '提交成功';
     }
   },
   methods: {
     submit() {
-		this.form.classcardid = this.classcardid;
-		this.form.schoolid = this.schoolid;
+		this.student.classid = this.classid;
+		this.student.schoolid = this.schoolid;
 		
-		if (this.form.purchasename == '' || this.form.purchasemobile == '' || this.form.classcardid == '')
+		if (this.student.studentname == '' || this.student.studentmobile == '' || this.student.classid == '')
 		{
-			mui.alert('姓名、电话、课程卡不能为空！', '向日葵艺术课卡预购', function() {
+			mui.alert('姓名、电话、班级不能为空！', '向日葵艺术学生管理', function() {
 						;
 					});
 			return;
 		}
 		
-		request.putpurchase(this);
+		request.putstudent(this);
     },
 	selectcourse(course){
 		this.courseid = course.courseid;

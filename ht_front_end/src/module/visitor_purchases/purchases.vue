@@ -2,7 +2,9 @@
 	<div>
 
 	<div class="mui-card">
-		<router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'purchase'}" tag="a" ></router-link>
+		<router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'purchase'}" tag="a" >
+		
+		</router-link>
 	</div>
 
 	<div class="mui-card" v-for="purchase in purchases" >

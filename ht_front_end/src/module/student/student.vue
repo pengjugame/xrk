@@ -137,7 +137,7 @@ export default {
 	if(this.$route.params.classid != undefined)
 		this.classid = this.$route.params.classid;
 
-	if(this.$route.params.classid != undefined)
+	if(this.$route.params.classname != undefined)
 		this.classname = this.$route.params.classname;
   },
   created() {

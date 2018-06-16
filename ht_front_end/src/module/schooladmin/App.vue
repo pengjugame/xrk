@@ -84,7 +84,7 @@ export default {
         schooladminid: '',
         schooladminname: '',
         schooladminmobile: '',
-        schooladminusex: '',
+        schooladminusex: 1,
         schoolid: '1',
         schooladminopenid: '',
         schooladminactive: 0,
