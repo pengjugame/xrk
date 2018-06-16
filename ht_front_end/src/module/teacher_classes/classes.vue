@@ -4,10 +4,11 @@
   <div class="mui-card" v-for="cla in classes" >
     <div class="mui-card-header">
       <label>{{cla.classname}}</label>
-      <a class="mui-action-back mui-btn mui-btn-link mui-pull-right">班级ID：{{cla.classid}}</a>
+      <label class="mui-action-back mui-pull-right">班级ID：{{cla.classid}}</label>
     </div>
 
     <div class="mui-card-content mui-input-group ">
+	
       <div class="mui-input-row">
         <label>课程名：</label>
         <input type="text" v-model="cla.coursename" readonly>
@@ -32,6 +33,11 @@
         <label>当前人数：</label>
         <input type="text" v-model="cla.classnumusers" readonly>
 	  </div>
+	  
+      <div class="mui-input-row">
+        <label>限制：</label>
+        <input type="text" v-model="cla.classdetails" readonly>
+      </div>
 
       <div class="mui-input-row" >
         <label>教师：</label>
@@ -61,16 +67,10 @@ import * as tool from 'src/js/util'
 export default {
   data() {
     return {
-      classes: [{classid:'1',classname:'testclass',coursename:'testcourse',classtime:'testtime',classaddress:'testaddress',
-				classmaxnumusers:'testmax',teachername:'testteachername',schoolname:'schoolname'}],
-	  init: 0
+      classes: [],
     }
   },
   created() {
-    if(this.init = 1)
-		return;
-	this.init = 1;
-	
 	request.getteacherclasses(this);
   },
   computed: {

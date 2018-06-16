@@ -21,11 +21,6 @@ export default new VueRouter({
 	  path: '/student',
 	  name: 'student',
 	  component: require("./student.vue")
-	},
-	{
-	  path: '/schoolclasses',
-	  name: 'schoolclasses',
-	  component: require("./schoolclasses.vue")
-	} 	
+	}	
   ]
 })

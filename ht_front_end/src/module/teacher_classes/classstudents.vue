@@ -8,7 +8,7 @@
 	<div class="mui-card" v-for="student in students" >
 		<div class="mui-card-header">
 			<label>学生记录</label>
-			<a class="active mui-pull-right">{{student.studentname}}</a>
+			<label class="mui-action-back mui-pull-right">{{student.studentname}}</label>
 		</div>
 
 		<div class="mui-card-content mui-input-group ">
@@ -62,10 +62,7 @@ import * as tool from 'src/js/util'
 export default {
   data() {
     return {
-      students: [{studentname:'studentname',studentmobile:'studentmobile',studentusex:1,
-				studentdetails:'studentdetails',classcardname:'classcardname',classname:'classname',studenttimes:3,studentmaxtimes:30},
-				{studentname:'studentname',studentmobile:'studentmobile',studentusex:0,
-				studentdetails:'studentdetails',classcardname:'classcardname',classname:'classname',studenttimes:3,studentmaxtimes:30}],
+      students: [],
     }
   },
   created() {
@@ -74,9 +71,11 @@ export default {
   computed: {
   },
   methods: {
+
     updatestudenttimes(student) {
       request.putstudenttimes(student);
     },
+	
 	minusplusstudenttimes(plus,student){
 	  if(plus === 1){
 		if((student.studenttimes + 1) <= student.studentmaxtimes)

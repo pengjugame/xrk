@@ -1,42 +1,51 @@
 <template>
 	<div>
 
+	<div class="mui-card">
+		<router-link class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'purchases'}" tag="a" ></router-link>
+	</div>
+
 	<div class="mui-card" >
-		<div class="mui-card-header">学生注册</div>
+		<div class="mui-card-header">向日葵艺术课卡预购修改</div>
 
 		<div class="mui-card-content mui-input-group ">
 
 			<div class="mui-input-row">
 				<label>姓名：</label>
-				<input type="text"  v-model="form.studentname" class="mui-input-clear" placeholder="请输入姓名" >
+				<input type="text"  v-model="form.purchasename" class="mui-input-clear" placeholder="请输入姓名" >
 			</div>
 			
 			<div class="mui-input-row">
 				<label>手机：</label>
-				<input type="text"  v-model="form.studentmobile" class="mui-input-clear" placeholder="请输入手机">
+				<input type="text"  v-model="form.purchasemobile" class="mui-input-clear" placeholder="请输入手机">
 			</div>
 
 			<div class="mui-input-row" >
 				<label>性别：</label> 
 				<div class=" mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="0" v-model="form.studentusex" >
+				  <input name="radio" type="radio" value="0" v-model="form.purchaseusex" >
 				  <label>男</label>
 				</div>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<div class="mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="1" v-model="form.studentusex" >
+				  <input name="radio" type="radio" value="1" v-model="form.purchaseusex" >
 				  <label>女</label>
 				</div>
 			</div>
 
 			<div class="mui-input-row">
 				<label>年龄：</label>
-				<input type="text"  v-model="form.studentage" class="mui-input-clear" placeholder="请输入年龄">
+				<input type="text"  v-model="form.purchaseage" class="mui-input-clear" placeholder="请输入年龄">
 			</div>
-			
+
 			<div class="mui-input-row" >
-				<label>收据编号：</label>
-				<input type="text" v-model="form.studentdetails" class="mui-input-clear" placeholder="请输入收据编号">
+				<label>上课时间：</label>
+				<input type="text" v-model="form.purchasedatatime" class="mui-input-clear" placeholder="请输入希望上课时间">
+			</div>
+
+			<div class="mui-input-row" >
+				<label>上课地点：</label>
+				<input type="text" v-model="form.purchaseaddress" class="mui-input-clear" placeholder="请输入希望上课地点">
 			</div>
 			
 			<div class="mui-input-row">
@@ -46,9 +55,9 @@
 			</div>
 
 			<div class="mui-input-row">
-				<label>选择班级：</label>
-				<input type="text" v-model="classname" readonly >
-				<router-link class="mui-navigate-right" :to="{ name:'schoolclasses',params: {courseid:courseid}}" tag="a" ></router-link>
+				<label>选择课卡：</label>
+				<input type="text" v-model="classcardname" readonly >
+				<router-link class="mui-navigate-right" :to="{ name:'schoolclasscards',params: {courseid:courseid}}" tag="a" ></router-link>
 			</div>
 			
 			<div class="mui-input-row">
@@ -56,9 +65,19 @@
 				<input type="text" value="广州萝岗万达店" v-model="schoolname" readonly >
 				<a href="#middlePopover" class="mui-navigate-right" ></a>
 			</div>
+
+			<div class="mui-input-row" >
+				<label>支付方式：</label>
+				<input type="text" v-model="form.paydetails" class="mui-input-clear" placeholder="请输入支付方式">
+			</div>
+
+			<div class="mui-input-row" >
+				<label>预购备注：</label>
+				<input type="text" v-model="form.purchasedetails" class="mui-input-clear" placeholder="请输入预购备注">
+			</div>
 			
 			<div class="mui-button-row">
-				<button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
+				<button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit(purchase)" v-text="confirmText" ></button>
 			</div>
 			
 		</div>
@@ -109,79 +128,74 @@ export default {
   data() {
     return {
       form: {
-		  studentid: '',
-		  studentname: '',
-		  studentmobile: '',
-		  studentusex: 1,
-		  studentage: '',
-		  studentdetails: '',
+		  purchaseid: '',
+		  purchasename: '',
+		  purchasemobile: '',
+		  purchaseusex: 1,
+		  purchaseage: '',
+		  purchasedetails: '',
+		  purchaseaddress: '',
+		  purchasedatatime: '',
 		  classcardid: '',
-		  classid: '',
+		  paydetails: '',
 		  schoolid: 1,
-		  studentopenid: '',
-		  studenttimes: 0,
-		  studentmaxtimes: 0,
-		  studentactive: 0,
+		  purchaseopenid: '',
+		  purchaseactive: 0,
 	  },
-	  classid: '',
-	  classname : '',
+	  classcardid: '',
+	  classcardname: '',
 	  courseid: '',
 	  coursename: '',
 	  courses: [],
 	  schoolid: 1,
 	  schoolname: '广州萝岗万达店',
       schools: [],
+	  updatestatus: 0,
     }
   },
   activated: function () {
-	if(this.$route.params.classid != undefined)
-		this.classid = this.$route.params.classid;
+	if(this.$route.params.form != undefined)
+		this.form = this.$route.params;
+	else
+		return;
 
-	if(this.$route.params.classid != undefined)
-		this.classname = this.$route.params.classname;
+	this.classcardid = this.$route.params.classcardid;
+	this.classcardname = this.$route.params.classcardname;
+	this.courseid = this.$route.params.courseid;
+	this.coursename = this.$route.params.coursename;
+	this.schoolid = this.$route.params.schoolid;
+	this.schoolname = this.$route.params.schoolname;
   },
   created() {
-	
 	request.getcourses(this);
     request.getschools(this);
   },
   computed: {
     confirmText() {
-		if (this.form.studentid == '') {
-			return '确定';
+		if (this.updatestatus == 0) {
+			return '更新预购';
 		}
-
-		if (this.form.studentid == -1 ) {
-			mui.alert('电话、收据重复！', '向日葵艺术学生注册', function() {
-				;
-			});
-			return '确定';
-		}
-
+		
 		document.getElementById("submitid").disabled = "disabled"
 		
-		if (this.form.studentactive == 0) {
-			mui.toast('提交成功,请等待 :-)');
-			return '提交成功';
-		}
-
-		return '注册成功';
+		mui.toast('提交成功,请等待 :-)');
+		return '提交成功';
     }
   },
   methods: {
     submit() {
-		this.form.classid = this.classid;
+		this.form.classcardid = this.classcardid;
 		this.form.schoolid = this.schoolid;
 		
-		if (this.form.studentname == '' || this.form.studentmobile == '' || this.form.classid == '')
+		if (this.form.purchasename == '' || this.form.purchasemobile == '' || this.form.classcardid == '')
 		{
-			mui.alert('姓名、电话、班级不能为空！', '向日葵艺术学生注册', function() {
+			mui.alert('姓名、电话、课程卡不能为空！', '向日葵艺术课卡预购', function() {
 						;
 					});
 			return;
 		}
 		
-		request.poststudent(this);
+		request.putpurchase(this);
     },
 	selectcourse(course){
 		this.courseid = course.courseid;

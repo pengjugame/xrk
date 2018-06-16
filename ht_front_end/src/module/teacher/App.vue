@@ -54,19 +54,23 @@
 		<div class="mui-card-footer">向日葵艺术</div>
 	</div>
 
-  <div id="middlePopover" class="mui-popover">
-    <div class="mui-popover-arrow"></div>
-    <div class="mui-scroll-wrapper">
-      <div class="mui-scroll">
-        <ul id="schoolsid" class="mui-table-view">
-          <template v-for="school in schools">
-            <li class="mui-table-view-cell mui-selected" v-if="school.schoolname == schoolname"  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
-            <li class="mui-table-view-cell " v-else  v-bind:value="school.schoolid" >{{school.schoolname}}</li>
-          </template>
-        </ul>
-      </div>
-    </div>
-  </div>
+	<div id="middlePopover" class="mui-popover">
+		<div class="mui-popover-arrow"></div>
+		<div class="mui-scroll-wrapper">
+		  <div class="mui-scroll">
+			<ul class="mui-table-view mui-table-view-radio">
+				<template v-for="school in schools">
+					<li class="mui-table-view-cell mui-selected" v-if="school.schoolid == schoolid"  v-on:click="getschool(school)" >
+						<a class="mui-navigate-right">{{school.schoolname}}</a>
+					</li>
+					<li class="mui-table-view-cell" v-if="school.schoolid == schoolid"  v-on:click="getschool(school)" >
+						<a class="mui-navigate-right">{{school.schoolname}}</a>
+					</li>
+				</template>
+			</ul>
+		  </div>
+		</div>
+	</div>
 
 </div>
 </template>
@@ -87,6 +91,7 @@ export default {
         teacheropenid: '',
         teacheractive: 0,
       },
+	    schoolid: '1',
       schoolname: '广州萝岗万达店',
       schools: [],
 	  textDisable: false,
@@ -113,6 +118,8 @@ export default {
   },
   methods: {
     submit() {
+			this.form.schoolid = this.schoolid;
+			
       if (this.form.teachername == '' || this.form.teachermobile == '')
       {
         mui.alert('姓名、电话不能为空！', '向日葵艺术教师注冊', function() {
@@ -122,7 +129,11 @@ export default {
       }
 
       request.postteacher(this);
-    }
+    },
+	getschool(school){
+		this.schoolid = school.schoolid;
+		this.schoolname = school.schoolname;
+	},
   },
   mounted() {
     mui.init();

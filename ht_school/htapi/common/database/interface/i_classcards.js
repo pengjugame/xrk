@@ -17,6 +17,15 @@ exports.select_classcard_active = function() {
     });
 }
 
+exports.select_classcard_active_by_course = function(courseid) {
+    return co(function*() {
+        if (is_empty(courseid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.classcards.select_classcard_active_by_course, [courseid]);
+    });
+}
+
 exports.select_student_classcards = function(studentid) {
     return co(function*() {
         if (!verify_openid(studentid)) {
@@ -67,7 +76,7 @@ exports.update_classcard_base = function(classcard) {
         if (is_empty(classcard) || is_empty(classcard.classcardid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.classcards.update_classcard_base, [classcard.classcardname , classcard.classcardprice , classcard.classcardtimes , classcard.classcardtime , classcard.courseid , classcard.classcardid]);
+        return operate_db(sql.classcards.update_classcard_base, [classcard.classcardname , classcard.classcardprice , classcard.classcardtimes , classcard.classcardtime , classcard.courseid , classcard.classcarddetails , classcard.classcardid]);
     });
 }
 

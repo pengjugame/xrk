@@ -139,6 +139,7 @@ CREATE TABLE `xrk_classcards` (
   `classcardtimes` int(1) NOT NULL COMMENT '课时次数',
   `classcardtime` int(1) NOT NULL COMMENT '课时分钟',
   `courseid` INT UNSIGNED COMMENT '课程ID',
+  `classcarddetails` varchar(1024) COMMENT '课卡备注',
   `classcardactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '有效1,失效0',
   UNIQUE  (`classcardname`),
   FOREIGN KEY (`courseid`) REFERENCES xrk_courses(`courseid`)
@@ -158,6 +159,7 @@ CREATE TABLE `xrk_students` (
   `studentname` varchar(16) NOT NULL COMMENT '学生姓名',
   `studentmobile` varchar(20) NOT NULL COMMENT '手机号码',
   `studentusex` tinyint(1) NOT NULL DEFAULT '2' COMMENT '0 未知 1 男 2 女,性,值为0时是未知,',
+  `studentage` varchar(16) COMMENT '学生年龄',
   `studentdetails` varchar(1024) COMMENT '学生介绍',
   `classcardid` INT UNSIGNED COMMENT '课卡ID',
   `classid` INT UNSIGNED COMMENT '班级ID',
@@ -185,6 +187,7 @@ CREATE TABLE `xrk_purchases` (
   `purchasename` varchar(16) NOT NULL COMMENT '预学生姓名',
   `purchasemobile` varchar(20) NOT NULL COMMENT '手机号码',
   `purchaseusex` tinyint(1) NOT NULL DEFAULT '2' COMMENT '0 未知 1 男 2 女,性,值为0时是未知,',
+  `purchaseage` varchar(16) COMMENT '预学生年龄',
   `purchasedetails` varchar(1024) COMMENT '预学生介绍',
   `classcardid` INT UNSIGNED NOT NULL COMMENT '课卡ID',
   `purchaseaddress` varchar(200) COMMENT '上课地址',

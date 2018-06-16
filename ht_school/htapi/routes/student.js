@@ -69,6 +69,7 @@ router.post('/student', function(req, res, next) {
             "studentname": req.body.studentname,
             "studentmobile": req.body.studentmobile,
             "studentusex": req.body.studentusex,
+            "studentage": req.body.studentage,
             "studentdetails": req.body.studentdetails,
 			"classid": req.body.classid,
             "schoolid": req.body.schoolid,

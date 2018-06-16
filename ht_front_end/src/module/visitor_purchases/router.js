@@ -14,8 +14,22 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'visitor_purchases',
-      component: require("./App.vue")
+      name: 'purchases',
+      component: require("./purchases.vue")
+    },
+    {
+      path: '/purchase',
+      name: 'purchase',
+      component: require("./purchase.vue")
+    },{
+      path: '/modpurchase',
+      name: 'modpurchase',
+      component: require("./modpurchase.vue")
+    },
+    {
+      path: '/schoolclasscards',
+      name: 'schoolclasscards',
+      component: require("./schoolclasscards.vue")
     }
   ]
 })

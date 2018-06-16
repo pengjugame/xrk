@@ -25,6 +25,19 @@ router.get('/classcards', function(req, res, next) {
     });
 });
 
+router.get('/classcardsbycourse', function(req, res, next) {
+    return co(function*() {
+        const classcard_res = yield i_classcards.select_classcard_active_by_course(req.query.courseid);
+        if (!res_have_result(classcard_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        res.send(classcard_res.result);
+        return Promise.resolve(true);
+    });
+});
+
 router.post('/classcard', function(req, res, next) {
     return co(function*() {
         const userinfo = get_userinfo(req.session);
@@ -45,6 +58,7 @@ router.post('/classcard', function(req, res, next) {
 			"classcardtimes": req.body.classcardtimes,
 			"classcardtime": req.body.classcardtime,
             "courseid": req.body.courseid,
+            "classcarddetails": req.body.classcarddetails,
             "classcardactive": 1
         }
 

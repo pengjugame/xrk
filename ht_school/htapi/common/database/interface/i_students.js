@@ -80,7 +80,7 @@ exports.update_student_base = function(student) {
             !verify_openid(student.studentid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.students.update_student_base, [student.studentname,student.studentmobile,student.studentusex,student.studentdetails,student.classcardid,student.classid,student.schoolid,student.studenttimes,student.studentmaxtimes,student.studentid]);
+        return operate_db(sql.students.update_student_base, [student.studentname,student.studentmobile,student.studentusex,student.studentage,student.studentdetails,student.classcardid,student.classid,student.schoolid,student.studenttimes,student.studentmaxtimes,student.studentid]);
     });
 }
 

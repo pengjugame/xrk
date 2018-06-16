@@ -49,11 +49,39 @@ export const getclasscards = (vm) => {
   })
 }
 
+export const getvisitorpurchases = (vm) => {
+  userInfo().then((res) => {
+    http.get(route.studentpurchases).then((res) => {
+      if (res_is_success(res)) {
+        vm.purchases = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
 export const postpurchase = (vm) => {
   userInfo().then((res) => {
     http.post(route.purchase, vm.form).then((res) => {
       if (res_is_success(res)) {
         vm.form.purchaseid = res.data.purchaseid
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putpurchase = (vm) => {
+  userInfo().then((res) => {
+    http.put(route.purchase, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.updatestatus = res.data.updatestatus;
       }
     }, (err) => {
       console.log(err);
@@ -367,6 +395,18 @@ export const getclassesbycourse = (vm,courseid) => {
     http.get(route.classesbycourse,params).then((res) => {
       if (res_is_success(res)) {
         vm.classes = res.data
+      }
+    }, (err) => {
+      console.log(err);
+    })
+}
+
+export const getclasscardsbycourse = (vm,courseid) => {
+	let params = {}
+	params.courseid = courseid
+    http.get(route.classcardsbycourse,params).then((res) => {
+      if (res_is_success(res)) {
+        vm.classcards = res.data
       }
     }, (err) => {
       console.log(err);

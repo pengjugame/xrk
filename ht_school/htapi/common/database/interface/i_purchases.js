@@ -77,7 +77,7 @@ exports.update_purchase_base = function(purchase) {
             return Promise.resolve(null);
         }
         return operate_db(sql.purchases.update_purchase_base, 
-        [purchase.purchasename , purchase.purchasemobile , purchase.purchaseusex , purchase.purchasedetails , purchase.purchaseaddress , 
+        [purchase.purchasename , purchase.purchasemobile , purchase.purchaseusex , purchase.purchaseage , purchase.purchasedetails , purchase.purchaseaddress , 
         purchase.purchasedatatime , purchase.schoolid , purchase.classcardid , purchase.paydetails , purchase.purchaseid]);
     });
 }
