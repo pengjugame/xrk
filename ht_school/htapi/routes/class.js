@@ -103,8 +103,6 @@ router.get('/classesbycourse', function(req, res, next) {
             return Promise.resolve(null);
         }*/
 		
-		console.log(req.query.courseid);
-		
         const class_res = yield i_classes.select_school_classes_by_course(req.query.courseid,1);
         if (!res_have_result(class_res)) {
             res.send(htapi_code(false));
@@ -153,7 +151,6 @@ router.post('/class', function(req, res, next) {
         response = htapi_code(true);
         response["classid"] = class_res.result.insertId;
         res.send(response);
-
         return Promise.resolve(true);
     });
 });
@@ -178,7 +175,38 @@ router.put('/class', function(req, res, next) {
             return Promise.resolve(null);
         }
         
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["updatestatus"] = 1;
+        res.send(response);
+        return Promise.resolve(true);
+    });
+});
+
+router.delete('/class', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        if (!res_have_result(admin_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const class_res = yield i_classes.delete_class(req.body.classid);
+        if (!res_is_success(class_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+        
+        var response = ""
+        response = htapi_code(true);
+        response["delstatus"] = 1;
+        res.send(response);
         return Promise.resolve(true);
     });
 });
@@ -203,7 +231,10 @@ router.put('/classactive', function(req, res, next) {
             return Promise.resolve(null);
         }
         
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["classactive"] = req.body.classactive;
+        res.send(response);
         return Promise.resolve(true);
     });
 });

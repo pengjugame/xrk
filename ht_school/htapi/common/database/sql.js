@@ -62,7 +62,7 @@ function delete_school() {
 }
 
 function update_school_base() {
-    return "update xrk_schools set schoolname = ?, schooladdress = ?, schoolleader = ?, schoolmobile = ? where schoolid =  ? "
+    return "update xrk_schools set schoolname = ?, schooladdress = ?, schoolleader = ?, schoolmobile = ? , schoolactive = ? where schoolid =  ? "
 }
 
 function active_school() {
@@ -110,7 +110,7 @@ function add_schooladmin() {
 }
 
 function update_schooladmin_base() {
-    return "update xrk_schooladmins SET schooladminname = ?, schooladminmobile = ?, schooladminusex = ? , schoolid = ? where schooladminid = ? "
+    return "update xrk_schooladmins SET schooladminname = ?, schooladminmobile = ?, schooladminusex = ? , schoolid = ? , schooladminactive = ? where schooladminid = ? "
 }
 
 function active_schooladmin() {
@@ -157,7 +157,7 @@ function add_teacher() {
 }
 
 function update_teacher_base() {
-    return "update xrk_teachers SET teachername = ?, teachermobile = ?, teacherusex = ? , teacherdetails = ?, schoolid = ? where teacherid = ?  "
+    return "update xrk_teachers SET teachername = ?, teachermobile = ?, teacherusex = ? , teacherdetails = ?, schoolid = ? , teacheractive = ? where teacherid = ?  "
 }
 
 function active_teacher() {
@@ -250,7 +250,7 @@ function add_student() {
 }
 
 function update_student_base() {
-    return "update xrk_students set studentname = ? , studentmobile = ? , studentusex = ? , studentage = ? , studentdetails = ? , classcardid = ? , classid = ? , schoolid = ? , studenttimes = ?, studentmaxtimes = ?, where studentid = ? "
+    return "update xrk_students set studentname = ? , studentmobile = ? , studentusex = ? , studentage = ? , studentdetails = ? , classcardid = ? , classid = ? , schoolid = ? , studenttimes = ?, studentmaxtimes = ?, studentactive = ? where studentid = ? "
 }
 
 function update_student_times() {
@@ -302,7 +302,7 @@ function delete_course() {
 }
 
 function update_course_base() {
-    return "update xrk_courses set coursename = ? , coursedetails = ? where courseid = ? "
+    return "update xrk_courses set coursename = ? , coursedetails = ? , courseactive = ? where courseid = ? "
 }
 
 function active_course() {
@@ -443,7 +443,7 @@ function delete_class() {
 }
 
 function update_class_base() {
-    return "update xrk_classes set classname = ? , classdate = ? , classtime = ? , courseid = ? , classmaxnumusers = ? , classnumusers = ? , classdetails = ? , teacherid = ? , schoolid = ? where classid = ? "
+    return "update xrk_classes set classname = ? , classdate = ? , classtime = ? , courseid = ? , classmaxnumusers = ? , classnumusers = ? , classdetails = ? , teacherid = ? , schoolid = ? , classactive = ? where classid = ? "
 }
 
 function update_class_numusers() {
@@ -546,7 +546,7 @@ function delete_classcard() {
 }
 
 function update_classcard_base() {
-    return "update xrk_classcards SET classcardname = ? , classcardprice = ? , classcardtimes = ? , classcardtime = ? , courseid = ? , classcarddetails = ? where classcardid = ? "
+    return "update xrk_classcards SET classcardname = ? , classcardprice = ? , classcardtimes = ? , classcardtime = ? , courseid = ? , classcarddetails = ? , classcardactive = ? where classcardid = ? "
 }
 
 function active_classcard() {
@@ -640,7 +640,7 @@ function delete_purchase() {
 }
 
 function update_purchase_base() {
-    return "update xrk_purchases SET purchasename = ?, purchasemobile = ?, purchaseusex = ? , purchaseage = ? ,  purchasedetails = ?, purchaseaddress = ?, purchasedatatime = ?, schoolid = ?, classcardid = ?, paydetails = ? where purchaseid = ?  "
+    return "update xrk_purchases SET purchasename = ?, purchasemobile = ?, purchaseusex = ? , purchaseage = ? ,  purchasedetails = ?, purchaseaddress = ?, purchasedatatime = ?, schoolid = ?, classcardid = ?, paydetails = ?, purchaseactive = ? where purchaseid = ?  "
 }
 
 function active_purchase() {

@@ -64,7 +64,7 @@ exports.add_purchase = function(purchase) {
 
 exports.delete_purchase = function(purchaseid) {
     return co(function*() {
-        if (!verify_openid(purchaseid)) {
+        if (is_empty(purchaseid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.purchases.delete_purchase, [purchaseid]);
@@ -73,18 +73,18 @@ exports.delete_purchase = function(purchaseid) {
 
 exports.update_purchase_base = function(purchase) {
     return co(function*() {
-        if (is_empty(purchase) || !verify_openid(purchase.purchaseid)) {
+        if (is_empty(purchase) || is_empty(purchase.purchaseid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.purchases.update_purchase_base, 
         [purchase.purchasename , purchase.purchasemobile , purchase.purchaseusex , purchase.purchaseage , purchase.purchasedetails , purchase.purchaseaddress , 
-        purchase.purchasedatatime , purchase.schoolid , purchase.classcardid , purchase.paydetails , purchase.purchaseid]);
+        purchase.purchasedatatime , purchase.schoolid , purchase.classcardid , purchase.paydetails , purchase.purchaseactive , purchase.purchaseid]);
     });
 }
 
 exports.active_purchase = function(paytime,studentid,purchaseid) {
     return co(function*() {
-        if (is_empty(paytime) || !verify_openid(studentid) || !verify_openid(purchaseid)) {
+        if (is_empty(paytime) || is_empty(studentid) || is_empty(purchaseid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.purchases.active_purchase, [paytime,studentid,purchaseid]);

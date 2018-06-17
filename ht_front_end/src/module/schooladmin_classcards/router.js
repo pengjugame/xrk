@@ -14,8 +14,17 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'schooladmin_classcards',
-      component: require("./App.vue")
-    }
+      name: 'classcards',
+      component: require("./classcards.vue")
+    },
+    {
+      path: '/modclasscard',
+      name: 'modclasscard',
+      component: require("./modclasscard.vue")
+    },{
+      path: '/classcard',
+      name: 'classcard',
+      component: require("./classcard.vue")
+    },
   ]
 })

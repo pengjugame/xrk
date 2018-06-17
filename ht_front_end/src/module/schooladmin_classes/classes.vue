@@ -1,6 +1,10 @@
 <template>
-
   <div>
+
+	<div class="mui-card">
+		<router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'class'}" tag="a" ></router-link>
+	</div>
+
   <div class="mui-card" v-for="cla in classes" >
     <div class="mui-card-header">
       <label>{{cla.classname}}</label>
@@ -27,37 +31,37 @@
       <div class="mui-input-row" >
         <label>最大人数：</label>
         <input type="text" v-model="cla.classmaxnumusers" readonly>
-	  </div>
+	  	</div>
 
       <div class="mui-input-row" >
         <label>当前人数：</label>
         <input type="text" v-model="cla.classnumusers" readonly>
-	  </div>
+	  	</div>
 	  
       <div class="mui-input-row">
-        <label>限制：</label>
+        <label>班级备注：</label>
         <input type="text" v-model="cla.classdetails" readonly>
       </div>
 
       <div class="mui-input-row" >
         <label>教师：</label>
         <input type="text" v-model="cla.teachername" readonly>
-	  </div>
+	  	</div>
 
       <div class="mui-input-row" >
         <label>校区：</label>
         <input type="text" v-model="cla.schoolname" readonly>
-	  </div>
+	  	</div>
 
     </div>
 	
     <div class="mui-card-footer">
-	  <label>向日葵艺术</label>
-      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'classstudents', params: cla }" tag="button" >学生管理</router-link>
+	  	<label>向日葵艺术</label>
+      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'modclass', params: cla }" tag="button" >修改班级</router-link>
     </div>
   </div>
-  </div>
 
+  </div>
 </template>
 
 <script>
@@ -70,8 +74,10 @@ export default {
       classes: [],
     }
   },
-  created() {
+  activated: function () {
 	  request.getclasses(this);
+  },
+  created() {
   },
   computed: {
   },

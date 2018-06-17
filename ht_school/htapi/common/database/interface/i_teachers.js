@@ -52,17 +52,17 @@ exports.add_teacher = function(teacher) {
 exports.update_teacher_base = function(teacher) {
     return co(function*() {
         if (is_empty(teacher) || 
-            !verify_openid(teacher.teacherid)) {
+            is_empty(teacher.teacherid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.teachers.update_teacher_base, [teacher.teachername,teacher.teachermobile,teacher.teacherusex,teacher.teacherdetails,teacher.schoolid,teacher.teacherid]);
+        return operate_db(sql.teachers.update_teacher_base, [teacher.teachername,teacher.teachermobile,teacher.teacherusex,teacher.teacherdetails,teacher.schoolid,teacher.teacheractive,teacher.teacherid]);
     });
 }
 
 exports.active_teacher = function(state,teacherid) {
     return co(function*() {
         if (is_empty(state) ||
-            !verify_openid(teacherid)) {
+            is_empty(teacherid)) {
             return Promise.resolve(null);
         }
         return operate_db(state?sql.teachers.active_teacher:sql.teachers.deactive_teacher, [teacherid]);

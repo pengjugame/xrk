@@ -14,8 +14,18 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'schooladmin_purchases',
-      component: require("./App.vue")
-    }
+      name: 'purchases',
+      component: require("./purchases.vue")
+    },
+    {
+      path: '/modpurchase',
+      name: 'modpurchase',
+      component: require("./modpurchase.vue")
+    },
+    {
+      path: '/schoolclasscards',
+      name: 'schoolclasscards',
+      component: require("./schoolclasscards.vue")
+    },
   ]
 })

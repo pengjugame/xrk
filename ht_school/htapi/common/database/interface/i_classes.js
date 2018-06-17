@@ -37,7 +37,7 @@ exports.select_student_classes = function(openid) {
 
 exports.select_teacher_classes = function(teacherid) {
     return co(function*() {
-        if (!verify_openid(teacherid)) {
+        if (is_empty(teacherid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.classes.select_teacher_classes, [teacherid]);
@@ -46,7 +46,7 @@ exports.select_teacher_classes = function(teacherid) {
 
 exports.select_school_classes = function(schoolid) {
     return co(function*() {
-        if (!verify_openid(schoolid)) {
+        if (is_empty(schoolid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.classes.select_school_classes, [schoolid]);
@@ -55,7 +55,7 @@ exports.select_school_classes = function(schoolid) {
 
 exports.select_school_classes_by_course = function(courseid,schoolid) {
     return co(function*() {
-        if (!verify_openid(courseid) || !verify_openid(schoolid)) {
+        if (is_empty(courseid) || is_empty(schoolid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.classes.select_school_classes_by_course, [courseid,schoolid]);
@@ -103,7 +103,7 @@ exports.update_class_base = function(cla) {
         if (is_empty(cla) || is_empty(cla.classid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.classes.update_class_base, [cla.classname , cla.classdate , cla.classtime , cla.courseid , cla.classmaxnumusers , cla.classnumusers , cla.classdetails , cla.teacherid , cla.schoolid , cla.classid]);
+        return operate_db(sql.classes.update_class_base, [cla.classname , cla.classdate , cla.classtime , cla.courseid , cla.classmaxnumusers , cla.classnumusers , cla.classdetails , cla.teacherid , cla.schoolid , cla.classactive , cla.classid]);
     });
 }
 

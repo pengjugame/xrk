@@ -40,13 +40,13 @@
             title: "教师申请表",
             description: "请认真填写完成并提交审核",
             picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
-            url: "http://119.29.90.92/static/teacher_register.html"
+            url: "http://119.29.90.92/static/teacher.html"
         },
         admin_register: {
             title: "管理员申请表",
             description: "请认真填写完成并提交审核",
             picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
-            url: "http://119.29.90.92/static/admin_register.html"
+            url: "http://119.29.90.92/static/schooladmin.html"
         },
         parent_register: {
             title: "入学登记表",
@@ -105,7 +105,7 @@
                     {
                     "type": "view",
                     "name": "向舞地址",
-                    "url": "http://119.29.90.92/static/visitor_purchases.html"
+                    "url": "https://mp.weixin.qq.com/s/ihnwybY_DxmbXduIvP6O8g"
                     }, {
                     "type": "view",
                     "name": "课程简介",
@@ -141,13 +141,9 @@
                 "name": "向舞管理",
                 "sub_button":[
                     {
-                    "name": "正式报名",
+                    "name": "购买课卡",
                     "type": "view",
-                    "url": "http://119.29.90.92/static/parent_register.html"
-                    }, {
-                    "name": "免费体验",
-                    "type": "view",
-                    "url": "http://119.29.90.92/static/appointment.html"
+                    "url": "http://119.29.90.92/static/visitor_purchases.html"
                     }
                 ]
             }]
@@ -195,9 +191,9 @@
                 "name": "向舞管理",
                 "sub_button":[
                     {
-                    "name": "接送信息",
+                    "name": "学生信息",
                     "type": "view",
-                    "url": "http://119.29.90.92/static/parent_check.html"
+                    "url": "http://119.29.90.92/static/student_classes.html"
                     }
                 ]
             }],
@@ -248,17 +244,9 @@
                 "name": "向舞管理",
                 "sub_button":[
                     {
-                    "name": "预约管理",
+                    "name": "学生管理",
                     "type": "view",
-                    "url": "http://119.29.90.92/static/appointment_verification.html"
-                    },{
-                    "name": "接送信息",
-                    "type": "view",
-                    "url": "http://119.29.90.92/static/teacher_check.html"
-                    },{
-                    "name": "接送扫码",
-                    "type": "scancode_waitmsg",
-                    "key": "scan_code_check"
+                    "url": "http://119.29.90.92/static/teacher_classes.html"
                     }
                 ]
             }],
@@ -273,7 +261,7 @@
                     {
                     "type": "view",
                     "name": "向舞地址",
-                    "url": "http://119.29.90.92/static/visitor_purchases.html"
+                    "url": "https://mp.weixin.qq.com/s/ihnwybY_DxmbXduIvP6O8g"
                     }, {
                     "type": "view",
                     "name": "课程简介",
@@ -309,13 +297,29 @@
                 "name": "向舞管理",
                 "sub_button":[
                     {
-                    "name": "教师审核",
+                    "name": "教师管理",
                     "type": "view",
-                    "url": "http://119.29.90.92/static/teacher_verification.html"
+                    "url": "http://119.29.90.92/static/schooladmin_teachers.html"
                     },{
-                    "name": "报名审核",
+                    "name": "学生管理",
                     "type": "view",
-                    "url": "http://119.29.90.92/static/parent_verification.html"
+                    "url": "http://119.29.90.92/static/schooladmin_students.html"
+                    },{
+                    "name": "课程管理",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/schooladmin_courses.html"
+                    },{
+                    "name": "课卡管理",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/schooladmin_classcards.html"
+                    },{
+                    "name": "班级管理",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/schooladmin_classes.html"
+                    },{
+                    "name": "预购管理",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/schooladmin_purchases.html"
                     }
                 ]
             }],

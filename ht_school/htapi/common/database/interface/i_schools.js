@@ -54,7 +54,7 @@ exports.update_school_base = function(school) {
         if (is_empty(school) || is_empty(school.schoolid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.schools.update_school_base, [school.schoolname, school.schooladdress, school.schoolleader, school.schoolmobile, school.schoolid]);
+        return operate_db(sql.schools.update_school_base, [school.schoolname, school.schooladdress, school.schoolleader, school.schoolmobile,school.schoolactive, school.schoolid]);
     });
 }
 

@@ -76,7 +76,7 @@ router.post('/purchase', function(req, res, next) {
             "purchasename": req.body.purchasename,
             "purchasemobile": req.body.purchasemobile,
             "purchaseusex": req.body.purchaseusex,
-			"purchase": req.body.purchase,
+			"purchaseage": req.body.purchaseage,
             "purchasedetails": req.body.purchasedetails,
             "classcardid": req.body.classcardid,
             "purchaseaddress": req.body.purchaseaddress,
@@ -96,7 +96,34 @@ router.post('/purchase', function(req, res, next) {
         response = htapi_code(true);
         response["purchaseid"] = purchase_res.result.insertId;
         res.send(response);
+        return Promise.resolve(true);
+    });
+});
 
+router.put('/purchase', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        if (!res_have_result(admin_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const purchase_res = yield i_purchases.update_purchase_base(req.body);
+        if (!res_is_success(purchase_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+        
+        var response = ""
+        response = htapi_code(true);
+        response["updatestatus"] = 1;
+        res.send(response);
         return Promise.resolve(true);
     });
 });
@@ -148,7 +175,6 @@ router.put('/purchaseactive', function(req, res, next) {
         response = htapi_code(true);
         response["purchaseactive"] = 1;
         res.send(response);
-
         return Promise.resolve(true);
     });
 });

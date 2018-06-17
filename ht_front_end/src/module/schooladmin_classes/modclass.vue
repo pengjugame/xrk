@@ -2,47 +2,38 @@
 	<div>
 
 	<div class="mui-card">
-		<router-link class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classsstudents', params: {classid:oldclassid} }" tag="a" ></router-link>
+		<router-link class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classes'}" tag="a" ></router-link>
 	</div>
 
-	<div class="mui-card" >
-		<div class="mui-card-header">学生管理</div>
+  <div class="mui-card" >
+    <div class="mui-card-header">向日葵艺术班级修改</div>
+    
+    <div class="mui-card-content mui-input-group ">
+      <div class="mui-input-row">
+        <label>班级名称：</label>
+        <input type="text" class="mui-input-clear" placeholder="请输入班级名称" v-model="cla.classname" >
+      </div>
 
-		<div class="mui-card-content mui-input-group ">
+      <div class="mui-input-row">
+        <label>上课日期：</label>
+        <input type="text" class="mui-input-clear" placeholder="请输入上课日期" v-model="cla.classdata" >
+      </div>
 
-			<div class="mui-input-row">
-				<label>姓名：</label>
-				<input type="text"  v-model="student.studentname" class="mui-input-clear" placeholder="请输入姓名" >
-			</div>
-			
-			<div class="mui-input-row">
-				<label>手机：</label>
-				<input type="text"  v-model="student.studentmobile" class="mui-input-clear" placeholder="请输入手机">
-			</div>
+      <div class="mui-input-row">
+        <label>上课时间：</label>
+        <input type="text" class="mui-input-clear" placeholder="请输入上课时间" v-model="cla.classtime" >
+      </div>
+
+      <div class="mui-input-row">
+        <label>上课人数：</label>
+        <input type="text" class="mui-input-clear" placeholder="请输入上课人数" v-model="cla.classmaxnumusers" >
+      </div>
 
 			<div class="mui-input-row" >
-				<label>性别：</label> 
-				<div class=" mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="0" v-model="student.studentusex" >
-				  <label>男</label>
-				</div>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<div class="mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="1" v-model="student.studentusex" >
-				  <label>女</label>
-				</div>
+				<label>班级备注：</label>
+				<input type="text" v-model="cla.classdetails" class="mui-input-clear" placeholder="请输入班级备注">
 			</div>
 
-			<div class="mui-input-row">
-				<label>年龄：</label>
-				<input type="text"  v-model="student.studentage" class="mui-input-clear" placeholder="请输入年龄">
-			</div>
-			
-			<div class="mui-input-row" >
-				<label>备注：</label>
-				<input type="text" v-model="student.studentdetails" class="mui-input-clear" placeholder="请输入备注">
-			</div>
-			
 			<div class="mui-input-row">
 				<label>选择课程：</label>
 				<input type="text" v-model="coursename" readonly>
@@ -50,9 +41,9 @@
 			</div>
 
 			<div class="mui-input-row">
-				<label>选择班级：</label>
-				<input type="text" v-model="classname" readonly >
-				<router-link class="mui-navigate-right" :to="{ name:'schoolclasses',params: {courseid:courseid}}" tag="a" ></router-link>
+				<label>选择教师：</label>
+				<input type="text" v-model="teachername" readonly >
+				<router-link class="mui-navigate-right" :to="{ name:'teachers'}" tag="a" ></router-link>
 			</div>
 			
 			<div class="mui-input-row">
@@ -64,25 +55,25 @@
 			<div class="mui-input-row" >
 				<label>状态：</label> 
 				<div class=" mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="0" v-model="student.studentactive" >
-				  <label>毕业</label>
+				  <input name="radio" type="radio" value="0" v-model="cla.classactive" >
+				  <label>未开班</label>
 				</div>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<div class="mui-radio mui-pull-left mui-left">
-				  <input name="radio" type="radio" value="1" v-model="student.studentactive" >
-				  <label>在读</label>
+				  <input name="radio" type="radio" value="1" v-model="cla.classactive" >
+				  <label>已开班</label>
 				</div>
 			</div>
-			
-			<div class="mui-button-row">
-				<button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
-			</div>
-			
-		</div>
 
-		<div class="mui-card-footer">向日葵艺术</div>
-	</div>
-	
+      <div class="mui-button-row">
+				<button type="button" id="delid" class="mui-btn mui-btn-warning" v-on:click="del" v-text="delText" ></button>
+				<button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="updateText" ></button>
+			</div>
+    </div>
+
+    <div class="mui-card-footer">向日葵艺术</div>
+  </div>
+
 	<div id="middlePopover" class="mui-popover">
 		<div class="mui-popover-arrow"></div>
 		<div class="mui-scroll-wrapper">
@@ -125,122 +116,107 @@ import * as tool from 'src/js/util'
 export default {
   data() {
     return {
-      student: {},
-	  classid: '',
-	  classname : '',
-	  courseid: '',
-	  coursename: '',
-	  courses: [],
-	  schoolid: 1,
-	  schoolname: '广州萝岗万达店',
-      schools: [],
+      cla: {},
 
-	  updatestatus: 0,
+			courseid: '',
+			coursename: '',
+			courses: [],
+			schoolid: 1,
+			schoolname: '广州萝岗万达店',
+			schools: [],
+			teacherid: '',
+			teachername: '',
 
-	  oldclassid: '',
+			updatestatus: 0,
+
+			delstatus: 0,
     }
   },
   beforeRouteEnter (to, from, next) {
     console.log(from);
     next(vm => {
-		if(from.name == 'classstudents'){
+		if(from.name == 'classes'){
 			if(vm.$route.params != undefined)
-				vm.student = vm.$route.params;
+				vm.cla = vm.$route.params;
 			else
 				return;
 
-			vm.classid = vm.$route.params.classid;
-			vm.classname = vm.$route.params.classname;
+			vm.teacherid = vm.$route.params.teacherid;
+			vm.teachername = vm.$route.params.teachername;
 			vm.courseid = vm.$route.params.courseid;
 			vm.coursename = vm.$route.params.coursename;
 			vm.schoolid = vm.$route.params.schoolid;
 			vm.schoolname = vm.$route.params.schoolname;
 
-			vm.oldclassid = vm.classid;
+		}else if(from.name == 'teacher'){
+			if(this.$route.params.teacherid != undefined)
+				this.teacherid = this.$route.params.teacherid;
 
-		}else if(from.name == 'schoolclasses'){
-			if(vm.$route.params.classid != undefined)
-				vm.classid = vm.$route.params.classid;
-
-			if(vm.$route.params.classname != undefined)
-				vm.classname = vm.$route.params.classname;
+			if(this.$route.params.teachername != undefined)
+				this.teachername = this.$route.params.teachername;
 		}
     });
   },
   activated: function () {
   },
   created() {
-	request.getcourses(this);
+		request.getcourses(this);
     request.getschools(this);
   },
   computed: {
-    confirmText() {
-		if (this.updatestatus == 0) {
-			return '更新';
-		}
+    updateText() {
+			if (this.updatestatus == 0) {
+				return '更新';
+			}
 
-		document.getElementById("submitid").disabled = "disabled"
-		return '提交成功';
+			document.getElementById("submitid").disabled = "disabled";
+			return '提交成功';
+    },
+    delText() {
+			if (this.delstatus == 0) {
+				return '删除';
+			}
+
+			document.getElementById("submitid").disabled = "disabled";
+			document.getElementById("delid").disabled = "disabled";
+			return '提交成功';
     }
   },
   methods: {
     submit() {
-		this.student.classid = this.classid;
-		this.student.schoolid = this.schoolid;
-		
-		if (this.student.studentname == '' || this.student.studentmobile == '' || this.student.classid == '')
-		{
-			mui.alert('姓名、电话、班级不能为空！', '向日葵艺术学生管理', function() {
-						;
-					});
-			return;
-		}
-		
-		request.putstudent(this);
+			this.cla.courseid = this.courseid;
+			this.cla.schoolid = this.schoolid;
+			this.cla.teacherid = this.teacherid;
+			
+			if (this.cla.classname == '')
+			{
+				mui.alert('班级名称不能为空！', '向日葵艺术班级修改', function() {
+							;
+						});
+				return;
+			}
+			
+			request.putclass(this);
     },
-	selectcourse(course){
-		this.courseid = course.courseid;
-		this.coursename = course.coursename;
-		
-		var menuWrapper = document.getElementById("menu-wrapper");
-		var menu = document.getElementById("menu");
-		var menuWrapperClassList = menuWrapper.classList;
-		var backdrop = document.getElementById("menu-backdrop");
-		document.body.classList.remove('menu-open');
-		menuWrapper.className = 'menu-wrapper fade-out-up animated';
-		menu.className = 'menu bounce-out-up animated';
-		setTimeout(function() {
-			backdrop.style.opacity = 0;
-			menuWrapper.classList.add('hidden');
-		}, 500);
-	},
-	getschool(school){
-		this.schoolid = school.schoolid;
-		this.schoolname = school.schoolname;
-	},
-  },
-  mounted() {
-    mui.init();
-
-	var menuWrapper = document.getElementById("menu-wrapper");
-	var menu = document.getElementById("menu");
-	var menuWrapperClassList = menuWrapper.classList;
-	var backdrop = document.getElementById("menu-backdrop");
-	
-	backdrop.addEventListener('tap', toggleMenu);
-	document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
-	
-	//mui('#menu').on('tap', 'li', function() {
-	//	toggleMenu();
-	//});
-	
-	var busying = false;
-	function toggleMenu() {
-		if (busying) {
-			return;
-		}
-		busying = true;
-		if (menuWrapperClassList.contains('mui-active')) {
+    del() {
+			if (this.cla.classid == '')
+			{
+				mui.alert('不能删除班级！', '向日葵艺术班级修改', function() {
+							;
+						});
+				return;
+			}
+			
+			request.delclass(this);
+    },
+		selectcourse(course){
+			this.courseid = course.courseid;
+			this.coursename = course.coursename;
+			
+			var menuWrapper = document.getElementById("menu-wrapper");
+			var menu = document.getElementById("menu");
+			var menuWrapperClassList = menuWrapper.classList;
+			var backdrop = document.getElementById("menu-backdrop");
 			document.body.classList.remove('menu-open');
 			menuWrapper.className = 'menu-wrapper fade-out-up animated';
 			menu.className = 'menu bounce-out-up animated';
@@ -248,16 +224,51 @@ export default {
 				backdrop.style.opacity = 0;
 				menuWrapper.classList.add('hidden');
 			}, 500);
-		} else {
-			document.body.classList.add('menu-open');
-			menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
-			menu.className = 'menu bounce-in-down animated';
-			backdrop.style.opacity = 1;
+		},
+		getschool(school){
+			this.schoolid = school.schoolid;
+			this.schoolname = school.schoolname;
+		},
+  },
+  mounted() {
+    mui.init();
+
+		var menuWrapper = document.getElementById("menu-wrapper");
+		var menu = document.getElementById("menu");
+		var menuWrapperClassList = menuWrapper.classList;
+		var backdrop = document.getElementById("menu-backdrop");
+		
+		backdrop.addEventListener('tap', toggleMenu);
+		document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
+		
+		//mui('#menu').on('tap', 'li', function() {
+		//	toggleMenu();
+		//});
+		
+		var busying = false;
+		function toggleMenu() {
+			if (busying) {
+				return;
+			}
+			busying = true;
+			if (menuWrapperClassList.contains('mui-active')) {
+				document.body.classList.remove('menu-open');
+				menuWrapper.className = 'menu-wrapper fade-out-up animated';
+				menu.className = 'menu bounce-out-up animated';
+				setTimeout(function() {
+					backdrop.style.opacity = 0;
+					menuWrapper.classList.add('hidden');
+				}, 500);
+			} else {
+				document.body.classList.add('menu-open');
+				menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
+				menu.className = 'menu bounce-in-down animated';
+				backdrop.style.opacity = 1;
+			}
+			setTimeout(function() {
+				busying = false;
+			}, 500);
 		}
-		setTimeout(function() {
-			busying = false;
-		}, 500);
-	}
   }
 }
 </script>

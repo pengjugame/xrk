@@ -57,7 +57,7 @@ exports.update_schooladmin_base = function(schooladmin) {
             return Promise.resolve(null);
         }
 
-        return operate_db(sql.schooladmins.update_schooladmin_base, [schooladmin.schooladminname,schooladmin.schooladminmobile,schooladmin.schooladminusex,schooladmin.schoolid,schooladmin.schooladminid]);
+        return operate_db(sql.schooladmins.update_schooladmin_base, [schooladmin.schooladminname,schooladmin.schooladminmobile,schooladmin.schooladminusex,schooladmin.schoolid,schooladmin.schooladminactive,schooladmin.schooladminid]);
     });
 }
 

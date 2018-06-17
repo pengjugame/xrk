@@ -72,7 +72,6 @@ router.post('/classcard', function(req, res, next) {
         response = htapi_code(true);
         response["classcardid"] = classcard_res.result.insertId;
         res.send(response);
-
         return Promise.resolve(true);
     });
 });
@@ -97,7 +96,38 @@ router.put('/classcard', function(req, res, next) {
             return Promise.resolve(null);
         }
         
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["updatestatus"] = 1;
+        res.send(response);
+        return Promise.resolve(true);
+    });
+});
+
+router.delete('/classcard', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        if (!res_have_result(admin_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const classcard_res = yield i_classcards.delete_classcard(req.body.classcardid);
+        if (!res_is_success(classcard_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+        
+        var response = ""
+        response = htapi_code(true);
+        response["delstatus"] = 1;
+        res.send(response);
         return Promise.resolve(true);
     });
 });
@@ -122,7 +152,10 @@ router.put('/classcardactive', function(req, res, next) {
             return Promise.resolve(null);
         }
         
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["classcardactive"] = req.body.classcardactive;
+        res.send(response);
         return Promise.resolve(true);
     });
 });

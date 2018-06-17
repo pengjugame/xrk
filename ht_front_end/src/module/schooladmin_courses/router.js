@@ -14,8 +14,17 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'schooladmin_courses',
-      component: require("./App.vue")
-    }
+      name: 'courses',
+      component: require("./courses.vue")
+    },
+    {
+      path: '/modcourse',
+      name: 'modcourse',
+      component: require("./modcourse.vue")
+    },{
+      path: '/course',
+      name: 'course',
+      component: require("./course.vue")
+    },
   ]
 })
