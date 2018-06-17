@@ -69,7 +69,7 @@
 					<li class="mui-table-view-cell mui-selected" v-if="school.schoolid == schoolid"  v-on:click="getschool(school)" >
 						<a class="mui-navigate-right">{{school.schoolname}}</a>
 					</li>
-					<li class="mui-table-view-cell" v-if="school.schoolid == schoolid"  v-on:click="getschool(school)" >
+					<li class="mui-table-view-cell" v-else  v-on:click="getschool(school)" >
 						<a class="mui-navigate-right">{{school.schoolname}}</a>
 					</li>
 				</template>
@@ -82,7 +82,7 @@
 		<div id="menu" class="menu">
 			<ul class="mui-table-view mui-table-view-inverted" v-model="coursename">
 				<template v-for="course in courses">
-					<li class="mui-table-view-cell mui-selected" v-if="course.coursename == coursename" v-on:click="selectcourse(course)">{{course.coursename}}</li>
+					<li class="mui-table-view-cell mui-selected" v-if="course.courseid == courseid" v-on:click="selectcourse(course)">{{course.coursename}}</li>
 					<li class="mui-table-view-cell" v-else v-on:click="selectcourse(course)">{{course.coursename}}</li>
 				</template">
 			</ul>
@@ -133,7 +133,7 @@ export default {
 			this.teachername = this.$route.params.teachername;
   },
   created() {
-		request.getcourses(this);
+	request.getcourses(this);
     request.getschools(this);
   },
   computed: {
@@ -162,14 +162,49 @@ export default {
 			
 			request.postclass(this);
     },
-		selectcourse(course){
-			this.courseid = course.courseid;
-			this.coursename = course.coursename;
-			
-			var menuWrapper = document.getElementById("menu-wrapper");
-			var menu = document.getElementById("menu");
-			var menuWrapperClassList = menuWrapper.classList;
-			var backdrop = document.getElementById("menu-backdrop");
+	selectcourse(course){
+		this.courseid = course.courseid;
+		this.coursename = course.coursename;
+		
+		var menuWrapper = document.getElementById("menu-wrapper");
+		var menu = document.getElementById("menu");
+		var menuWrapperClassList = menuWrapper.classList;
+		var backdrop = document.getElementById("menu-backdrop");
+		document.body.classList.remove('menu-open');
+		menuWrapper.className = 'menu-wrapper fade-out-up animated';
+		menu.className = 'menu bounce-out-up animated';
+		setTimeout(function() {
+			backdrop.style.opacity = 0;
+			menuWrapper.classList.add('hidden');
+		}, 500);
+	},
+	getschool(school){
+		this.schoolid = school.schoolid;
+		this.schoolname = school.schoolname;
+	},
+  },
+  mounted() {
+    mui.init();
+
+	var menuWrapper = document.getElementById("menu-wrapper");
+	var menu = document.getElementById("menu");
+	var menuWrapperClassList = menuWrapper.classList;
+	var backdrop = document.getElementById("menu-backdrop");
+	
+	backdrop.addEventListener('tap', toggleMenu);
+	document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
+	
+	//mui('#menu').on('tap', 'li', function() {
+	//	toggleMenu();
+	//});
+	
+	var busying = false;
+	function toggleMenu() {
+		if (busying) {
+			return;
+		}
+		busying = true;
+		if (menuWrapperClassList.contains('mui-active')) {
 			document.body.classList.remove('menu-open');
 			menuWrapper.className = 'menu-wrapper fade-out-up animated';
 			menu.className = 'menu bounce-out-up animated';
@@ -177,51 +212,16 @@ export default {
 				backdrop.style.opacity = 0;
 				menuWrapper.classList.add('hidden');
 			}, 500);
-		},
-		getschool(school){
-			this.schoolid = school.schoolid;
-			this.schoolname = school.schoolname;
-		},
-  },
-  mounted() {
-    mui.init();
-
-		var menuWrapper = document.getElementById("menu-wrapper");
-		var menu = document.getElementById("menu");
-		var menuWrapperClassList = menuWrapper.classList;
-		var backdrop = document.getElementById("menu-backdrop");
-		
-		backdrop.addEventListener('tap', toggleMenu);
-		document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
-		
-		//mui('#menu').on('tap', 'li', function() {
-		//	toggleMenu();
-		//});
-		
-		var busying = false;
-		function toggleMenu() {
-			if (busying) {
-				return;
-			}
-			busying = true;
-			if (menuWrapperClassList.contains('mui-active')) {
-				document.body.classList.remove('menu-open');
-				menuWrapper.className = 'menu-wrapper fade-out-up animated';
-				menu.className = 'menu bounce-out-up animated';
-				setTimeout(function() {
-					backdrop.style.opacity = 0;
-					menuWrapper.classList.add('hidden');
-				}, 500);
-			} else {
-				document.body.classList.add('menu-open');
-				menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
-				menu.className = 'menu bounce-in-down animated';
-				backdrop.style.opacity = 1;
-			}
-			setTimeout(function() {
-				busying = false;
-			}, 500);
+		} else {
+			document.body.classList.add('menu-open');
+			menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
+			menu.className = 'menu bounce-in-down animated';
+			backdrop.style.opacity = 1;
 		}
+		setTimeout(function() {
+			busying = false;
+		}, 500);
+	}
   }
 }
 </script>
@@ -496,4 +496,7 @@ export default {
 	#info{
 		padding: 20px 10px ;
 	 }
+	.mui-popover {
+		height: 50px;
+	}
 </style>

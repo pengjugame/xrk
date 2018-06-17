@@ -262,49 +262,20 @@
                     "type": "view",
                     "name": "向舞地址",
                     "url": "https://mp.weixin.qq.com/s/ihnwybY_DxmbXduIvP6O8g"
-                    }, {
+                    },{
                     "type": "view",
                     "name": "课程简介",
                     "url": "https://mp.weixin.qq.com/s/NuVkeT181DynReMkbU7W0w"
-                    }, {
+                    },{
                     "type": "view",
                     "name": "向舞简介",
                     "url": "https://mp.weixin.qq.com/s/h4-M5Am-p7j4S98-VThAUg"
                     }
                 ]
             },{
-                "name": "向舞资讯",
+                "name": "向舞管理1",
                 "sub_button":[
                     {
-                    "type": "view",
-                    "name": "本期课表",
-                    "url": "https://mp.weixin.qq.com/s/k5W8mfBrH5gVLyPCTm4QXQ"
-                    }, {
-                    "type": "view",
-                    "name": "课堂风采",
-                    "url": "https://mp.weixin.qq.com/s/UcCF3ISG4OQE1nXCcX5njw"
-                    }, {
-                    "type": "view",
-                    "name": "赛事表演",
-                    "url": "https://mp.weixin.qq.com/s/IBEpFlZgUL-ba9RfZeryMg"
-                    }, {
-                    "type": "view",
-                    "name": "近期优惠",
-                    "url": "https://mp.weixin.qq.com/s/wgR0TjpbMF7lULmNvTGXmQ"
-                    }
-                ]
-            },{
-                "name": "向舞管理",
-                "sub_button":[
-                    {
-                    "name": "教师管理",
-                    "type": "view",
-                    "url": "http://119.29.90.92/static/schooladmin_teachers.html"
-                    },{
-                    "name": "学生管理",
-                    "type": "view",
-                    "url": "http://119.29.90.92/static/schooladmin_students.html"
-                    },{
                     "name": "课程管理",
                     "type": "view",
                     "url": "http://119.29.90.92/static/schooladmin_courses.html"
@@ -316,6 +287,19 @@
                     "name": "班级管理",
                     "type": "view",
                     "url": "http://119.29.90.92/static/schooladmin_classes.html"
+                    }
+                ]
+            },{
+                "name": "向舞管理2",
+                "sub_button":[
+                    {
+                    "name": "教师管理",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/schooladmin_teachers.html"
+                    },{
+                    "name": "学生管理",
+                    "type": "view",
+                    "url": "http://119.29.90.92/static/schooladmin_students.html"
                     },{
                     "name": "预购管理",
                     "type": "view",

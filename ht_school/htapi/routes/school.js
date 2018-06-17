@@ -7,8 +7,7 @@ var htapi_code = require('../common/htapi_code');
 var i_schools = require('../common/database/interface/i_schools');
 var {
     res_is_success,
-    check_userinfo,
-    get_userinfo
+    res_have_result,
 } = require('../common/database/tool');
 const {
     operate_db
@@ -21,7 +20,7 @@ var router = express.Router();
 router.get('/schools', function(req, res, next) {
     return co(function*() {
         const school_res = yield i_schools.select_school_active();
-        if (!res_is_success(school_res)) {
+        if (!res_have_result(school_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }

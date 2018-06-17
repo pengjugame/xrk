@@ -230,7 +230,7 @@ export const delcourse = (vm) => {
 
 export const getschools = (vm) => {
   http.get(route.schools).then((res) => {
-    vm.schools = res.data
+    vm.schools = res.data;
   }, (err) => {
     console.log(err);
   })

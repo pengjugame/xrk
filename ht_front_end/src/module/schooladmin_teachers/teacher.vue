@@ -74,7 +74,7 @@
 					<li class="mui-table-view-cell mui-selected" v-if="school.schoolid == schoolid"  v-on:click="getschool(school)" >
 						<a class="mui-navigate-right">{{school.schoolname}}</a>
 					</li>
-					<li class="mui-table-view-cell" v-if="school.schoolid == schoolid"  v-on:click="getschool(school)" >
+					<li class="mui-table-view-cell" v-else  v-on:click="getschool(school)" >
 						<a class="mui-navigate-right">{{school.schoolname}}</a>
 					</li>
 				</template>
@@ -149,3 +149,8 @@ export default {
   }
 }
 </script>
+<style>
+	.mui-popover {
+		height: 50px;
+	}
+</style>

@@ -24,7 +24,7 @@ exports.exist_schooladmin = function(openid) {
 
 exports.select_schooladmin_in_school = function(schoolid) {
     return co(function*() {
-        if (verify_openid(schoolid)) {
+        if (is_empty(schoolid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.schooladmins.select_schooladmin_in_school, [schoolid]);
@@ -33,7 +33,7 @@ exports.select_schooladmin_in_school = function(schoolid) {
 
 exports.select_schooladmin_in_school_active = function(schoolid) {
     return co(function*() {
-        if (verify_openid(schoolid)) {
+        if (is_empty(schoolid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.schooladmins.select_schooladmin_in_school_active, [schoolid]);
@@ -53,7 +53,7 @@ exports.add_schooladmin = function(schooladmin) {
 exports.update_schooladmin_base = function(schooladmin) {
     return co(function * () {
         if (is_empty(schooladmin) || 
-            !verify_openid(schooladmin.schooladminid)) {
+            is_empty(schooladmin.schooladminid)) {
             return Promise.resolve(null);
         }
 
@@ -64,7 +64,7 @@ exports.update_schooladmin_base = function(schooladmin) {
 exports.active_schooladmin = function(state,schooladminid) {
     return co(function * () {
         if (is_empty(state) ||
-            !verify_openid(schooladminid)) {
+            is_empty(schooladminid)) {
             return Promise.resolve(null);
         }
         return operate_db(state?sql.schooladmins.active_schooladmin:sql.schooladmins.deactive_schooladmin, [schooladminid]);

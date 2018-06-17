@@ -1,6 +1,11 @@
 <template>
 
   <div>
+
+	<div class="mui-card" v-if="classes == false">
+		<router-link class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'student' }" tag="a" ></router-link>
+	</div>
+
   <div class="mui-card" v-for="cla in classes" >
     <div class="mui-card-header">
       <label>{{cla.classname}}</label>
@@ -50,6 +55,7 @@
       <router-link v-if="cla.classnumusers < cla.classmaxnumusers " class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'student', params: cla }" tag="button" >选择</router-link>
     </div>
   </div>
+  
   </div>
 
 </template>

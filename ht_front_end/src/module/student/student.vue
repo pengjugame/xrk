@@ -75,7 +75,7 @@
 					<li class="mui-table-view-cell mui-selected" v-if="school.schoolid == schoolid"  v-on:click="getschool(school)" >
 						<a class="mui-navigate-right">{{school.schoolname}}</a>
 					</li>
-					<li class="mui-table-view-cell" v-if="school.schoolid == schoolid"  v-on:click="getschool(school)" >
+					<li class="mui-table-view-cell" v-else  v-on:click="getschool(school)" >
 						<a class="mui-navigate-right">{{school.schoolname}}</a>
 					</li>
 				</template>
@@ -88,7 +88,7 @@
 		<div id="menu" class="menu">
 			<ul class="mui-table-view mui-table-view-inverted" v-model="coursename">
 				<template v-for="course in courses">
-					<li class="mui-table-view-cell mui-selected" v-if="course.coursename == coursename" v-on:click="selectcourse(course)">{{course.coursename}}</li>
+					<li class="mui-table-view-cell mui-selected" v-if="course.courseid == courseid" v-on:click="selectcourse(course)">{{course.coursename}}</li>
 					<li class="mui-table-view-cell" v-else v-on:click="selectcourse(course)">{{course.coursename}}</li>
 				</template">
 			</ul>
@@ -124,7 +124,7 @@ export default {
 		  studentactive: 0,
 	  },
 	  classid: '',
-	  classname : '',
+	  classname: '',
 	  courseid: '',
 	  coursename: '',
 	  courses: [],
@@ -141,7 +141,6 @@ export default {
 		this.classname = this.$route.params.classname;
   },
   created() {
-	
 	request.getcourses(this);
     request.getschools(this);
   },
@@ -517,4 +516,8 @@ export default {
 	#info{
 		padding: 20px 10px ;
 	 }
+
+	.mui-popover {
+    	height: 50px;
+  	}
 </style>
