@@ -1,14 +1,14 @@
 <template>
 
   <div>
-	<div class="mui-card" v-if="classcards == false">
-		<router-link class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'purchase' }" tag="a" ></router-link>
-	</div>
+  <div class="mui-card" v-if="classcards == false">
+    <router-link class="mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:fromname }" tag="a" ></router-link>
+  </div>
 
   <div class="mui-card" v-for="cla in classcards" >
     <div class="mui-card-header">
       <label>{{cla.classcardname}}</label>
-      <label class="mui-action-back mui-pull-right">课卡ID：{{cla.classcardid}}</label>
+      <label class="mui-pull-right">课卡ID：{{cla.classcardid}}</label>
     </div>
 
     <div class="mui-card-content mui-input-group ">
@@ -37,7 +37,7 @@
 
     <div class="mui-card-footer">
       <label>价格：{{cla.classcardprice}} ￥</label>
-      <router-link v-if="cla.classcardactive == 1 " class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'purchase', params: cla }" tag="button" >选择</router-link>
+      <router-link v-if="cla.classcardactive == 1 " class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:fromname, params: cla }" tag="button" >选择</router-link>
     </div>
   </div>
   </div>
@@ -52,10 +52,16 @@ export default {
   data() {
     return {
       classcards: [],
+      fromname:'',
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.fromname = from.name;
+      request.getclasscardsbycourse(vm,vm.$route.params.courseid);
+    });
+  },
   activated: function () {
-	  request.getclasscardsbycourse(this,this.$route.params.courseid);
   },
   created() {
   },

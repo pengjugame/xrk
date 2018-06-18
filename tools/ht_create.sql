@@ -217,6 +217,14 @@ INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursedetails`, `courseactive`
 INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursedetails`, `courseactive`) VALUES ('成人肚皮舞', '', '1');
 INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursedetails`, `courseactive`) VALUES ('成人形体芭蕾', '', '1');
 
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `classcardtimes`, `classcardtime`, `classcarddetails`, `courseid`, `classcardactive`) VALUES ('兴趣班', '198', '8', '90', '2018年6月5日-2018年6月8日', '1', '0');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `classcardtimes`, `classcardtime`, `classcarddetails`, `courseid`, `classcardactive`) VALUES ('年卡', '5040', '90', '90', '2018年4月1日至2018年6月30日', '1', '1');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `classcardtimes`, `classcardtime`, `classcarddetails`, `courseid`, `classcardactive`) VALUES ('半年卡', '3060', '45', '90', '2018年4月1日至2018年6月30日', '1', '1');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `classcardtimes`, `classcardtime`, `classcarddetails`, `courseid`, `classcardactive`) VALUES ('学期卡', '2280', '30', '90', '2018年4月1日至2018年6月30日', '1', '1');
+INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `classcardtimes`, `classcardtime`, `classcarddetails`, `courseid`, `classcardactive`) VALUES ('基础卡', '800', '10', '90', '2018年4月1日至2018年6月30日', '1', '1');
+
+INSERT INTO `weapp`.`xrk_classes` (`classname`, `classdate`, `classtime`, `classnumusers`, `classmaxnumusers`, `schoolid`, `classdetails`, `classactive`) VALUES ('初始班级', '', '', '0', '1000', '1', '','1');
+
 INSERT INTO `weapp`.`xrk_classes` (`classname`, `classdate`, `classtime`, `classnumusers`, `classmaxnumusers`, `schoolid`, `courseid`, `classdetails`, `classactive`) VALUES ('拉丁舞常规班大班', '2018.7.17-2018.8.4,逢周二、三、四、五、六上课', '19:30-21:00', '0', '18', '1', '1', '7岁以上','1');
 INSERT INTO `weapp`.`xrk_classes` (`classname`, `classdate`, `classtime`, `classnumusers`, `classmaxnumusers`, `schoolid`, `courseid`, `classdetails`, `classactive`) VALUES ('拉丁舞常规班小班', '2018.7.17-2018.8.4,逢周二、三、四、五、六上课', '16:00-17:30', '0', '18', '1', '1', '5-6岁','1');
 INSERT INTO `weapp`.`xrk_classes` (`classname`, `classdate`, `classtime`, `classnumusers`, `classmaxnumusers`, `schoolid`, `courseid`, `classdetails`, `classactive`) VALUES ('拉丁舞兴趣1班', '2018.7.18-2018.7.29,逢周三、四、六、日上课', '10:45-12:15', '0', '18', '1', '1', '4-6.5岁','1');

@@ -44,7 +44,7 @@ router.put('/studentbyclass', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-		
+    
         const student_res = yield i_students.exist_student(userinfo.openid)
         if (!res_have_result(student_res)) {
             res.send(htapi_code(false));
@@ -71,40 +71,40 @@ router.post('/student', function(req, res, next) {
             "studentusex": req.body.studentusex,
             "studentage": req.body.studentage,
             "studentdetails": req.body.studentdetails,
-			"classid": req.body.classid,
+            "classid": req.body.classid,
             "schoolid": req.body.schoolid,
             "studenttimes": 0,
-			"studentmaxtimes": 0,
+            "studentmaxtimes": 0,
             "studentactive": 0,
         }
-		
-		const exit_res = yield i_students.select_student_by_studentdetails_studentmobile(param.studentdetails,param.studentmobile);
+
+        const exit_res = yield i_students.select_student_by_studentdetails_studentmobile(param.studentdetails,param.studentmobile);
         if (res_have_result(exit_res)) {
             var response = ""
-			response = htapi_code(true);
-			response["studentid"] = -1;
-			res.send(response);
+            response = htapi_code(true);
+            response["studentid"] = -1;
+            res.send(response);
             return Promise.resolve(true);
         }
-		
+    
         const student_res = yield i_students.add_student(param);
         if (!res_is_success(student_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-		
+    
         const class_res = yield i_classes.select_class(param.classid);
         if (!res_have_result(class_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-		
-		const class_update_res = yield i_classes.update_class_numusers(class_res.result[0].classnumusers+1,param.classid);
+    
+        const class_update_res = yield i_classes.update_class_numusers(class_res.result[0].classnumusers+1,param.classid);
         if (!res_is_success(class_update_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-		
+    
         var response = ""
         response = htapi_code(true);
         response["studentid"] = student_res.result.insertId;
@@ -153,7 +153,21 @@ router.put('/student', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const student_res = yield i_students.update_student_base(req.body);
+        var param = {
+            "studentid": req.body.studentid,
+            "studentname": req.body.studentname,
+            "studentmobile": req.body.studentmobile,
+            "studentusex": req.body.studentusex,
+            "studentage": req.body.studentage,
+            "studentdetails": req.body.studentdetails,
+            "classid": req.body.classid,
+            "schoolid": req.body.schoolid,
+            "studenttimes": req.body.studenttimes,
+            "studentmaxtimes": req.body.studentmaxtimes,
+            "studentactive": req.body.studentactive,
+        }
+
+        const student_res = yield i_students.update_student_base(param);
         if (!res_is_success(student_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
@@ -187,10 +201,20 @@ router.put('/studentactive', function(req, res, next) {
         if (req.body.studentactive == 1) {
             wxapi.moveUserToGroup(req.body.studentopenid, tags["学生"], function(err, data, res) {
                 console.log("student moveUserToGroup: " + req.body.studentopenid + " err:" + err);
+                wxapi.getWhichGroup(req.body.studentopenid,function(err, result) {
+                    if(!err){
+                      console.log("getWhichGroup openid " + req.body.studentopenid + " result:" + JSON.stringify(result));
+                    }
+                });
             });
         } else {
             wxapi.moveUserToGroup(req.body.studentopenid, 0, function(err, data, res) {
                 console.log("delete moveUserToGroup: " + req.body.studentopenid + " err:" + err);
+                wxapi.getWhichGroup(req.body.studentopenid,function(err, result) {
+                    if(!err){
+                      console.log("getWhichGroup openid " + req.body.studentopenid + " result:" + JSON.stringify(result));
+                    }
+                });
             });
         }
         

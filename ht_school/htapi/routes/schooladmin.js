@@ -47,23 +47,23 @@ router.post('/', function(req, res, next) {
             "schooladminopenid": userinfo.openid,
             "schooladminactive": 1
         }
-		
-		const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid)
+    
+        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid)
         if (res_have_result(admin_res)) {
-			if(admin_res.schooladminactive != 0){
-				res.send(htapi_code(true));
-				return Promise.resolve(true);
-			}
-			
-			param.schooladminid= admin_res.schooladminid;
-			const school_admin_res = yield i_school_admins.update_schooladmin_base(param);
-			if (res_is_success(school_admin_res)) {
-				res.send(htapi_code(true));
-				return Promise.resolve(true);
-			}else{
-				res.send(htapi_code(false));
-				return Promise.resolve(null);
-			}
+            if(admin_res.schooladminactive != 0){
+                  res.send(htapi_code(true));
+                  return Promise.resolve(true);
+            }
+      
+            param.schooladminid= admin_res.schooladminid;
+            const school_admin_res = yield i_school_admins.update_schooladmin_base(param);
+            if (res_is_success(school_admin_res)) {
+               res.send(htapi_code(true));
+               return Promise.resolve(true);
+            }else{
+               res.send(htapi_code(false));
+               return Promise.resolve(null);
+            }
         }
 
         const school_admin_res = yield i_school_admins.add_schooladmin(param);
@@ -75,10 +75,16 @@ router.post('/', function(req, res, next) {
         var response = ""
         response = htapi_code(true);
         response["schooladminid"] = school_admin_res.result.insertId;
+        response["schooladminactive"] = 1;
         res.send(response);
 
         wxapi.moveUserToGroup(param.schooladminopenid, tags["学校管理员"], function(err, data, res) {
-            console.log("admin moveUserToGroup: " + param.schooladminopenid + " err:" + err);
+            console.log("admin moveUserToGroup: " + param.schooladminopenid + " groupid: " + tags["学校管理员"] + " err:" + err);
+            wxapi.getWhichGroup(param.schooladminopenid,function(err, result) {
+                if(!err){
+                  console.log("getWhichGroup openid " + param.schooladminopenid + " result:" + JSON.stringify(result));
+                }
+            });
         });
 
         return Promise.resolve(true);

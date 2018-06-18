@@ -1,13 +1,13 @@
 <template>
-	<div>
-	<div class="mui-card">
-		<router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'classcard'}" tag="a" ></router-link>
-	</div>
+  <div>
+  <div class="mui-card">
+    <router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'classcard'}" tag="a" ></router-link>
+  </div>
 
   <div class="mui-card" v-for="classcard in classcards" >
     <div class="mui-card-header">
       <label>{{classcard.classcardname}}</label>
-      <label class="mui-action-back mui-pull-right">课卡ID：{{classcard.classcardid}}</label>
+      <label class=" mui-pull-right">课卡ID：{{classcard.classcardid}}</label>
     </div>
 
     <div class="mui-card-content mui-input-group ">
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-	</div>
+  </div>
 </template>
 
 <script>
@@ -50,11 +50,11 @@ import * as tool from 'src/js/util'
 export default {
   data() {
     return {
-			classcards: [],
+      classcards: [],
     }
   },
   activated: function () {
-	  request.getclasscards(this);
+    request.getclasscards(this);
   },
   created() {
   },

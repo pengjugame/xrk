@@ -23,8 +23,8 @@ export const getclasscards = (vm) => {
 }
 
 export const getclasscardsbycourse = (vm,courseid) => {
-	let params = {}
-	params.courseid = courseid
+  let params = {}
+  params.courseid = courseid
     http.get(route.classcardsbycourse,params).then((res) => {
       if (res_is_success(res)) {
         vm.classcards = res.data
@@ -121,8 +121,8 @@ export const getstudentclasses = (vm) => {
 }
 
 export const getclassesbycourse = (vm,courseid) => {
-	let params = {}
-	params.courseid = courseid
+  let params = {}
+  params.courseid = courseid
   http.get(route.classesbycourse,params).then((res) => {
     if (res_is_success(res)) {
       vm.classes = res.data
@@ -290,6 +290,7 @@ export const putpurchase = (vm) => {
     http.put(route.purchase, vm.purchase).then((res) => {
       if (res_is_success(res)) {
         vm.updatestatus = res.data.updatestatus;
+        vm.activestatus = vm.purchase.purchaseactive;
       }
     }, (err) => {
       console.log(err);
@@ -317,7 +318,7 @@ export const putpurchaseactive = (vm) => {
   userInfo().then((res) => {
     http.put(route.purchaseactive, vm.purchase).then((res) => {
       if (res_is_success(res)) {
-        vm.purchase.purchaseactive = res.data.purchaseactive
+        vm.activestatus = res.data.purchaseactive;
       }
     }, (err) => {
       console.log(err);
@@ -348,6 +349,7 @@ export const postschooladmin = (vm) => {
     http.post(route.schooladmin, vm.form).then((res) => {
       if (res_is_success(res)) {
         vm.form.schooladminid = res.data.schooladminid
+        vm.form.schooladminactive = res.data.schooladminactive
       }
     }, (err) => {
       console.log(err);
@@ -461,8 +463,8 @@ export const putstudent = (student) => {
 
 export const getclassstudents = (vm,classid) => {
   userInfo().then((res) => {
-	let params = {}
-	params.classid = classid
+  let params = {}
+  params.classid = classid
     http.get(route.classstudents,params).then((res) => {
       if (res_is_success(res)) {
         vm.students = res.data
@@ -491,8 +493,8 @@ export const putstudenttimes = (student) => {
 
 export const getstudentbyclass = (vm,classid) => {
   userInfo().then((res) => {
-	let params = {}
-	params.classid = classid
+  let params = {}
+  params.classid = classid
     http.get(route.studentbyclass,params).then((res) => {
       if (res_is_success(res)) {
         vm.student = res.data

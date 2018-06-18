@@ -77,7 +77,7 @@ router.get('/classes', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }*/
-		
+    
         const class_res = yield i_classes.select_school_classes(1);
         if (!res_have_result(class_res)) {
             res.send(htapi_code(false));
@@ -102,7 +102,7 @@ router.get('/classesbycourse', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }*/
-		
+    
         const class_res = yield i_classes.select_school_classes_by_course(req.query.courseid,1);
         if (!res_have_result(class_res)) {
             res.send(htapi_code(false));
@@ -169,7 +169,21 @@ router.put('/class', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const class_res = yield i_classes.update_class_base(req.body);
+        var param = {
+            "classid": req.body.classid,
+            "classname": req.body.classname,
+            "classdate": req.body.classdate,
+            "classtime": req.body.classtime,
+            "courseid": req.body.courseid,
+            "teacherid": req.body.teacherid,
+            "schoolid": req.body.schoolid,
+            "classmaxnumusers": req.body.classmaxnumusers,
+            "classnumusers": req.body.classnumusers,
+            "classdetails": req.body.classdetails,
+            "classactive": req.body.classactive,
+        }
+
+        const class_res = yield i_classes.update_class_base(param);
         if (!res_is_success(class_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

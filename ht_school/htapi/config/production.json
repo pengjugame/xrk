@@ -39,61 +39,61 @@
         teacher_register: {
             title: "教师申请表",
             description: "请认真填写完成并提交审核",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/teacher.html"
         },
         admin_register: {
             title: "管理员申请表",
             description: "请认真填写完成并提交审核",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/schooladmin.html"
         },
         parent_register: {
             title: "入学登记表",
             description: "请认真填写完成并提交审核",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/parent_register.html"
         },
         teacher_verification: {
             title: "教师申请批准",
             description: "查看审核教师申请",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/teacher_verification.html"
         },
         parent_verification: {
             title: "入学申请批准",
             description: "查看审核学生缴费情况，批准入学申请",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/parent_verification.html"
         },
         student_check_in: {
             title: "桃桃到学校啦",
             description: "洋洋老师八点半接到了桃桃同学",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/parent_confirm.html"
         },
         student_check_out: {
             title: "桃桃放学了，请知晓",
             description: "桃桃妈妈，桃桃下午5点从学校放学了",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/parent_confirm_checkout.html"
         },
         school_check_in: {
             title: "桃桃到学校啦",
             description: "桃桃妈妈八点半送桃桃同学来上学",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/teacher_confirm.html"
         },
         school_check_out: {
             title: "桃桃放学了，请知晓",
             description: "洋洋老师给桃桃签退，下午5点从学校放学了",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/teacher_confirm_checkout.html"
         },
         parent_check: {
             title: "桃桃放学了，请知晓",
             description: "洋洋老师给桃桃签退，下午5点从学校放学了",
-            picurl: "http://119.29.90.92/static/static/img/appointment_head.png",
+            picurl: "http://119.29.90.92/static/logo.png",
             url: "http://119.29.90.92/static/parent_check.html"
         }
     },

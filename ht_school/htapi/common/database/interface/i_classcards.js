@@ -11,18 +11,18 @@ const {
     operate_db
 } = require('../db_handle')
 
-exports.select_classcard_active = function() {
+exports.select_classcard = function() {
     return co(function*() {
-        return operate_db(sql.classcards.select_classcard_active, null);
+        return operate_db(sql.classcards.select_classcard, null);
     });
 }
 
-exports.select_classcard_active_by_course = function(courseid) {
+exports.select_classcard_by_course = function(courseid) {
     return co(function*() {
         if (is_empty(courseid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.classcards.select_classcard_active_by_course, [courseid]);
+        return operate_db(sql.classcards.select_classcard_by_course, [courseid]);
     });
 }
 

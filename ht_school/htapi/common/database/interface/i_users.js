@@ -19,7 +19,7 @@ exports.exist_user = function(openid) {
     });
 }
 
-exports.select_user_subscribe = function(user) {
+exports.select_user_subscribe = function() {
     return operate_db(sql.users.select_user_subscribe,null);
 }
 

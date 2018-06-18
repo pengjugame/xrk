@@ -1,18 +1,18 @@
 <template>
   <div>
 
-	<div class="mui-card">
-		<router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'class'}" tag="a" ></router-link>
-	</div>
+  <div class="mui-card">
+    <router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'class'}" tag="a" ></router-link>
+  </div>
 
   <div class="mui-card" v-for="cla in classes" >
     <div class="mui-card-header">
       <label>{{cla.classname}}</label>
-      <label class="mui-action-back mui-pull-right">班级ID：{{cla.classid}}</label>
+      <label class=" mui-pull-right">班级ID：{{cla.classid}}</label>
     </div>
 
     <div class="mui-card-content mui-input-group ">
-	
+  
       <div class="mui-input-row">
         <label>课程名：</label>
         <input type="text" v-model="cla.coursename" readonly>
@@ -22,22 +22,22 @@
         <label>上课日期：</label>
         <input type="text" v-model="cla.classdate" readonly>
       </div>
-	  
+    
       <div class="mui-input-row">
         <label>上课时间：</label>
         <input type="text" v-model="cla.classtime" readonly>
       </div>
-	  
+    
       <div class="mui-input-row" >
         <label>最大人数：</label>
         <input type="text" v-model="cla.classmaxnumusers" readonly>
-	  	</div>
+      </div>
 
       <div class="mui-input-row" >
         <label>当前人数：</label>
         <input type="text" v-model="cla.classnumusers" readonly>
-	  	</div>
-	  
+      </div>
+    
       <div class="mui-input-row">
         <label>班级备注：</label>
         <input type="text" v-model="cla.classdetails" readonly>
@@ -46,17 +46,17 @@
       <div class="mui-input-row" >
         <label>教师：</label>
         <input type="text" v-model="cla.teachername" readonly>
-	  	</div>
+      </div>
 
       <div class="mui-input-row" >
         <label>校区：</label>
         <input type="text" v-model="cla.schoolname" readonly>
-	  	</div>
+      </div>
 
     </div>
-	
+  
     <div class="mui-card-footer">
-	  	<label>向日葵艺术</label>
+      <label>向日葵艺术</label>
       <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'modclass', params: cla }" tag="button" >修改班级</router-link>
     </div>
   </div>
@@ -75,7 +75,7 @@ export default {
     }
   },
   activated: function () {
-	  request.getclasses(this);
+    request.getclasses(this);
   },
   created() {
   },

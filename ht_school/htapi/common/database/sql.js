@@ -173,14 +173,14 @@ function deactive_teacher() {
 /*students:{
     exist_student: exist_student(),
     select_student: select_student(),
-	select_student_by_class_openid: select_student_by_class_openid(),
-	select_student_by_studentdetails_studentmobile: select_student_by_studentdetails_studentmobile(),
+  select_student_by_class_openid: select_student_by_class_openid(),
+  select_student_by_studentdetails_studentmobile: select_student_by_studentdetails_studentmobile(),
     select_student_in_class: select_student_in_class(),
     select_student_in_school: select_student_in_school(),
     add_student: add_student(),
     update_student_base: update_student_base(),
     update_student_times: update_student_times(),
-	update_student_class: update_student_class(),
+  update_student_class: update_student_class(),
     active_student: active_student(),
     deactive_student: deactive_student()
 }*/
@@ -199,7 +199,7 @@ function select_student() {
             + "LEFT JOIN xrk_schools c ON a.schoolid = c.schoolid " 
             + "LEFT JOIN xrk_classcards d ON a.classcardid = d.classcardid "  
             + "where a.studentid = ? "
-			
+      
 }
 
 function select_student_by_class_openid(){
@@ -460,8 +460,8 @@ function deactive_class() {
 
 /**--classcards表 操作---**/
 /*classcards:{
-    select_classcard_active: select_classcard_active(),
-    select_classcard_active_by_course: select_classcard_active_by_course(),
+    select_classcard: select_classcard(),
+    select_classcard_by_course: select_classcard_by_course(),
     select_student_classcards: select_student_classcards(),
     select_class_students_classcards: select_class_students_classcards(),
     select_school_students_classcards: select_school_students_classcards(),
@@ -472,21 +472,20 @@ function deactive_class() {
     deactive_classcard: deactive_classcard()
 }*/
 
-function select_classcard_active() {
-    return "select a.classcardid , a.classcardname , a.classcardprice , a.classcarddetails , a.classcardactive , " 
-            + "b.courseid , b.coursename , b.coursetimes , b.coursetime , b.coursedetails "
+function select_classcard() {
+    return "select a.classcardid , a.classcardname , a.classcardprice , a.classcarddetails , a.classcardactive , a.classcardtime , a.classcardactive , " 
+            + "b.courseid , b.coursename , b.coursedetails , b.courseactive "
             + "FROM xrk_classcards a " 
-            + "LEFT JOIN xrk_courses b ON a.courseid = b.courseid " 
-            + "where a.classcardactive = 1 "
+            + "LEFT JOIN xrk_courses b ON a.courseid = b.courseid "
 }
 
 
-function select_classcard_active_by_course() {
-    return "select a.classcardid , a.classcardname , a.classcardprice , a.classcarddetails , a.classcardactive , " 
-            + "b.courseid , b.coursename , b.coursetimes , b.coursetime , b.coursedetails "
+function select_classcard_by_course() {
+    return "select a.classcardid , a.classcardname , a.classcardprice , a.classcarddetails ,  a.classcardtimes , a.classcardtime , a.classcardactive , " 
+            + "b.courseid , b.coursename , b.coursedetails , b.courseactive "
             + "FROM xrk_classcards a " 
             + "JOIN xrk_courses b ON a.courseid = b.courseid " 
-            + "where b.courseid = ? "
+            + "where a.courseid = ? "
 }
 
 function select_student_classcards() {
@@ -619,7 +618,7 @@ function select_purchase_in_school_active() {
 
 function select_purchase_in_school_deactive() {
     return "SELECT a.purchaseid , a.purchasename , a.purchasemobile , a.purchaseusex , a.purchaseage , a.purchasedetails , a.purchaseaddress , a.purchasedatatime , a.purchaseopenid , a.paydetails , a.paytime , a.purchaseactive , " 
-            + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , b.classcardtimes , b.classcardtime , b.d.classcarddetails , " 
+            + "b.classcardid , b.classcardname , b.classcardprice , b.classcardactive , b.classcardtimes , b.classcardtime , b.classcarddetails , " 
             + "c.courseid , c.coursename , c.coursedetails , c.courseactive , " 
             + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , " 
             + "e.studentid , e.studentname , e.studentmobile , e.studentusex , e.studentage , e.studentdetails , e.studenttimes , e.studentmaxtimes , e.studentopenid , e.studentactive " 
@@ -729,8 +728,8 @@ module.exports = {
         deactive_class: deactive_class()
     },
     classcards:{
-        select_classcard_active: select_classcard_active(),
-        select_classcard_active_by_course: select_classcard_active_by_course(),
+        select_classcard: select_classcard(),
+        select_classcard_by_course: select_classcard_by_course(),
         select_student_classcards: select_student_classcards(),
         select_class_students_classcards: select_class_students_classcards(),
         select_school_students_classcards: select_school_students_classcards(),

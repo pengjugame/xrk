@@ -17,7 +17,7 @@ export default new VueRouter({
       name: 'teachers',
       component: require("./teachers.vue")
     },
-	{
+  {
       path: '/teacher',
       name: 'teacher',
       component: require("./teacher.vue")

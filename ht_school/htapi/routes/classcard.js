@@ -14,7 +14,7 @@ var router = express.Router();
 
 router.get('/classcards', function(req, res, next) {
     return co(function*() {
-        const classcard_res = yield i_classcards.select_classcard_active();
+        const classcard_res = yield i_classcards.select_classcard();
         if (!res_have_result(classcard_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
@@ -27,7 +27,7 @@ router.get('/classcards', function(req, res, next) {
 
 router.get('/classcardsbycourse', function(req, res, next) {
     return co(function*() {
-        const classcard_res = yield i_classcards.select_classcard_active_by_course(req.query.courseid);
+        const classcard_res = yield i_classcards.select_classcard_by_course(req.query.courseid);
         if (!res_have_result(classcard_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
@@ -55,8 +55,8 @@ router.post('/classcard', function(req, res, next) {
         var param = {
             "classcardname": req.body.classcardname,
             "classcardprice": req.body.classcardprice,
-			"classcardtimes": req.body.classcardtimes,
-			"classcardtime": req.body.classcardtime,
+            "classcardtimes": req.body.classcardtimes,
+            "classcardtime": req.body.classcardtime,
             "courseid": req.body.courseid,
             "classcarddetails": req.body.classcarddetails,
             "classcardactive": 1
@@ -90,7 +90,18 @@ router.put('/classcard', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const classcard_res = yield i_classcards.update_classcard_base(req.body);
+        var param = {
+            "classcardid": req.body.classcardid,
+            "classcardname": req.body.classcardname,
+            "classcardprice": req.body.classcardprice,
+            "classcardtimes": req.body.classcardtimes,
+            "classcardtime": req.body.classcardtime,
+            "courseid": req.body.courseid,
+            "classcarddetails": req.body.classcarddetails,
+            "classcardactive": req.body.classcardactive,
+        }
+
+        const classcard_res = yield i_classcards.update_classcard_base(param);
         if (!res_is_success(classcard_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

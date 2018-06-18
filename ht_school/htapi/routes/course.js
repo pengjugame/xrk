@@ -73,7 +73,14 @@ router.put('/course', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const course_res = yield i_courses.update_course_base(req.body);
+        var param = {
+            "courseid": req.body.courseid,
+            "coursename": req.body.coursename,
+            "coursedetails": req.body.coursedetails,
+            "courseactive": req.body.courseactive,
+        }
+
+        const course_res = yield i_courses.update_course_base(param);
         if (!res_is_success(course_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

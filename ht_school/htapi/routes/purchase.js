@@ -13,6 +13,8 @@ var {
     check_userinfo,
 } = require('../common/database/tool');
 var router = express.Router();
+const config = require('config');
+const tags = config.tags;
 
 router.get('/purchases', function(req, res, next) {
     return co(function*() {
@@ -47,12 +49,6 @@ router.get('/studentpurchases', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const student_res = yield i_students.exist_student(userinfo.openid)
-        if (!res_have_result(student_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-
         const purchase_res = yield i_purchases.select_purchase(userinfo.openid);
         if (!res_have_result(purchase_res)) {
             res.send(htapi_code(false));
@@ -76,7 +72,7 @@ router.post('/purchase', function(req, res, next) {
             "purchasename": req.body.purchasename,
             "purchasemobile": req.body.purchasemobile,
             "purchaseusex": req.body.purchaseusex,
-			"purchaseage": req.body.purchaseage,
+            "purchaseage": req.body.purchaseage,
             "purchasedetails": req.body.purchasedetails,
             "classcardid": req.body.classcardid,
             "purchaseaddress": req.body.purchaseaddress,
@@ -86,12 +82,13 @@ router.post('/purchase', function(req, res, next) {
             "paydetails": req.body.paydetails,
             "purchaseactive": 0,
         }
+
         const purchase_res = yield i_purchases.add_purchase(param);
         if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-        
+
         var response = ""
         response = htapi_code(true);
         response["purchaseid"] = purchase_res.result.insertId;
@@ -108,16 +105,68 @@ router.put('/purchase', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
-        if (!res_have_result(admin_res)) {
+        var param = {
+            "purchaseid": req.body.purchaseid,
+            "purchasename": req.body.purchasename,
+            "purchasemobile": req.body.purchasemobile,
+            "purchaseusex": req.body.purchaseusex,
+            "purchaseage": req.body.purchaseage,
+            "purchasedetails": req.body.purchasedetails,
+            "classcardid": req.body.classcardid,
+            "purchaseaddress": req.body.purchaseaddress,
+            "purchasedatatime": req.body.purchasedatatime,
+            "schoolid": req.body.schoolid,
+            "paydetails": req.body.paydetails,
+            "purchaseactive": req.body.purchaseactive,
+        }
+
+        const purchase_res = yield i_purchases.update_purchase_base(param);
+        if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
-        const purchase_res = yield i_purchases.update_purchase_base(req.body);
-        if (!res_is_success(purchase_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
+        if(param.purchaseactive == 1){
+            const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+            if (!res_have_result(admin_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+
+            var subparam = {
+                "studentname": req.body.purchasename,
+                "studentmobile": req.body.purchasemobile,
+                "studentusex": req.body.purchaseusex,
+                "studentage": req.body.purchaseage,
+                "studentdetails": req.body.purchasedetails,
+                "classcardid": req.body.classcardid,
+                "classid": 1,
+                "schoolid": req.body.schoolid,
+                "studentopenid": req.body.purchaseopenid,
+                "studentmaxtimes": req.body.classcardtimes,
+                "studenttimes": req.body.classcardtimes,
+                "studentactive": 1,
+            }
+            const student_res = yield i_students.add_student(subparam);
+            if (!res_is_success(student_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+
+            const purchase_active_res = yield i_purchases.active_purchase(new Date(), student_res.result.insertId , req.body.purchaseid);
+            if (!res_is_success(purchase_active_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+
+            wxapi.moveUserToGroup(subparam.studentopenid, tags["学生"], function(err, data, res) {
+                console.log("student moveUserToGroup: " + subparam.studentopenid + " err:" + err);
+                wxapi.getWhichGroup(subparam.studentopenid,function(err, result) {
+                    if(!err){
+                    console.log("getWhichGroup openid " + subparam.studentopenid + " result:" + JSON.stringify(result));
+                    }
+                });
+            });
         }
         
         var response = ""
@@ -149,6 +198,7 @@ router.put('/purchaseactive', function(req, res, next) {
             "studentage": req.body.purchaseage,
             "studentdetails": req.body.purchasedetails,
             "classcardid": req.body.classcardid,
+            "classid": 1,
             "schoolid": req.body.schoolid,
             "studentopenid": req.body.purchaseopenid,
             "studentmaxtimes": req.body.classcardtimes,
@@ -161,6 +211,7 @@ router.put('/purchaseactive', function(req, res, next) {
             return Promise.resolve(null);
         }
 
+        console.log(student_res.result.insertId);
         const purchase_res = yield i_purchases.active_purchase(new Date(), student_res.result.insertId , req.body.purchaseid);
         if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
@@ -169,6 +220,11 @@ router.put('/purchaseactive', function(req, res, next) {
 
         wxapi.moveUserToGroup(param.studentopenid, tags["学生"], function(err, data, res) {
             console.log("student moveUserToGroup: " + param.studentopenid + " err:" + err);
+            wxapi.getWhichGroup(param.studentopenid,function(err, result) {
+                if(!err){
+                  console.log("getWhichGroup openid " + param.studentopenid + " result:" + JSON.stringify(result));
+                }
+            });
         });
         
         var response = ""

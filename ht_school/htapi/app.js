@@ -136,6 +136,9 @@ var route_list = [
     }, {
         url: '/purchase',
         handler: require('./routes/purchase')
+    },{
+        url: '/wx',
+        handler: require('./routes/wx_chat')
     }
 ];
 

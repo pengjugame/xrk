@@ -26,11 +26,11 @@ var wx_event_subscribe = function(message, api) {
                 }
             });
 
-            let users_res = yield i_users.exist(user_info.openid);
+            let users_res = yield i_users.exist_user(user_info.openid);
             if (!res_have_result(users_res)) {
-                yield i_users.add(user_info);
+                yield i_users.add_user(user_info);
             } else {
-                yield i_users.subscribe(1, user_info.openid);
+                yield i_users.update_user_subscribe(1, user_info.openid);
             }
         });
     });
@@ -40,7 +40,7 @@ var wx_event_unsubscribe = function(message, res) {
     var openid = message.FromUserName;
 
     //此处应该将openid对应的用户信息订阅置为0
-    i_users.subscribe(0, openid);
+    i_users.update_user_subscribe(0, openid);
 
     wxapi.moveUserToGroup(openid, 0, function(err, data, res) {
         console.log("unsubscribe moveUserToGroup openid " + openid + " err:" + err);

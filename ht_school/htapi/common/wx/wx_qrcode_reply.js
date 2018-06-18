@@ -12,15 +12,9 @@ type
 
 var co = require('co');
 var config = require('config');
-const i_school_admin = require('../database/interface/i_school_admin');
-const i_school = require('../database/interface/i_school');
-const i_children = require('../database/interface/i_children');
+const i_school_admin = require('../database/interface/i_school_admins');
+const i_school = require('../database/interface/i_schools');
 const i_teachers = require('../database/interface/i_teachers');
-const i_parent = require('../database/interface/i_parent');
-const i_check = require('../database/interface/i_check');
-const i_qr = require('../database/interface/i_qr');
-const i_blockchains = require('../database/interface/i_blockchains');
-const bc = require('../blockchains');
 
 const {
     get_date_begin_end,
