@@ -231,11 +231,11 @@ router.get('/classstudents', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
+        /*const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
         if (!res_have_result(teacher_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
-        }
+        }*/
 
         const student_res = yield i_students.select_student_in_class(req.query.classid);
         if (!res_have_result(student_res)) {

@@ -153,6 +153,18 @@ router.put('/purchase', function(req, res, next) {
                 return Promise.resolve(null);
             }
 
+            const class_res = yield i_classes.select_class(subparam.classid);
+            if (!res_have_result(class_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+
+            const class_update_res = yield i_classes.update_class_numusers(class_res.result[0].classnumusers+1,subparam.classid);
+            if (!res_is_success(class_update_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+
             const purchase_active_res = yield i_purchases.active_purchase(new Date(), student_res.result.insertId , req.body.purchaseid);
             if (!res_is_success(purchase_active_res)) {
                 res.send(htapi_code(false));
@@ -207,6 +219,18 @@ router.put('/purchaseactive', function(req, res, next) {
         }
         const student_res = yield i_students.add_student(param);
         if (!res_is_success(student_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const class_res = yield i_classes.select_class(param.classid);
+        if (!res_have_result(class_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const class_update_res = yield i_classes.update_class_numusers(class_res.result[0].classnumusers+1,param.classid);
+        if (!res_is_success(class_update_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
