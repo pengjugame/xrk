@@ -2,7 +2,7 @@
   <div>
 
   <div class="mui-card">
-    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classsstudents', params: {classid:oldclassid} }" tag="a" ></router-link>
+    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classstudents', params: {classid:oldclassid} }" tag="a" ></router-link>
   </div>
 
   <div class="mui-card" >
@@ -14,35 +14,36 @@
         <label>姓名：</label>
         <input type="text"  v-model="student.studentname" class="mui-input-clear" placeholder="请输入姓名" >
       </div>
-      
+
       <div class="mui-input-row">
         <label>手机：</label>
         <input type="text"  v-model="student.studentmobile" class="mui-input-clear" placeholder="请输入手机">
       </div>
 
       <div class="mui-input-row" >
-        <label>性别：</label> 
+        <label>性别：</label>
+        <form class="mui-input-group">
         <div class=" mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="0" v-model="student.studentusex" >
           <label>男</label>
         </div>
-        
         <div class="mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="1" v-model="student.studentusex" >
           <label>女</label>
         </div>
+        </form>
       </div>
 
       <div class="mui-input-row">
         <label>年龄：</label>
         <input type="text"  v-model="student.studentage" class="mui-input-clear" placeholder="请输入年龄">
       </div>
-      
+
       <div class="mui-input-row" >
         <label>备注：</label>
         <input type="text" v-model="student.studentdetails" class="mui-input-clear" placeholder="请输入备注">
       </div>
-      
+
       <div class="mui-input-row">
         <label>选择课程：</label>
         <input type="text" v-model="coursename" readonly>
@@ -54,7 +55,7 @@
         <input type="text" v-model="classname" readonly >
         <router-link class="mui-navigate-right" :to="{ name:'schoolclasses',params: {courseid:courseid}}" tag="a" ></router-link>
       </div>
-      
+
       <div class="mui-input-row">
         <label>选择校区：</label>
         <input type="text" value="广州萝岗万达店" v-model="schoolname" readonly >
@@ -62,22 +63,24 @@
       </div>
 
       <div class="mui-input-row" >
-        <label>状态：</label> 
+        <label>状态：</label>
+        <form class="mui-input-group">
         <div class=" mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="0" v-model="student.studentactive" >
           <label>毕业</label>
         </div>
-        
         <div class="mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="1" v-model="student.studentactive" >
           <label>在读</label>
         </div>
+        </form>
       </div>
-      
+
       <div class="mui-button-row">
         <button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
+        <button type="button" id="delid" class="mui-btn mui-btn-warning" v-on:click="del" v-text="delText" ></button>
       </div>
-      
+
     </div>
 
     <div class="mui-card-footer">向日葵艺术</div>
@@ -136,6 +139,7 @@ export default {
       schools: [],
 
       updatestatus: 0,
+      delstatus: 0,
 
       oldclassid: '',
     }
@@ -168,6 +172,7 @@ export default {
   },
   activated: function () {
     this.updatestatus = 0;
+    this.delstatus = 0;
   },
   created() {
     request.getcourses(this);
@@ -183,7 +188,18 @@ export default {
 
       document.getElementById("submitid").disabled = "disabled"
       return '提交成功';
-    }
+    },
+    delText() {
+      if (this.delstatus == 0) {
+        if(document.getElementById("delid"))
+          document.getElementById("delid").disabled = ""
+        return '删除';
+      }
+      
+      document.getElementById("submitid").disabled = "disabled";
+      document.getElementById("delid").disabled = "disabled";
+      return '提交成功';
+    },
   },
   methods: {
     submit() {
@@ -199,6 +215,17 @@ export default {
       }
       
       request.putstudent(this);
+    },
+    del() {
+      if (this.student.studentid == '')
+      {
+        mui.alert('不能删除学生！', '向日葵艺术学生管理', function() {
+              ;
+            });
+        return;
+      }
+      
+      request.delstudent(this);
     },
     selectcourse(course){
       this.courseid = course.courseid;

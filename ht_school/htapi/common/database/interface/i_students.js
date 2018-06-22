@@ -104,6 +104,15 @@ exports.update_student_class = function(classid,studentid) {
     });
 }
 
+exports.delete_student = function(studentid) {
+    return co(function*() {
+        if (is_empty(studentid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.students.delete_student, [studentid]);
+    });
+}
+
 exports.active_student = function(state,studentid) {
     return co(function*() {
         if (is_empty(state) ||

@@ -129,7 +129,7 @@ router.delete('/classcard', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const classcard_res = yield i_classcards.delete_classcard(req.body.classcardid);
+        const classcard_res = yield i_classcards.delete_classcard(req.query.classcardid);
         if (!res_is_success(classcard_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

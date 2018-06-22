@@ -142,6 +142,7 @@ router.put('/purchase', function(req, res, next) {
                 "classcardid": req.body.classcardid,
                 "classid": 1,
                 "schoolid": req.body.schoolid,
+                "purchaseid": req.body.purchaseid,
                 "studentopenid": req.body.purchaseopenid,
                 "studentmaxtimes": req.body.classcardtimes,
                 "studenttimes": req.body.classcardtimes,
@@ -165,7 +166,7 @@ router.put('/purchase', function(req, res, next) {
                 return Promise.resolve(null);
             }
 
-            const purchase_active_res = yield i_purchases.active_purchase(new Date(), student_res.result.insertId , req.body.purchaseid);
+            const purchase_active_res = yield i_purchases.active_purchase(new Date(), req.body.purchaseid);
             if (!res_is_success(purchase_active_res)) {
                 res.send(htapi_code(false));
                 return Promise.resolve(null);

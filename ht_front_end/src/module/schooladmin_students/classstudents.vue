@@ -8,7 +8,8 @@
   <div class="mui-card" v-for="student in students" >
     <div class="mui-card-header">
       <label>学生记录</label>
-      <label class=" mui-pull-right">{{student.studentname}}</label>
+      <label v-if="student.studentactive == 1" class=" mui-pull-right mui-badge-success mui-badge">{{student.studentname}}</label>
+      <label v-else class=" mui-pull-right mui-badge">{{student.studentname}}</label>
     </div>
 
     <div class="mui-card-content mui-input-group ">
@@ -48,7 +49,7 @@
         <input class="mui-input-numbox" type="number" v-model="student.studenttimes" />
         <button class="mui-btn jl-mui-btn-numbox-plus"  type="button" v-on:click="minusplusstudenttimes(1,student)">+</button>
       </div>
-      <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="updatestudenttimes(student)" >确认</button>
+      <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="updatestudenttimes(student)" v-text="confirmText" ></button>
     </div>
   </div>
   </div>
@@ -63,6 +64,7 @@ export default {
   data() {
     return {
       students: [],
+      updatestudenttimesstatus: 0,
     }
   },
   activated: function () {
@@ -72,11 +74,18 @@ export default {
   created() {
   },
   computed: {
+    confirmText() {
+      if (this.updatestudenttimesstatus == 1) {
+        mui.toast('提交成功 :-)');
+        this.updatestudenttimesstatus = 0;
+      }
+
+      return '确认';
+    }
   },
   methods: {
-
     updatestudenttimes(student) {
-      request.putstudenttimes(student);
+      request.putstudenttimes(this,student);
     },
   
     minusplusstudenttimes(plus,student){
@@ -89,7 +98,7 @@ export default {
         if((student.studenttimes - 1) >= 0)
           student.studenttimes -= 1;
         else
-            student.studenttimes = 0;
+          student.studenttimes = 0;
       }
       
     },

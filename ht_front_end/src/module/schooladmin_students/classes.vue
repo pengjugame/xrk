@@ -70,8 +70,10 @@ export default {
       classes: [],
     }
   },
-  created() {
+  activated: function () {
     request.getclasses(this);
+  },
+  created() {
   },
   computed: {
   },

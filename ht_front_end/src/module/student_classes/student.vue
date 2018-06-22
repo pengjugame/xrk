@@ -74,8 +74,10 @@ export default {
       student: {},
     }
   },
-  created() {
+  activated: function () {
     request.getstudentbyclass(this,this.$route.params.classid);
+  },
+  created() {
   },
   computed: {
   },

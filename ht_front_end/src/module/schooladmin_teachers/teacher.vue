@@ -19,17 +19,18 @@
         <input type="text" class="mui-input-clear" placeholder="请输入手机号码" v-model="teacher.teachermobile" >
       </div>
 
-      <div class="mui-input-row" >
-        <label>性别：</label> 
+      <div class="mui-input-row">
+        <label>性别：</label>
+        <form class="mui-input-group">
         <div class=" mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="0" v-model="teacher.teacherusex" >
           <label>男</label>
         </div>
-        
         <div class="mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="1" v-model="teacher.teacherusex" >
           <label>女</label>
         </div>
+        </form>
       </div>
 
       <div class="mui-input-row" >
@@ -43,17 +44,18 @@
         <a href="#middlePopover" class="mui-navigate-right" ></a>
       </div>
 
-      <div class="mui-input-row" >
-        <label>状态：</label> 
+      <div class="mui-input-row">
+        <label>状态：</label>
+        <form class="mui-input-group">
         <div class=" mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="0" v-model="teacher.teacheractive" >
           <label>离职</label>
         </div>
-        
         <div class="mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="1" v-model="teacher.teacheractive" >
           <label>在职</label>
         </div>
+        </form>
       </div>
 
       <div class="mui-button-row">

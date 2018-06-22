@@ -32,7 +32,7 @@ router.get('/studentbyclass', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        res.send(student_res.result);
+        res.send(student_res.result[0]);
         return Promise.resolve(true);
     });
 });
@@ -160,11 +160,19 @@ router.put('/student', function(req, res, next) {
             "studentusex": req.body.studentusex,
             "studentage": req.body.studentage,
             "studentdetails": req.body.studentdetails,
+            "classcardid": req.body.classcardid,
             "classid": req.body.classid,
             "schoolid": req.body.schoolid,
             "studenttimes": req.body.studenttimes,
             "studentmaxtimes": req.body.studentmaxtimes,
+            "studentopenid": req.body.studentopenid,
             "studentactive": req.body.studentactive,
+        }
+
+        const student_old_res = yield i_students.select_student(req.body.studentid);
+        if (!res_have_result(student_old_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
         }
 
         const student_res = yield i_students.update_student_base(param);
@@ -172,8 +180,57 @@ router.put('/student', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-        
-        res.send(htapi_code(true));
+
+        if(req.body.classid != student_old_res.result[0].classid){
+            const class_old_res = yield i_classes.select_class(student_old_res.result[0].classid);
+            if (!res_have_result(class_old_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+
+            const class_old_update_res = yield i_classes.update_class_numusers(class_old_res.result[0].classnumusers-1,student_old_res.result[0].classid);
+            if (!res_is_success(class_old_update_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+
+            const class_new_res = yield i_classes.select_class(req.body.classid);
+            if (!res_have_result(class_new_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+
+            const class_new_update_res = yield i_classes.update_class_numusers(class_new_res.result[0].classnumusers+1,req.body.classid);
+            if (!res_is_success(class_new_update_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
+        }
+
+        if (req.body.studentactive == 1) {
+            wxapi.moveUserToGroup(req.body.studentopenid, tags["学生"], function(err, data, res) {
+                console.log("student moveUserToGroup: " + req.body.studentopenid + " err:" + err);
+                wxapi.getWhichGroup(req.body.studentopenid,function(err, result) {
+                    if(!err){
+                      console.log("getWhichGroup openid " + req.body.studentopenid + " result:" + JSON.stringify(result));
+                    }
+                });
+            });
+        } else {
+            wxapi.moveUserToGroup(req.body.studentopenid, 0, function(err, data, res) {
+                console.log("delete moveUserToGroup: " + req.body.studentopenid + " err:" + err);
+                wxapi.getWhichGroup(req.body.studentopenid,function(err, result) {
+                    if(!err){
+                      console.log("getWhichGroup openid " + req.body.studentopenid + " result:" + JSON.stringify(result));
+                    }
+                });
+            });
+        }
+
+        var response = ""
+        response = htapi_code(true);
+        response["updatestatus"] = 1;
+        res.send(response);
         return Promise.resolve(true);
     });
 });
@@ -218,7 +275,10 @@ router.put('/studentactive', function(req, res, next) {
             });
         }
         
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["studentactive"] = req.body.studentactive;
+        res.send(response);
         return Promise.resolve(true);
     });
 });
@@ -258,8 +318,11 @@ router.put('/studenttimes', function(req, res, next) {
 
         const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
         if (!res_have_result(teacher_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
+            const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+            if (!res_have_result(admin_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null);
+            }
         }
 
         const student_res = yield i_students.update_student_times(req.body.studenttimes,req.body.studentid);
@@ -268,7 +331,65 @@ router.put('/studenttimes', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["updatestudenttimesstatus"] = 1;
+        res.send(response);
+        return Promise.resolve(true);
+    });
+});
+
+router.delete('/student', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        if (!res_have_result(admin_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const student_old_res = yield i_students.select_student(req.query.studentid);
+        if (!res_have_result(student_old_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const class_old_res = yield i_classes.select_class(student_old_res.result[0].classid);
+        if (!res_have_result(class_old_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const class_old_update_res = yield i_classes.update_class_numusers(class_old_res.result[0].classnumusers-1,student_old_res.result[0].classid);
+        if (!res_is_success(class_old_update_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const student_res = yield i_students.delete_student(req.query.studentid);
+        if (!res_is_success(student_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        wxapi.moveUserToGroup(req.query.studentopenid, 0, function(err, data, res) {
+            console.log("delete moveUserToGroup: " + req.query.studentopenid + " err:" + err);
+            wxapi.getWhichGroup(req.query.studentopenid,function(err, result) {
+                if(!err){
+                    console.log("getWhichGroup openid " + req.query.studentopenid + " result:" + JSON.stringify(result));
+                }
+            });
+        });
+
+        var response = ""
+        response = htapi_code(true);
+        response["delstatus"] = 1;
+        res.send(response);
         return Promise.resolve(true);
     });
 });

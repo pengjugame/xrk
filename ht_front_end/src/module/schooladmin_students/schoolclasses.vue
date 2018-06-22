@@ -73,8 +73,8 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.fromname = from.name;
-      if(this.$route.params.courseid != undefined)
-        request.getclassesbycourse(this,this.$route.params.courseid);
+      if(vm.$route.params.courseid != undefined)
+        request.getclassesbycourse(vm,vm.$route.params.courseid);
     });
   },
   activated: function () {

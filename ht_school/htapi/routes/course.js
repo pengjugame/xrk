@@ -108,7 +108,7 @@ router.delete('/course', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const course_res = yield i_courses.delete_course(req.body.courseid);
+        const course_res = yield i_courses.delete_course(req.query.courseid);
         if (!res_is_success(course_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

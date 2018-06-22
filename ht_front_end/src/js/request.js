@@ -447,9 +447,9 @@ export const getstudents = (vm) => {
   })
 }
 
-export const putstudent = (student) => {
+export const putstudent = (vm) => {
   userInfo().then((res) => {
-    http.put(route.student, student).then((res) => {
+    http.put(route.student, vm.student).then((res) => {
       if (res_is_success(res)) {
         vm.updatestatus = res.data.updatestatus;
       }
@@ -477,11 +477,11 @@ export const getclassstudents = (vm,classid) => {
   })
 }
 
-export const putstudenttimes = (student) => {
+export const putstudenttimes = (vm,student) => {
   userInfo().then((res) => {
     http.put(route.studenttimes, student).then((res) => {
       if (res_is_success(res)) {
-        ;
+        vm.updatestudenttimesstatus = res.data.updatestudenttimesstatus;
       }
     }, (err) => {
       console.log(err);
@@ -497,7 +497,7 @@ export const getstudentbyclass = (vm,classid) => {
   params.classid = classid
     http.get(route.studentbyclass,params).then((res) => {
       if (res_is_success(res)) {
-        vm.student = res.data
+        vm.student = res.data;
       }
     }, (err) => {
       console.log(err);
@@ -529,4 +529,18 @@ export const poststudent = (vm) => {
     }, (err) => {
       console.log(err);
     })
+}
+
+export const delstudent = (vm) => {
+  userInfo().then((res) => {
+    http.del(route.student, vm.student).then((res) => {
+      if (res_is_success(res)) {
+        vm.delstatus = res.data.delstatus;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
 }

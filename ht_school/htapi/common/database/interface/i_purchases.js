@@ -82,11 +82,11 @@ exports.update_purchase_base = function(purchase) {
     });
 }
 
-exports.active_purchase = function(paytime,studentid,purchaseid) {
+exports.active_purchase = function(paytime,purchaseid) {
     return co(function*() {
-        if (is_empty(paytime) || is_empty(studentid) || is_empty(purchaseid)) {
+        if (is_empty(paytime) || is_empty(purchaseid)) {
             return Promise.resolve(null);
         }
-        return operate_db(sql.purchases.active_purchase, [paytime,studentid,purchaseid]);
+        return operate_db(sql.purchases.active_purchase, [paytime,purchaseid]);
     });
 }

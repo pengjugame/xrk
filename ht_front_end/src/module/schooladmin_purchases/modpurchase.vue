@@ -21,8 +21,8 @@
       </div>
 
       <div class="mui-input-row" >
-        <form class="mui-input-group">
-          <label>性别：</label> 
+          <label>性别：</label>
+          <form class="mui-input-group">
           <div class=" mui-radio mui-pull-left mui-left">
             <input name="radio" type="radio" value="0" v-model="purchase.purchaseusex" >
             <label>男</label>
@@ -31,7 +31,7 @@
             <input name="radio" type="radio" value="1" v-model="purchase.purchaseusex" >
             <label>女</label>
           </div>
-        </form>
+          </form>
       </div>
 
       <div class="mui-input-row">
@@ -78,8 +78,8 @@
       </div>
 
       <div class="mui-input-row" >
-        <form class="mui-input-group">
-          <label>状态：</label> 
+          <label>状态：</label>
+          <form class="mui-input-group">
           <div class=" mui-radio mui-pull-left mui-left">
             <input name="radio" type="radio" value="0" v-model="purchase.purchaseactive" >
             <label>未付款</label>
@@ -88,7 +88,7 @@
             <input name="radio" type="radio" value="1" v-model="purchase.purchaseactive" >
             <label>已付款</label>
           </div>
-        </form>
+          </form>
       </div>
       
       <div class="mui-button-row">

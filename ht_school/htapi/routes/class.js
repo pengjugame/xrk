@@ -211,7 +211,7 @@ router.delete('/class', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const class_res = yield i_classes.delete_class(req.body.classid);
+        const class_res = yield i_classes.delete_class(req.query.classid);
         if (!res_is_success(class_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

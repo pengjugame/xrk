@@ -164,6 +164,7 @@ CREATE TABLE `xrk_students` (
   `classcardid` INT UNSIGNED COMMENT '课卡ID',
   `classid` INT UNSIGNED COMMENT '班级ID',
   `schoolid` INT UNSIGNED COMMENT '教学点ID',
+  `purchaseid` INT UNSIGNED COMMENT '购买 id',
   `studentopenid` varchar(64) COMMENT '用户ID',
   `studenttimes` int(1) NOT NULL DEFAULT '0' COMMENT '剩余次数',
   `studentmaxtimes` int(1) NOT NULL DEFAULT '0' COMMENT '上课次数',
@@ -171,7 +172,8 @@ CREATE TABLE `xrk_students` (
   FOREIGN KEY (`classcardid`) REFERENCES xrk_classcards(`classcardid`),
   FOREIGN KEY (`classid`) REFERENCES xrk_classes(`classid`),
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
-  FOREIGN KEY (`studentopenid`) REFERENCES xrk_users(`openid`)
+  FOREIGN KEY (`studentopenid`) REFERENCES xrk_users(`openid`),
+  FOREIGN KEY (`purchaseid`) REFERENCES xrk_students(`purchaseid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学生';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,12 +198,10 @@ CREATE TABLE `xrk_purchases` (
   `purchaseopenid` varchar(64) NOT NULL COMMENT '用户ID',
   `paydetails` varchar(1024) COMMENT '支付方式',
   `paytime` varchar(1024) COMMENT '支付时间',
-  `studentid` INT UNSIGNED COMMENT '学生 id',
   `purchaseactive` tinyint(1) NOT NULL DEFAULT '0' COMMENT '已支付1,未支付0',
   FOREIGN KEY (`classcardid`) REFERENCES xrk_classcards(`classcardid`),
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
-  FOREIGN KEY (`purchaseopenid`) REFERENCES xrk_users(`openid`),
-  FOREIGN KEY (`studentid`) REFERENCES xrk_students(`studentid`)
+  FOREIGN KEY (`purchaseopenid`) REFERENCES xrk_users(`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='预学生';
 /*!40101 SET character_set_client = @saved_cs_client */;
 

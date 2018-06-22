@@ -149,11 +149,11 @@ export default {
       vm.schoolname = vm.$route.params.schoolname;
 
     }else if(from.name == 'teacher'){
-      if(this.$route.params.teacherid != undefined)
-        this.teacherid = this.$route.params.teacherid;
+      if(vm.$route.params.teacherid != undefined)
+        vm.teacherid = vm.$route.params.teacherid;
 
-      if(this.$route.params.teachername != undefined)
-        this.teachername = this.$route.params.teachername;
+      if(vm.$route.params.teachername != undefined)
+        vm.teachername = vm.$route.params.teachername;
     }
     });
   },
