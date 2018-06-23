@@ -6,7 +6,10 @@
   </div>
 
   <div class="mui-card" >
-    <div class="mui-card-header">向日葵艺术课卡预购修改</div>
+    <div class="mui-card-header">
+      <label>向日葵艺术课卡预购修改</label>
+      <img class="mui-media-object mui-pull-right round_icon" v-bind:src="purchase.headimgurl">
+    </div>
 
     <div class="mui-card-content mui-input-group">
 
@@ -153,7 +156,7 @@ export default {
       schoolname: '广州萝岗万达店',
       schools: [],
       updatestatus: 0,
-      activestatus:0,
+      purchaseactive:0,
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -172,7 +175,7 @@ export default {
       vm.schoolid = vm.$route.params.schoolid;
       vm.schoolname = vm.$route.params.schoolname;
 
-      vm.activestatus = vm.purchase.purchaseactive;
+      vm.purchaseactive = vm.purchase.purchaseactive;
 
     }else if(from.name == 'schoolclasscards'){
       if(vm.$route.params.classcardid != undefined)
@@ -202,7 +205,7 @@ export default {
       return '提交成功';
     },
     activeText() {
-      if (this.activestatus == 0) {
+      if (this.purchaseactive == 0) {
         if(document.getElementById("activepurchaseid"))
           document.getElementById("activepurchaseid").disabled = "";
         return '确认收款';
@@ -568,5 +571,14 @@ export default {
   }
   .mui-popover {
     height: 50px;
+  }
+  .round_icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 </style>

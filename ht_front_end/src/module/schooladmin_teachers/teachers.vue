@@ -3,9 +3,9 @@
   <div>
   <div class="mui-card" v-for="teacher in teachers" >
     <div class="mui-card-header">
-      <label>{{teacher.teachername}}</label>
-      <a class="active mui-pull-right" v-if="teacher.teacheractive==1" ><span class="mui-icon mui-icon-checkmarkempty"></span></a>
-      <a class="mui-pull-right" v-else ><span class="mui-icon mui-icon-checkmarkempty"></span></a>
+      <label v-if="teacher.teacheractive==1" class=" mui-badge-success mui-badge">{{teacher.teachername}}</label>
+      <label v-else class=" mui-badge">{{teacher.teachername}}</label>
+      <img class="mui-media-object mui-pull-right round_icon" v-bind:src="teacher.headimgurl">
     </div>
 
     <div class="mui-card-content mui-input-group ">
@@ -63,3 +63,14 @@ export default {
   }
 }
 </script>
+<style>
+  .round_icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+</style>

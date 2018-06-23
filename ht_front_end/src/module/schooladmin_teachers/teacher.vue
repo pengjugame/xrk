@@ -6,7 +6,10 @@
   </div>
 
   <div class="mui-card" >
-    <div class="mui-card-header">向日葵艺术教师修改</div>
+    <div class="mui-card-header">
+      <label>向日葵艺术教师修改</label>
+      <img class="mui-media-object mui-pull-right round_icon" v-bind:src="teacher.headimgurl">
+    </div>
 
     <div class="mui-card-content mui-input-group ">
       <div class="mui-input-row">
@@ -35,7 +38,7 @@
 
       <div class="mui-input-row" >
         <label>备注：</label>
-        <input type="text" class="mui-input-clear" placeholder="备注" v-model="teacher.schooladmindetails" >
+        <input type="text" class="mui-input-clear" placeholder="备注" v-model="teacher.teacherdetails" >
       </div>
 
       <div class="mui-input-row">
@@ -120,10 +123,11 @@ export default {
   },
   computed: {
     confirmText() {
-      if (this.updatestatus == 0) {
+      if (this.updatestatus == 0)
+      {
         if(document.getElementById("submitid"))
           document.getElementById("submitid").disabled = "";
-        return '更新';
+        return '更新1';
       }
       
       document.getElementById("submitid").disabled = "disabled"
@@ -158,5 +162,14 @@ export default {
 <style>
   .mui-popover {
     height: 50px;
+  }
+  .round_icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 </style>

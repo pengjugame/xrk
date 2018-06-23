@@ -132,16 +132,22 @@ router.post('/class', function(req, res, next) {
             "classname": req.body.classname,
             "classdate": req.body.classdate,
             "classtime": req.body.classtime,
-            "courseid": req.body.courseid,
-            "teacherid": req.body.teacherid,
-            "schoolid": req.body.schoolid,
             "classmaxnumusers": req.body.classmaxnumusers,
             "classnumusers": 0,
             "classdetails": req.body.classdetails,
             "classactive": 1,
         }
 
-        const class_res = yield i_classes.add_course(param);
+        if(req.body.courseid != undefined && req.body.courseid != '' )
+            param.courseid = req.body.courseid;
+
+        if(req.body.teacherid != undefined && req.body.teacherid != '' )
+            param.teacherid = req.body.teacherid;
+
+        if(req.body.schoolid != undefined && req.body.schoolid != '' )
+            param.schoolid = req.body.schoolid;
+
+        const class_res = yield i_classes.add_class(param);
         if (!res_is_success(class_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
@@ -174,14 +180,20 @@ router.put('/class', function(req, res, next) {
             "classname": req.body.classname,
             "classdate": req.body.classdate,
             "classtime": req.body.classtime,
-            "courseid": req.body.courseid,
-            "teacherid": req.body.teacherid,
-            "schoolid": req.body.schoolid,
             "classmaxnumusers": req.body.classmaxnumusers,
             "classnumusers": req.body.classnumusers,
             "classdetails": req.body.classdetails,
             "classactive": req.body.classactive,
         }
+
+        if(req.body.courseid != undefined && req.body.courseid != '' )
+            param.courseid = req.body.courseid;
+
+        if(req.body.teacherid != undefined && req.body.teacherid != ''  )
+            param.teacherid = req.body.teacherid;
+
+        if(req.body.schoolid != undefined && req.body.schoolid != '' )
+            param.schoolid = req.body.schoolid;
 
         const class_res = yield i_classes.update_class_base(param);
         if (!res_is_success(class_res)) {
@@ -216,7 +228,7 @@ router.delete('/class', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-        
+
         var response = ""
         response = htapi_code(true);
         response["delstatus"] = 1;

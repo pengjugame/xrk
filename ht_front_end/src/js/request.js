@@ -15,6 +15,7 @@ import {
 } from './util'
 
 export const getclasscards = (vm) => {
+  vm.classcards = [];
   http.get(route.classcards).then((res) => {
     vm.classcards = res.data
   }, (err) => {
@@ -25,7 +26,8 @@ export const getclasscards = (vm) => {
 export const getclasscardsbycourse = (vm,courseid) => {
   let params = {}
   params.courseid = courseid
-    http.get(route.classcardsbycourse,params).then((res) => {
+  vm.classcards = [];
+  http.get(route.classcardsbycourse,params).then((res) => {
       if (res_is_success(res)) {
         vm.classcards = res.data
       }
@@ -79,6 +81,7 @@ export const delclasscard = (vm) => {
 /***********************************************************/
 
 export const getclasses = (vm) => {
+  vm.classes = [];
   userInfo().then((res) => {
     http.get(route.classes).then((res) => {
       if (res_is_success(res)) {
@@ -93,6 +96,7 @@ export const getclasses = (vm) => {
 }
 
 export const getteacherclasses = (vm) => {
+  vm.classes = [];
   userInfo().then((res) => {
     http.get(route.teacherclasses).then((res) => {
       if (res_is_success(res)) {
@@ -107,6 +111,7 @@ export const getteacherclasses = (vm) => {
 }
 
 export const getstudentclasses = (vm) => {
+  vm.classes = [];
   userInfo().then((res) => {
     http.get(route.studentclasses).then((res) => {
       if (res_is_success(res)) {
@@ -123,6 +128,7 @@ export const getstudentclasses = (vm) => {
 export const getclassesbycourse = (vm,courseid) => {
   let params = {}
   params.courseid = courseid
+  vm.classes = [];
   http.get(route.classesbycourse,params).then((res) => {
     if (res_is_success(res)) {
       vm.classes = res.data
@@ -162,7 +168,7 @@ export const putclass = (vm) => {
 
 export const delclass = (vm) => {
   userInfo().then((res) => {
-    http.put(route.class, vm.cla).then((res) => {
+    http.del(route.class, vm.cla).then((res) => {
       if (res_is_success(res)) {
         vm.delstatus = res.data.delstatus;
       }
@@ -177,6 +183,7 @@ export const delclass = (vm) => {
 /*****************************************************/
 
 export const getcourses = (vm) => {
+  vm.courses = [];
   http.get(route.courses).then((res) => {
     vm.courses = res.data
   }, (err) => {
@@ -200,7 +207,7 @@ export const postcourse = (vm) => {
 
 export const putcourse = (vm) => {
   userInfo().then((res) => {
-    http.put(route.course, vm.form).then((res) => {
+    http.put(route.course, vm.course).then((res) => {
       if (res_is_success(res)) {
         vm.updatestatus = res.data.updatestatus;
       }
@@ -214,7 +221,7 @@ export const putcourse = (vm) => {
 
 export const delcourse = (vm) => {
   userInfo().then((res) => {
-    http.del(route.course, vm.form).then((res) => {
+    http.del(route.course, vm.course).then((res) => {
       if (res_is_success(res)) {
         vm.delstatus = res.data.delstatus;
       }
@@ -229,6 +236,7 @@ export const delcourse = (vm) => {
 /******************************************************/
 
 export const getschools = (vm) => {
+  vm.schools = [];
   http.get(route.schools).then((res) => {
     vm.schools = res.data;
   }, (err) => {
@@ -258,6 +266,7 @@ function userInfo() {
 /******************************************************/
 
 export const getvisitorpurchases = (vm) => {
+  vm.purchases = [];
   userInfo().then((res) => {
     http.get(route.studentpurchases).then((res) => {
       if (res_is_success(res)) {
@@ -301,6 +310,7 @@ export const putpurchase = (vm) => {
 }
 
 export const getpurchases = (vm) => {
+  vm.purchases = [];
   userInfo().then((res) => {
     http.get(route.purchases).then((res) => {
       if (res_is_success(res)) {
@@ -318,7 +328,7 @@ export const putpurchaseactive = (vm) => {
   userInfo().then((res) => {
     http.put(route.purchaseactive, vm.purchase).then((res) => {
       if (res_is_success(res)) {
-        vm.activestatus = res.data.purchaseactive;
+        vm.purchaseactive = res.data.purchaseactive;
       }
     }, (err) => {
       console.log(err);
@@ -330,11 +340,11 @@ export const putpurchaseactive = (vm) => {
 
 /******************************************************/
 
-export const getschooladmin = (schooladmin) => {
+export const getschooladmin = (vm) => {
   userInfo().then((res) => {
     http.get(route.schooladmin).then((res) => {
       if (res_is_success(res)) {
-        schooladmin = res.data
+        vm.form = res.data;
       }
     }, (err) => {
       console.log(err);
@@ -361,11 +371,11 @@ export const postschooladmin = (vm) => {
 
 /*******************************************************/
 
-export const getteacher = (teacher) => {
+export const getteacher = (vm) => {
   userInfo().then((res) => {
     http.get(route.teacher).then((res) => {
       if (res_is_success(res)) {
-        teacher = res.data
+        vm.form = res.data
       }
     }, (err) => {
       console.log(err);
@@ -393,7 +403,7 @@ export const putteacheractive = (teacher) => {
   userInfo().then((res) => {
     http.put(route.teacheractive, teacher).then((res) => {
       if (res_is_success(res)) {
-        teacher.teacheractive = res.data.teacheractive
+        teacher.teacheractive = res.data.teacheractive;
       }
     }, (err) => {
       console.log(err);
@@ -407,7 +417,9 @@ export const putteacher = (vm) => {
   userInfo().then((res) => {
     http.put(route.teacher, vm.teacher).then((res) => {
       if (res_is_success(res)) {
-        vm.updatestatus = res.data.updatestatus
+        console.log(vm.teacher);
+        vm.updatestatus = res.data.updatestatus;
+        console.log(vm.updatestatus);
       }
     }, (err) => {
       console.log(err);
@@ -418,6 +430,7 @@ export const putteacher = (vm) => {
 }
 
 export const getteachers = (vm) => {
+  vm.teachers = [];
   userInfo().then((res) => {
     http.get(route.teachers).then((res) => {
       if (res_is_success(res)) {
@@ -434,6 +447,7 @@ export const getteachers = (vm) => {
 /******************************************************/
 
 export const getstudents = (vm) => {
+  vm.students = [];
   userInfo().then((res) => {
     http.get(route.students).then((res) => {
       if (res_is_success(res)) {
@@ -462,9 +476,10 @@ export const putstudent = (vm) => {
 }
 
 export const getclassstudents = (vm,classid) => {
-  userInfo().then((res) => {
+  vm.students = [];
   let params = {}
   params.classid = classid
+  userInfo().then((res) => {
     http.get(route.classstudents,params).then((res) => {
       if (res_is_success(res)) {
         vm.students = res.data
@@ -492,9 +507,10 @@ export const putstudenttimes = (vm,student) => {
 }
 
 export const getstudentbyclass = (vm,classid) => {
-  userInfo().then((res) => {
+  vm.student = {};
   let params = {}
   params.classid = classid
+  userInfo().then((res) => {
     http.get(route.studentbyclass,params).then((res) => {
       if (res_is_success(res)) {
         vm.student = res.data;

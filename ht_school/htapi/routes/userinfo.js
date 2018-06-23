@@ -16,13 +16,16 @@ var router = express.Router();
 
 var send_exist_userinfo = function(req, exist_user, res) {
     req.session.userinfo = exist_user;
+    console.log("exist = " + JSON.stringify(req.session));
     res.send(exist_user);
 };
 
-var add_userinfo_by_auth = function(req, userinfo) {
+var add_userinfo_by_auth = function(req, userinfo, res) {
     i_users.add_user(userinfo).then(function(users_res) {
         if (res_is_success(users_res)) {
             req.session.userinfo = userinfo;
+            console.log("add = " + JSON.stringify(req.session));
+            res.send(userinfo);
         }
     });
 };
@@ -37,9 +40,8 @@ var get_userinfo_by_auth = function(req, openid, res) {
         result.subscribe = 1;
         result.subscribe_time = Date.now();
         result.privilege = result.privilege.toString();
-        res.send(result);
 
-        add_userinfo_by_auth(req, result);
+        add_userinfo_by_auth(req, result, res);
     });
 };
 
@@ -51,7 +53,6 @@ router.get('/', function(req, res, next) {
         res.send(htapi_code(false));
         return;
     }
-    var _session = req.session;
 
     client.getAccessToken(code, function(err, result) {
         if (err) {
@@ -60,7 +61,7 @@ router.get('/', function(req, res, next) {
         }
 
         //如果session有则刷新处理 不请求服务器
-        const userinfo = get_userinfo(_session);
+        const userinfo = get_userinfo(req.session);
         console.log("获取到session userinfo:" + JSON.stringify(userinfo));
         if (userinfo != '' && result.data.openid == userinfo.openid) {
             res.send(userinfo);

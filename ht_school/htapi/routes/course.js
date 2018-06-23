@@ -66,7 +66,7 @@ router.put('/course', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-
+        
         const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
         if (!res_have_result(admin_res)) {
             res.send(htapi_code(false));
@@ -85,7 +85,7 @@ router.put('/course', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-        
+
         var response = ""
         response = htapi_code(true);
         response["updatestatus"] = 1;

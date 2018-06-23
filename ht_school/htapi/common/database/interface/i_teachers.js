@@ -24,7 +24,7 @@ exports.exist_teacher = function(openid) {
 
 exports.select_teacher_in_school = function(schoolid) {
     return co(function*() {
-        if (verify_openid(schoolid)) {
+        if (is_empty(schoolid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.teachers.select_teacher_in_school, [schoolid]);
@@ -33,7 +33,7 @@ exports.select_teacher_in_school = function(schoolid) {
 
 exports.select_teacher_in_school_active = function(schoolid) {
     return co(function*() {
-        if (verify_openid(schoolid)) {
+        if (is_empty(schoolid)) {
             return Promise.resolve(null);
         }
         return operate_db(sql.teachers.select_teacher_in_school_active, [schoolid]);

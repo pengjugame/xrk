@@ -96,23 +96,24 @@ export default {
   },
   created() {
     request.getschools(this);
-    request.getschooladmin(this.form);
+    request.getschooladmin(this);
+    this.form.schooladminactive = 0;
   },
   computed: {
     confirmText() {
-    if (this.form.schooladminid == '') {
+
       if(document.getElementById("submitid"))
         document.getElementById("submitid").disabled = "";
-      return '确定';
-    }
 
-    if (this.form.schooladminactive == 0) {
-      mui.toast('提交成功,请等待 :-)');
+      if (this.form.schooladminid == '') {
+        return '确定';
+      }
+
+      if (this.form.schooladminactive == 1) {
+        mui.toast('提交成功 :-)');
+      }
+
       return '更新';
-    }
-
-    document.getElementById("submitid").disabled = "disabled";
-    return '注册成功';
     }
   },
   methods: {

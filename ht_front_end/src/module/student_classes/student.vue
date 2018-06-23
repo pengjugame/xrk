@@ -7,8 +7,9 @@
   
   <div class="mui-card" >
     <div class="mui-card-header">
-      <label>学生记录</label>
-      <label class=" mui-pull-right">{{student.studentname}}</label>
+      <label v-if="student.studentactive == 1" class=" mui-badge-success mui-badge">{{student.studentname}}</label>
+      <label v-else class=" mui-badge">{{student.studentname}}</label>
+      <img class="mui-media-object mui-pull-right round_icon" v-bind:src="student.headimgurl">
     </div>
 
     <div class="mui-card-content mui-input-group ">
@@ -90,7 +91,13 @@ export default {
 </script>
 
 <style>
-  .mui-card-header a.active {
-    color: #08ec54f8;
+  .round_icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 </style>

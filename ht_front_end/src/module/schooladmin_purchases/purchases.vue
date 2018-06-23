@@ -6,6 +6,7 @@
     <div class="mui-card-header">
       <label>{{purchase.purchasename}}</label>
       <label class=" mui-pull-right">预购ID：{{purchase.purchaseid}}</label>
+      <img class="mui-media-object mui-pull-right round_icon" v-bind:src="purchase.headimgurl">
     </div>
 
     <div class="mui-card-content mui-input-group ">
@@ -73,3 +74,14 @@ export default {
   }
 }
 </script>
+<style>
+  .round_icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+</style>

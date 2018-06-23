@@ -73,8 +73,9 @@ export default {
           document.getElementById("submitid").disabled = "";
       return '确定';
     }
-    
-    document.getElementById("submitid").disabled = "disabled"
+
+    if(document.getElementById("submitid"))
+      document.getElementById("submitid").disabled = "disabled"
     return '提交成功';
     }
   },

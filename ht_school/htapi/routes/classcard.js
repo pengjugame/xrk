@@ -57,10 +57,12 @@ router.post('/classcard', function(req, res, next) {
             "classcardprice": req.body.classcardprice,
             "classcardtimes": req.body.classcardtimes,
             "classcardtime": req.body.classcardtime,
-            "courseid": req.body.courseid,
             "classcarddetails": req.body.classcarddetails,
             "classcardactive": 1
         }
+
+        if(req.body.courseid != undefined && req.body.courseid != '' )
+            param.courseid = req.body.courseid;
 
         const classcard_res = yield i_classcards.add_classcard(param);
         if (!res_is_success(classcard_res)) {
@@ -96,10 +98,12 @@ router.put('/classcard', function(req, res, next) {
             "classcardprice": req.body.classcardprice,
             "classcardtimes": req.body.classcardtimes,
             "classcardtime": req.body.classcardtime,
-            "courseid": req.body.courseid,
             "classcarddetails": req.body.classcarddetails,
             "classcardactive": req.body.classcardactive,
         }
+
+        if(req.body.courseid != undefined && req.body.courseid != '' )
+            param.courseid = req.body.courseid;
 
         const classcard_res = yield i_classcards.update_classcard_base(param);
         if (!res_is_success(classcard_res)) {

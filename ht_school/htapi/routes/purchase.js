@@ -5,6 +5,7 @@ var i_classcards = require('../common/database/interface/i_classcards');
 var i_school_admins = require('../common/database/interface/i_school_admins');
 var i_purchases = require('../common/database/interface/i_purchases');
 var i_students = require('../common/database/interface/i_students');
+var i_classes = require('../common/database/interface/i_classes');
 var {
     res_is_success,
     res_have_result,
@@ -67,28 +68,30 @@ router.post('/purchase', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-
         var param = {
             "purchasename": req.body.purchasename,
             "purchasemobile": req.body.purchasemobile,
             "purchaseusex": req.body.purchaseusex,
             "purchaseage": req.body.purchaseage,
             "purchasedetails": req.body.purchasedetails,
-            "classcardid": req.body.classcardid,
             "purchaseaddress": req.body.purchaseaddress,
             "purchasedatatime": req.body.purchasedatatime,
-            "schoolid": req.body.schoolid,
-            "purchaseopenid": userinfo.openid,
             "paydetails": req.body.paydetails,
+            "purchaseopenid": userinfo.openid,
             "purchaseactive": 0,
         }
+
+        if(req.body.classcardid != undefined && req.body.classcardid != '')
+            param.classcardid = req.body.classcardid;
+
+        if(req.body.schoolid != undefined && req.body.schoolid != '' )
+            param.schoolid = req.body.schoolid;
 
         const purchase_res = yield i_purchases.add_purchase(param);
         if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-
         var response = ""
         response = htapi_code(true);
         response["purchaseid"] = purchase_res.result.insertId;
@@ -112,13 +115,17 @@ router.put('/purchase', function(req, res, next) {
             "purchaseusex": req.body.purchaseusex,
             "purchaseage": req.body.purchaseage,
             "purchasedetails": req.body.purchasedetails,
-            "classcardid": req.body.classcardid,
             "purchaseaddress": req.body.purchaseaddress,
             "purchasedatatime": req.body.purchasedatatime,
-            "schoolid": req.body.schoolid,
             "paydetails": req.body.paydetails,
             "purchaseactive": req.body.purchaseactive,
         }
+
+        if(req.body.classcardid != undefined && req.body.classcardid != '' )
+            param.classcardid = req.body.classcardid;
+
+        if(req.body.schoolid != undefined && req.body.schoolid != '' )
+            param.schoolid = req.body.schoolid;
 
         const purchase_res = yield i_purchases.update_purchase_base(param);
         if (!res_is_success(purchase_res)) {
@@ -139,15 +146,22 @@ router.put('/purchase', function(req, res, next) {
                 "studentusex": req.body.purchaseusex,
                 "studentage": req.body.purchaseage,
                 "studentdetails": req.body.purchasedetails,
-                "classcardid": req.body.classcardid,
                 "classid": 1,
-                "schoolid": req.body.schoolid,
                 "purchaseid": req.body.purchaseid,
-                "studentopenid": req.body.purchaseopenid,
                 "studentmaxtimes": req.body.classcardtimes,
                 "studenttimes": req.body.classcardtimes,
                 "studentactive": 1,
             }
+
+            if(req.body.classcardid != undefined && req.body.classcardid != '' )
+                subparam.classcardid = req.body.classcardid;
+
+            if(req.body.purchaseopenid != undefined && req.body.purchaseopenid != '' )
+                subparam.studentopenid = req.body.purchaseopenid;
+
+            if(req.body.schoolid != undefined && req.body.schoolid != '' )
+                subparam.schoolid = req.body.schoolid;
+
             const student_res = yield i_students.add_student(subparam);
             if (!res_is_success(student_res)) {
                 res.send(htapi_code(false));
@@ -210,14 +224,22 @@ router.put('/purchaseactive', function(req, res, next) {
             "studentusex": req.body.purchaseusex,
             "studentage": req.body.purchaseage,
             "studentdetails": req.body.purchasedetails,
-            "classcardid": req.body.classcardid,
             "classid": 1,
-            "schoolid": req.body.schoolid,
-            "studentopenid": req.body.purchaseopenid,
+            "purchaseid": req.body.purchaseid,
             "studentmaxtimes": req.body.classcardtimes,
             "studenttimes": req.body.classcardtimes,
             "studentactive": 1,
         }
+
+        if(req.body.classcardid != undefined && req.body.classcardid != '' )
+            param.classcardid = req.body.classcardid;
+
+        if(req.body.purchaseopenid != undefined && req.body.purchaseopenid != '' )
+            param.studentopenid = req.body.purchaseopenid;
+
+        if(req.body.schoolid != undefined && req.body.schoolid != '' )
+            param.schoolid = req.body.schoolid;
+
         const student_res = yield i_students.add_student(param);
         if (!res_is_success(student_res)) {
             res.send(htapi_code(false));
@@ -236,8 +258,7 @@ router.put('/purchaseactive', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        console.log(student_res.result.insertId);
-        const purchase_res = yield i_purchases.active_purchase(new Date(), student_res.result.insertId , req.body.purchaseid);
+        const purchase_res = yield i_purchases.active_purchase(new Date(), req.body.purchaseid);
         if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

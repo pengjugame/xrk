@@ -75,6 +75,8 @@
     </div>
   </div>
   
+  <div id="menu-backdrop" class="menu-backdrop"></div>
+  
   </div>
 
 </template>
@@ -98,7 +100,7 @@ export default {
     }
   },
   activated: function () {
-      this.updatestatus = 0;
+    this.updatestatus = 0;
     this.delstatus = 0;
     if(this.$route.params != undefined)
       this.classcard = this.$route.params;

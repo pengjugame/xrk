@@ -60,7 +60,7 @@ api.createGroup("意向学生",function(err, result){
 var {encode_menu, encrypt, decrypt} = require('./common/database/tool')
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());

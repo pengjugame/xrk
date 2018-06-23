@@ -6,7 +6,10 @@
   </div>
 
   <div class="mui-card" >
-    <div class="mui-card-header">学生管理</div>
+    <div class="mui-card-header">
+      <label>学生管理</label>
+      <img class="mui-media-object mui-pull-right round_icon" v-bind:src="student.headimgurl">
+    </div>
 
     <div class="mui-card-content mui-input-group ">
 
@@ -564,5 +567,14 @@ export default {
   }
   .mui-popover {
     height: 50px;
+  }
+  .round_icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 </style>

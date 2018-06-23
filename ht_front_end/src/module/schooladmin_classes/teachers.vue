@@ -1,6 +1,11 @@
 <template>
 
   <div>
+
+  <div class="mui-card" v-if="teachers == false">
+    <router-link class="mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:fromname }" tag="a" ></router-link>
+  </div>
+
   <div class="mui-card" v-for="teacher in teachers" >
     <div class="mui-card-header">
       <label>{{teacher.teachername}}</label>

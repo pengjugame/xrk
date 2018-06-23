@@ -24,12 +24,12 @@ router.get('/', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const admin_res = yield i_teachers.exist_teacher(userinfo.openid)
-        if (!res_have_result(admin_res)) {
+        const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
+        if (!res_have_result(teacher_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null)
         }
-        res.send(admin_res.result);
+        res.send(teacher_res.result[0]);
         return Promise.resolve(true)
     });
 });
@@ -64,6 +64,26 @@ router.put('/', function(req, res, next) {
             return Promise.resolve(null);
         }
 
+        if (req.body.teacheractive == 1) {
+            wxapi.moveUserToGroup(req.body.teacheropenid, tags["教师"], function(err, data, res) {
+                console.log("teacher moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
+                wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
+                    if(!err){
+                      console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
+                    }
+                });
+            });
+        } else {
+            wxapi.moveUserToGroup(req.body.teacheropenid, 0, function(err, data, res) {
+                console.log("delete moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
+                wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
+                    if(!err){
+                      console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
+                    }
+                });
+            });
+        }
+
         var response = ""
         response = htapi_code(true);
         response["updatestatus"] = 1;
@@ -90,15 +110,15 @@ router.post('/', function(req, res, next) {
             "teacheropenid": userinfo.openid,
             "teacheractive": 0,
         }
-    
+
         const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
         if (res_have_result(teacher_res)) {
-            if(teacher_res.teacheractive == 1){
+            if(teacher_res.result[0].teacheractive == 1){
                 res.send(htapi_code(true));
                 return Promise.resolve(true);
             }
                 
-            param.teacherid = teacher_res.teacherid;
+            param.teacherid = teacher_res.result[0].teacherid;
             const teacher_update_res = yield i_teachers.update_teacher_base(param);
             if (!res_is_success(teacher_update_res)) {
                 res.send(htapi_code(false));
@@ -131,7 +151,6 @@ router.get('/teachers', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
-
         const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
         if (!res_have_result(admin_res)) {
             res.send(htapi_code(false));
@@ -143,6 +162,7 @@ router.get('/teachers', function(req, res, next) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
+
         res.send(teacher_res.result);
         return Promise.resolve(true);
     });
@@ -162,33 +182,25 @@ router.put('/teacheractive', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const teacher_res = yield i_teachers.active_teacher(req.body.teacheractive, req.body.teacherid);
+        const teacher_res = yield i_teachers.active_teacher(1, req.body.teacherid);
         if (!res_is_success(teacher_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
-        if (req.body.teacheractive == 1) {
-            wxapi.moveUserToGroup(req.body.teacheropenid, tags["教师"], function(err, data, res) {
-                console.log("teacher moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
-                wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
-                    if(!err){
-                      console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
-                    }
-                });
+        wxapi.moveUserToGroup(req.body.teacheropenid, tags["教师"], function(err, data, res) {
+            console.log("teacher moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
+            wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
+                if(!err){
+                    console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
+                }
             });
-        } else {
-            wxapi.moveUserToGroup(req.body.teacheropenid, 0, function(err, data, res) {
-                console.log("delete moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
-                wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
-                    if(!err){
-                      console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
-                    }
-                });
-            });
-        }
+        });
 
-        res.send(htapi_code(true));
+        var response = ""
+        response = htapi_code(true);
+        response["teacheractive"] = 1;
+        res.send(response);
         return Promise.resolve(true);
     });
 });

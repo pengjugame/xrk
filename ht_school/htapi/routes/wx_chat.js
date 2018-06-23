@@ -29,6 +29,7 @@ var wx_event_subscribe = function(message, api) {
             let users_res = yield i_users.exist_user(user_info.openid);
             if (!res_have_result(users_res)) {
                 yield i_users.add_user(user_info);
+                yield i_users.update_user_subscribe(1, user_info.openid);
             } else {
                 yield i_users.update_user_subscribe(1, user_info.openid);
             }

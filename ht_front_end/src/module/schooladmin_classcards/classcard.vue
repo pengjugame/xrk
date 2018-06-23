@@ -47,7 +47,6 @@
           <input name="radio" type="radio" value="0" v-model="form.classcardactive" >
           <label>未上架</label>
         </div>
-        
         <div class="mui-radio mui-pull-left mui-left">
           <input name="radio" type="radio" value="1" v-model="form.classcardactive" >
           <label>已上架</label>
@@ -73,6 +72,8 @@
       </ul>
     </div>
   </div>
+
+  <div id="menu-backdrop" class="menu-backdrop"></div>
   
   </div>
 
@@ -102,20 +103,21 @@ export default {
     }
   },
   activated: function () {
-  this.form.classcardid = '';
+    this.form.classcardid = '';
   },
   created() {
-  request.getcourses(this);
+    request.getcourses(this);
   },
   computed: {
     confirmText() {
-      if (this.classcardid == 0) {
+      if (this.form.classcardid == '') {
         if(document.getElementById("submitid"))
           document.getElementById("submitid").disabled = "";
         return '确定';
       }
-      
-      document.getElementById("submitid").disabled = "disabled"
+
+      if(document.getElementById("submitid"))
+        document.getElementById("submitid").disabled = "disabled";
       return '提交成功';
     }
   },

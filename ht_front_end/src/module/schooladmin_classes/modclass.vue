@@ -29,6 +29,11 @@
         <input type="text" class="mui-input-clear" placeholder="请输入上课人数" v-model="cla.classmaxnumusers" >
       </div>
 
+      <div class="mui-input-row">
+        <label>当前人数：</label>
+        <input type="text" class="mui-input-clear" placeholder="请输入上课人数" v-model="cla.classnumusers" >
+      </div>
+
       <div class="mui-input-row" >
         <label>班级备注：</label>
         <input type="text" v-model="cla.classdetails" class="mui-input-clear" placeholder="请输入班级备注">

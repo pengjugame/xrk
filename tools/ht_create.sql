@@ -148,36 +148,6 @@ CREATE TABLE `xrk_classcards` (
 
 
 --
--- Table structure for table `xrk_students`
---
-
-DROP TABLE IF EXISTS `xrk_students`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xrk_students` (
-  `studentid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '学生 id',
-  `studentname` varchar(16) NOT NULL COMMENT '学生姓名',
-  `studentmobile` varchar(20) NOT NULL COMMENT '手机号码',
-  `studentusex` tinyint(1) NOT NULL DEFAULT '2' COMMENT '0 未知 1 男 2 女性',
-  `studentage` varchar(16) COMMENT '学生年龄',
-  `studentdetails` varchar(1024) COMMENT '学生介绍',
-  `classcardid` INT UNSIGNED COMMENT '课卡ID',
-  `classid` INT UNSIGNED COMMENT '班级ID',
-  `schoolid` INT UNSIGNED COMMENT '教学点ID',
-  `purchaseid` INT UNSIGNED COMMENT '购买 id',
-  `studentopenid` varchar(64) COMMENT '用户ID',
-  `studenttimes` int(1) NOT NULL DEFAULT '0' COMMENT '剩余次数',
-  `studentmaxtimes` int(1) NOT NULL DEFAULT '0' COMMENT '上课次数',
-  `studentactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '在上课1,已毕业0',
-  FOREIGN KEY (`classcardid`) REFERENCES xrk_classcards(`classcardid`),
-  FOREIGN KEY (`classid`) REFERENCES xrk_classes(`classid`),
-  FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
-  FOREIGN KEY (`studentopenid`) REFERENCES xrk_users(`openid`),
-  FOREIGN KEY (`purchaseid`) REFERENCES xrk_students(`purchaseid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学生';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `xrk_purchases`
 --
 
@@ -205,6 +175,36 @@ CREATE TABLE `xrk_purchases` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='预学生';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `xrk_students`
+--
+
+DROP TABLE IF EXISTS `xrk_students`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `xrk_students` (
+  `studentid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '学生 id',
+  `studentname` varchar(16) NOT NULL COMMENT '学生姓名',
+  `studentmobile` varchar(20) NOT NULL COMMENT '手机号码',
+  `studentusex` tinyint(1) NOT NULL DEFAULT '2' COMMENT '0 未知 1 男 2 女性',
+  `studentage` varchar(16) COMMENT '学生年龄',
+  `studentdetails` varchar(1024) COMMENT '学生介绍',
+  `classcardid` INT UNSIGNED COMMENT '课卡ID',
+  `classid` INT UNSIGNED COMMENT '班级ID',
+  `schoolid` INT UNSIGNED COMMENT '教学点ID',
+  `purchaseid` INT UNSIGNED COMMENT '购买 id',
+  `studentopenid` varchar(64) COMMENT '用户ID',
+  `studenttimes` int(1) NOT NULL DEFAULT '0' COMMENT '剩余次数',
+  `studentmaxtimes` int(1) NOT NULL DEFAULT '0' COMMENT '上课次数',
+  `studentactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '在上课1,已毕业0',
+  FOREIGN KEY (`classcardid`) REFERENCES xrk_classcards(`classcardid`),
+  FOREIGN KEY (`classid`) REFERENCES xrk_classes(`classid`),
+  FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
+  FOREIGN KEY (`studentopenid`) REFERENCES xrk_users(`openid`),
+  FOREIGN KEY (`purchaseid`) REFERENCES xrk_purchases(`purchaseid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学生';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 INSERT INTO `weapp`.`xrk_schools` (`schoolname`, `schooladdress`, `schoolleader`, `schoolmobile`, `schooldetails`, `schoolactive`) VALUES ('广州萝岗万达店', '广州萝岗万达广场室外步行街南区B250', '江星', '13570187950', '向日葵艺术旗舰店', '1');
 
 INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursedetails`, `courseactive`) VALUES ('少儿拉丁舞', '', '1');
@@ -223,7 +223,7 @@ INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `classc
 INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `classcardtimes`, `classcardtime`, `classcarddetails`, `courseid`, `classcardactive`) VALUES ('学期卡', '2280', '30', '90', '2018年4月1日至2018年6月30日', '1', '1');
 INSERT INTO `weapp`.`xrk_classcards` (`classcardname`, `classcardprice`, `classcardtimes`, `classcardtime`, `classcarddetails`, `courseid`, `classcardactive`) VALUES ('基础卡', '800', '10', '90', '2018年4月1日至2018年6月30日', '1', '1');
 
-INSERT INTO `weapp`.`xrk_classes` (`classname`, `classdate`, `classtime`, `classnumusers`, `classmaxnumusers`, `schoolid`, `classdetails`, `classactive`) VALUES ('初始班级', '', '', '0', '1000', '1', '','1');
+INSERT INTO `weapp`.`xrk_classes` (`classname`, `classdate`, `classtime`, `classnumusers`, `classmaxnumusers`, `schoolid`, `classdetails`, `classactive`) VALUES ('初始班级', '初始班级', '初始班级', '0', '1000', '1', '初始班级','1');
 
 INSERT INTO `weapp`.`xrk_classes` (`classname`, `classdate`, `classtime`, `classnumusers`, `classmaxnumusers`, `schoolid`, `courseid`, `classdetails`, `classactive`) VALUES ('拉丁舞常规班大班', '2018.7.17-2018.8.4,逢周二、三、四、五、六上课', '19:30-21:00', '0', '18', '1', '1', '7岁以上','1');
 INSERT INTO `weapp`.`xrk_classes` (`classname`, `classdate`, `classtime`, `classnumusers`, `classmaxnumusers`, `schoolid`, `courseid`, `classdetails`, `classactive`) VALUES ('拉丁舞常规班小班', '2018.7.17-2018.8.4,逢周二、三、四、五、六上课', '16:00-17:30', '0', '18', '1', '1', '5-6岁','1');

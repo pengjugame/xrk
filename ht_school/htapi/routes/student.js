@@ -71,12 +71,16 @@ router.post('/student', function(req, res, next) {
             "studentusex": req.body.studentusex,
             "studentage": req.body.studentage,
             "studentdetails": req.body.studentdetails,
-            "classid": req.body.classid,
-            "schoolid": req.body.schoolid,
             "studenttimes": 0,
             "studentmaxtimes": 0,
             "studentactive": 0,
         }
+
+        if(req.body.classid != undefined && req.body.classid != '' )
+            param.classid = req.body.classid;
+
+        if(req.body.schoolid != undefined && req.body.schoolid != '' )
+            param.schoolid = req.body.schoolid;
 
         const exit_res = yield i_students.select_student_by_studentdetails_studentmobile(param.studentdetails,param.studentmobile);
         if (res_have_result(exit_res)) {
@@ -160,14 +164,20 @@ router.put('/student', function(req, res, next) {
             "studentusex": req.body.studentusex,
             "studentage": req.body.studentage,
             "studentdetails": req.body.studentdetails,
-            "classcardid": req.body.classcardid,
-            "classid": req.body.classid,
-            "schoolid": req.body.schoolid,
             "studenttimes": req.body.studenttimes,
             "studentmaxtimes": req.body.studentmaxtimes,
             "studentopenid": req.body.studentopenid,
             "studentactive": req.body.studentactive,
         }
+
+        if(req.body.classid != undefined && req.body.classid != '' )
+            param.classid = req.body.classid;
+
+        if(req.body.schoolid != undefined && req.body.schoolid != '' )
+            param.schoolid = req.body.schoolid;
+
+        if(req.body.classcardid != undefined && req.body.classcardid != '' )
+            param.classcardid = req.body.classcardid;
 
         const student_old_res = yield i_students.select_student(req.body.studentid);
         if (!res_have_result(student_old_res)) {
