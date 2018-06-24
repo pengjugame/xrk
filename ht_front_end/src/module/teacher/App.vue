@@ -13,12 +13,12 @@
     <div class="mui-card-content mui-input-group ">
       <div class="mui-input-row">
         <label>姓名：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入姓名" v-model="form.teachername" >
+        <input type="text" class="mui-input-clear" placeholder="请输入姓名" v-model.trim="form.teachername" >
       </div>
 
       <div class="mui-input-row">
         <label>手机：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入手机号码" v-model="form.teachermobile" >
+        <input type="text" class="mui-input-clear" placeholder="请输入手机号码" v-model.trim="form.teachermobile" >
       </div>
 
       <div class="mui-input-row" >
@@ -36,7 +36,7 @@
 
       <div class="mui-input-row" >
         <label>备注：</label>
-        <input type="text" class="mui-input-clear" placeholder="备注" v-model="form.teacherdetails" >
+        <input type="text" class="mui-input-clear" placeholder="备注" v-model.trim="form.teacherdetails" >
       </div>
 
       <div class="mui-input-row">

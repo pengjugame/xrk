@@ -12,9 +12,22 @@ var {
 } = require('../common/database/tool');
 var router = express.Router();
 
-router.get('/courses', function(req, res, next) {
+router.get('/allcourses', function(req, res, next) {
     return co(function*() {
         const course_res = yield i_courses.select_courses();
+        if (!res_have_result(course_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        res.send(course_res.result);
+        return Promise.resolve(true);
+    });
+});
+
+router.get('/courses', function(req, res, next) {
+    return co(function*() {
+        const course_res = yield i_courses.select_active_courses();
         if (!res_have_result(course_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

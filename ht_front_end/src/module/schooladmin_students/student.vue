@@ -15,12 +15,12 @@
 
       <div class="mui-input-row">
         <label>姓名：</label>
-        <input type="text"  v-model="student.studentname" class="mui-input-clear" placeholder="请输入姓名" >
+        <input type="text"  v-model.trim="student.studentname" class="mui-input-clear" placeholder="请输入姓名" >
       </div>
 
       <div class="mui-input-row">
         <label>手机：</label>
-        <input type="text"  v-model="student.studentmobile" class="mui-input-clear" placeholder="请输入手机">
+        <input type="text"  v-model.trim="student.studentmobile" class="mui-input-clear" placeholder="请输入手机">
       </div>
 
       <div class="mui-input-row" >
@@ -39,12 +39,12 @@
 
       <div class="mui-input-row">
         <label>年龄：</label>
-        <input type="text"  v-model="student.studentage" class="mui-input-clear" placeholder="请输入年龄">
+        <input type="text"  v-model.trim="student.studentage" class="mui-input-clear" placeholder="请输入年龄">
       </div>
 
       <div class="mui-input-row" >
         <label>备注：</label>
-        <input type="text" v-model="student.studentdetails" class="mui-input-clear" placeholder="请输入备注">
+        <input type="text" v-model.trim="student.studentdetails" class="mui-input-clear" placeholder="请输入备注">
       </div>
 
       <div class="mui-input-row">

@@ -12,27 +12,27 @@
 
       <div class="mui-input-row">
         <label>课卡名称：</label>
-        <input type="text"  v-model="form.classcardname" class="mui-input-clear" placeholder="请输入课卡名" >
+        <input type="text"  v-model.trim="form.classcardname" class="mui-input-clear" placeholder="请输入课卡名" >
       </div>
     
       <div class="mui-input-row">
         <label>课程次数：</label>
-        <input type="text" v-model="form.classcardtimes" class="mui-input-clear" placeholder="请输入课程次数">
+        <input type="number" v-model.number="form.classcardtimes" class="mui-input-clear" placeholder="请输入课程次数">
       </div>
 
       <div class="mui-input-row">
         <label>课次时间：</label>
-        <input type="text" v-model="form.classcardtime" class="mui-input-clear" placeholder="请输入课次时间">
+        <input type="number" v-model.number="form.classcardtime" class="mui-input-clear" placeholder="请输入课次时间">
       </div>
       
       <div class="mui-input-row">
         <label>课卡简介：</label>
-        <input type="text"  v-model="form.classcarddetails" class="mui-input-clear" placeholder="请输入课卡简介">
+        <input type="text"  v-model.trim="form.classcarddetails" class="mui-input-clear" placeholder="请输入课卡简介">
       </div>
 
       <div class="mui-input-row">
         <label>价格：</label>
-        <input type="text"  v-model="form.classcardprice" class="mui-input-clear" placeholder="请输入价格">
+        <input type="number"  v-model.number="form.classcardprice" class="mui-input-clear" placeholder="请输入价格">
       </div>
 
       <div class="mui-input-row">

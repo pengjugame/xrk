@@ -191,6 +191,15 @@ export const getcourses = (vm) => {
   })
 }
 
+export const getallcourses = (vm) => {
+  vm.courses = [];
+  http.get(route.allcourses).then((res) => {
+    vm.courses = res.data
+  }, (err) => {
+    console.log(err);
+  })
+}
+
 export const postcourse = (vm) => {
   userInfo().then((res) => {
     http.post(route.course, vm.form).then((res) => {

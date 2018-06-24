@@ -11,32 +11,32 @@
     <div class="mui-card-content mui-input-group ">
       <div class="mui-input-row">
         <label>班级名称：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入班级名称" v-model="cla.classname" >
+        <input type="text" class="mui-input-clear" placeholder="请输入班级名称" v-model.trim="cla.classname" >
       </div>
 
       <div class="mui-input-row">
         <label>上课日期：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入上课日期" v-model="cla.classdate" >
+        <input type="text" class="mui-input-clear" placeholder="请输入上课日期" v-model.trim="cla.classdate" >
       </div>
 
       <div class="mui-input-row">
         <label>上课时间：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入上课时间" v-model="cla.classtime" >
+        <input type="text" class="mui-input-clear" placeholder="请输入上课时间" v-model.trim="cla.classtime" >
       </div>
 
       <div class="mui-input-row">
         <label>上课人数：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入上课人数" v-model="cla.classmaxnumusers" >
+        <input type="number" class="mui-input-clear" placeholder="请输入上课人数" v-model.number="cla.classmaxnumusers" >
       </div>
 
       <div class="mui-input-row">
         <label>当前人数：</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入上课人数" v-model="cla.classnumusers" >
+        <input type="number" class="mui-input-clear" placeholder="请输入当前人数" v-model.number="cla.classnumusers" >
       </div>
 
       <div class="mui-input-row" >
         <label>班级备注：</label>
-        <input type="text" v-model="cla.classdetails" class="mui-input-clear" placeholder="请输入班级备注">
+        <input type="text" v-model.trim="cla.classdetails" class="mui-input-clear" placeholder="请输入班级备注">
       </div>
 
       <div class="mui-input-row">

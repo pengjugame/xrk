@@ -118,7 +118,7 @@ router.put('/purchase', function(req, res, next) {
             "purchaseaddress": req.body.purchaseaddress,
             "purchasedatatime": req.body.purchasedatatime,
             "paydetails": req.body.paydetails,
-            "purchaseactive": req.body.purchaseactive,
+            "purchaseactive": 0,
         }
 
         if(req.body.classcardid != undefined && req.body.classcardid != '' )
@@ -133,7 +133,7 @@ router.put('/purchase', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        if(param.purchaseactive == 1){
+        /*if(param.purchaseactive == 1){
             const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
             if (!res_have_result(admin_res)) {
                 res.send(htapi_code(false));
@@ -194,7 +194,7 @@ router.put('/purchase', function(req, res, next) {
                     }
                 });
             });
-        }
+        }*/
         
         var response = ""
         response = htapi_code(true);

@@ -12,12 +12,12 @@
 
       <div class="mui-input-row">
         <label>姓名：</label>
-        <input type="text"  v-model="form.purchasename" class="mui-input-clear" placeholder="请输入姓名" >
+        <input type="text"  v-model.trim="form.purchasename" class="mui-input-clear" placeholder="请输入姓名" >
       </div>
       
       <div class="mui-input-row">
         <label>手机：</label>
-        <input type="text"  v-model="form.purchasemobile" class="mui-input-clear" placeholder="请输入手机">
+        <input type="text"  v-model.trim="form.purchasemobile" class="mui-input-clear" placeholder="请输入手机">
       </div>
 
       <div class="mui-input-row" >
@@ -35,17 +35,17 @@
 
       <div class="mui-input-row">
         <label>年龄：</label>
-        <input type="text"  v-model="form.purchaseage" class="mui-input-clear" placeholder="请输入年龄">
+        <input type="text"  v-model.trim="form.purchaseage" class="mui-input-clear" placeholder="请输入年龄">
       </div>
 
       <div class="mui-input-row" >
         <label>上课时间：</label>
-        <input type="text" v-model="form.purchasedatatime" class="mui-input-clear" placeholder="请输入希望上课时间">
+        <input type="text" v-model.trim="form.purchasedatatime" class="mui-input-clear" placeholder="请输入希望上课时间">
       </div>
 
       <div class="mui-input-row" >
         <label>上课地点：</label>
-        <input type="text" v-model="form.purchaseaddress" class="mui-input-clear" placeholder="请输入希望上课地点">
+        <input type="text" v-model.trim="form.purchaseaddress" class="mui-input-clear" placeholder="请输入希望上课地点">
       </div>
       
       <div class="mui-input-row">
@@ -68,12 +68,12 @@
 
       <div class="mui-input-row" >
         <label>支付方式：</label>
-        <input type="text" v-model="form.paydetails" class="mui-input-clear" placeholder="请输入支付方式">
+        <input type="text" v-model.trim="form.paydetails" class="mui-input-clear" placeholder="请输入支付方式">
       </div>
 
       <div class="mui-input-row" >
         <label>预购备注：</label>
-        <input type="text" v-model="form.purchasedetails" class="mui-input-clear" placeholder="请输入预购备注">
+        <input type="text" v-model.trim="form.purchasedetails" class="mui-input-clear" placeholder="请输入预购备注">
       </div>
       
       <div class="mui-button-row">

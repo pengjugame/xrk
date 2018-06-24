@@ -12,12 +12,12 @@
 
       <div class="mui-input-row">
         <label>课程名称：</label>
-        <input type="text"  v-model="course.coursename" class="mui-input-clear" placeholder="请输入课程名" >
+        <input type="text"  v-model.trim="course.coursename" class="mui-input-clear" placeholder="请输入课程名" >
       </div>
       
       <div class="mui-input-row">
         <label>课程简介：</label>
-        <input type="text"  v-model="course.coursedetails" class="mui-input-clear" placeholder="请输入课程简介">
+        <input type="text"  v-model.trim="course.coursedetails" class="mui-input-clear" placeholder="请输入课程简介">
       </div>
 
       <div class="mui-input-row" >

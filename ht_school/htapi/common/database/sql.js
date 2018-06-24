@@ -422,7 +422,7 @@ function select_school_classes_by_course() {
             + "JOIN xrk_schools b ON a.schoolid = b.schoolid " 
             + "JOIN xrk_courses c ON a.courseid = c.courseid " 
             + "LEFT JOIN xrk_teachers d ON a.teacherid = d.teacherid " 
-            + "where a.courseid = ? and a.schoolid = ? "
+            + "where a.courseid = ? and a.schoolid = ? and a.classactive = 1 "
 }
 
 function select_class_students() {

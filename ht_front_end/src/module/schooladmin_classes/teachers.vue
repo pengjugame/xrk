@@ -70,3 +70,11 @@ export default {
   }
 }
 </script>
+<style>
+  .mui-card-header a {
+    color: #8F8F94;
+  }
+  .mui-card-header a.active {
+    color: #31e207;
+  }
+</style>

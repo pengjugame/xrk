@@ -45,7 +45,7 @@ export default {
     }
   },
   activated: function () {
-    request.getcourses(this);
+    request.getallcourses(this);
   },
   created() {
   },

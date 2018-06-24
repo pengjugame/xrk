@@ -8,12 +8,12 @@
 
       <div class="mui-input-row">
         <label>姓名：</label>
-        <input type="text"  v-model="form.studentname" class="mui-input-clear" placeholder="请输入姓名" >
+        <input type="text"  v-model.trim="form.studentname" class="mui-input-clear" placeholder="请输入姓名" >
       </div>
       
       <div class="mui-input-row">
         <label>手机：</label>
-        <input type="text"  v-model="form.studentmobile" class="mui-input-clear" placeholder="请输入手机">
+        <input type="text"  v-model.trim="form.studentmobile" class="mui-input-clear" placeholder="请输入手机">
       </div>
 
       <div class="mui-input-row" >
@@ -31,12 +31,12 @@
 
       <div class="mui-input-row">
         <label>年龄：</label>
-        <input type="text"  v-model="form.studentage" class="mui-input-clear" placeholder="请输入年龄">
+        <input type="text"  v-model.trim="form.studentage" class="mui-input-clear" placeholder="请输入年龄">
       </div>
       
       <div class="mui-input-row" >
         <label>收据编号：</label>
-        <input type="text" v-model="form.studentdetails" class="mui-input-clear" placeholder="请输入收据编号">
+        <input type="text" v-model.trim="form.studentdetails" class="mui-input-clear" placeholder="请输入收据编号">
       </div>
       
       <div class="mui-input-row">
