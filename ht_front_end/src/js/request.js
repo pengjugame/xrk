@@ -358,8 +358,21 @@ export const postschooladmin = (vm) => {
   userInfo().then((res) => {
     http.post(route.schooladmin, vm.form).then((res) => {
       if (res_is_success(res)) {
-        vm.form.schooladminid = res.data.schooladminid
-        vm.form.schooladminactive = res.data.schooladminactive
+        vm.form.schooladminid = res.data.schooladminid;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putschooladmin = (vm) => {
+  userInfo().then((res) => {
+    http.put(route.schooladmin, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.updatestatus = res.data.updatestatus;
       }
     }, (err) => {
       console.log(err);
@@ -417,9 +430,21 @@ export const putteacher = (vm) => {
   userInfo().then((res) => {
     http.put(route.teacher, vm.teacher).then((res) => {
       if (res_is_success(res)) {
-        console.log(vm.teacher);
         vm.updatestatus = res.data.updatestatus;
-        console.log(vm.updatestatus);
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putselfteacher = (vm) => {
+  userInfo().then((res) => {
+    http.put(route.teacher, vm.form).then((res) => {
+      if (res_is_success(res)) {
+        vm.updatestatus = res.data.updatestatus;
       }
     }, (err) => {
       console.log(err);

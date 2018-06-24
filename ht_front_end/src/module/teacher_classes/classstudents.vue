@@ -67,8 +67,11 @@ export default {
       updatestudenttimesstatus: 0,
     }
   },
-  created() {
+  activated: function () {
+    this.updatestudenttimesstatus = 0;
     request.getclassstudents(this,this.$route.params.classid);
+  },
+  created() {
   },
   computed: {
     confirmText() {

@@ -48,8 +48,10 @@ export default {
       teachers: [],
     }
   },
-  created() {
+  activated: function () {
     request.getteachers(this);
+  },
+  created() {
   },
   computed: {
   },

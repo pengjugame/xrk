@@ -89,7 +89,7 @@ function exist_schooladmin() {
 }
 
 function select_schooladmin_in_school() {
-    return "SELECT a.schooladminid , a.schooladminname , a.schooladminmobile , a.schooladminusex , a.schooladminopenid , a.schooladminactive , " 
+    return "SELECT a.schooladminid , a.schooladminname , a.schooladminmobile , a.schooladminusex , a.schooladmindetails , a.schooladminopenid , a.schooladminactive , " 
             + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails " 
             + "FROM xrk_schooladmins a " 
             + "LEFT JOIN xrk_schools b ON a.schoolid = b.schoolid " 
@@ -98,7 +98,7 @@ function select_schooladmin_in_school() {
 }
 
 function select_schooladmin_in_school_active() {
-    return "SELECT a.schooladminid , a.schooladminname , a.schooladminmobile , a.schooladminusex , a.schooladminopenid , " 
+    return "SELECT a.schooladminid , a.schooladminname , a.schooladminmobile , a.schooladminusex , a.schooladmindetails , a.schooladminopenid , a.schooladminactive , " 
             + "b.schoolid , b.schoolname , b.schooladdress , b.schoolleader , b.schoolmobile , b.schooldetails " 
             + "FROM xrk_schooladmins a " 
             + "LEFT JOIN xrk_schools b ON a.schoolid = b.schoolid " 
@@ -110,7 +110,7 @@ function add_schooladmin() {
 }
 
 function update_schooladmin_base() {
-    return "update xrk_schooladmins SET schooladminname = ?, schooladminmobile = ?, schooladminusex = ? , schoolid = ? , schooladminactive = ? where schooladminid = ? "
+    return "update xrk_schooladmins SET schooladminname = ?, schooladminmobile = ?, schooladminusex = ? , schooladmindetails = ? , schoolid = ? , schooladminactive = ? where schooladminid = ? "
 }
 
 function active_schooladmin() {

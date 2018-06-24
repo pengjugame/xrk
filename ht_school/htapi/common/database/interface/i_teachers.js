@@ -61,8 +61,7 @@ exports.update_teacher_base = function(teacher) {
 
 exports.active_teacher = function(state,teacherid) {
     return co(function*() {
-        if (is_empty(state) ||
-            is_empty(teacherid)) {
+        if (is_empty(teacherid)) {
             return Promise.resolve(null);
         }
         return operate_db(state?sql.teachers.active_teacher:sql.teachers.deactive_teacher, [teacherid]);

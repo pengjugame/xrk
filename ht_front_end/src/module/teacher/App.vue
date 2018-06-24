@@ -36,7 +36,7 @@
 
       <div class="mui-input-row" >
         <label>备注：</label>
-        <input type="text" class="mui-input-clear" placeholder="备注" v-model="form.schooladmindetails" >
+        <input type="text" class="mui-input-clear" placeholder="备注" v-model="form.teacherdetails" >
       </div>
 
       <div class="mui-input-row">
@@ -46,7 +46,7 @@
       </div>
 
       <div class="mui-button-row">
-        <button type="button" :style="{display:textDisable}" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
+        <button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
       </div>
 
     </div>
@@ -87,6 +87,7 @@ export default {
         teachername: '',
         teachermobile: '',
         teacherusex: 1,
+        teacherdetails: '',
         schoolid: '1',
         teacheropenid: '',
         teacheractive: 0,
@@ -94,7 +95,8 @@ export default {
       schoolid: '1',
       schoolname: '广州萝岗万达店',
       schools: [],
-      textDisable: false,
+
+      updatestatus: 0,
     }
   },
   created() {
@@ -103,17 +105,23 @@ export default {
   },
   computed: {
     confirmText() {
-    if (this.form.teacherid == '') {
-      return '确定';
-    }
+      if (this.form.teacherid == '') {
+        return '确定';
+      }
 
-    if (this.form.teacheractive == 0) {
+      if(this.form.teacheractive == 1){
+        if(document.getElementById("submitid"))
+            document.getElementById("submitid").disabled = "disabled"
+        return '注册成功';
+      }
+
+      if(this.updatestatus == 0){
+        return '更新';
+      }
+
       mui.toast('提交成功,请等待 :-)');
+      this.updatestatus = 0;
       return '更新';
-    }
-
-    this.textDisable = true;
-    return '注册成功';
     }
   },
   methods: {
@@ -128,7 +136,10 @@ export default {
         return;
       }
 
-      request.postteacher(this);
+      if(this.form.teacherid == '')
+        request.postteacher(this);
+      else
+        request.putselfteacher(this);
     },
     getschool(school){
       this.schoolid = school.schoolid;

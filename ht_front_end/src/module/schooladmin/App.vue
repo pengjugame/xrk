@@ -45,7 +45,7 @@
       </div>
       
       <div class="mui-button-row">
-          <button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
+          <button type="button" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
       </div>
 
     </div>
@@ -85,6 +85,7 @@ export default {
         schooladminname: '',
         schooladminmobile: '',
         schooladminusex: 1,
+        schooladmindetails: '',
         schoolid: '1',
         schooladminopenid: '',
         schooladminactive: 0,
@@ -92,27 +93,26 @@ export default {
       schoolid: '1',
       schoolname: '广州萝岗万达店',
       schools: [],
+
+      updatestatus: 0,
     }
   },
   created() {
     request.getschools(this);
     request.getschooladmin(this);
-    this.form.schooladminactive = 0;
   },
   computed: {
     confirmText() {
-
-      if(document.getElementById("submitid"))
-        document.getElementById("submitid").disabled = "";
-
       if (this.form.schooladminid == '') {
         return '确定';
       }
 
-      if (this.form.schooladminactive == 1) {
-        mui.toast('提交成功 :-)');
+      if(this.updatestatus == 0){
+        return '更新';
       }
 
+      mui.toast('提交成功 :-)');
+      this.updatestatus = 0;
       return '更新';
     }
   },
@@ -128,7 +128,10 @@ export default {
         return;
       }
 
-      request.postschooladmin(this);
+      if(this.form.schooladminid == '')
+        request.postschooladmin(this);
+      else
+        request.putschooladmin(this);
     },
     getschool(school){
       this.schoolid = school.schoolid;

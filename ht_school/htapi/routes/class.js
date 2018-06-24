@@ -47,18 +47,21 @@ router.get('/teacherclasses', function(req, res, next) {
             return Promise.resolve(null);
         }
 
+        console.log(userinfo);
         const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
         if (!res_have_result(teacher_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
+        console.log(teacher_res);
         const class_res = yield i_classes.select_teacher_classes(teacher_res.result[0].teacherid);
         if (!res_have_result(class_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
+        console.log(class_res);
         res.send(class_res.result);
         return Promise.resolve(true);
     });

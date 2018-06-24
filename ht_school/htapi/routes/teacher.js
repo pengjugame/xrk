@@ -44,8 +44,11 @@ router.put('/', function(req, res, next) {
     
         const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
         if (!res_have_result(admin_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
+            const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
+            if (!res_have_result(teacher_res)) {
+                res.send(htapi_code(false));
+                return Promise.resolve(null)
+            }
         }
 
         var param = {
@@ -109,24 +112,6 @@ router.post('/', function(req, res, next) {
             "schoolid": req.body.schoolid,
             "teacheropenid": userinfo.openid,
             "teacheractive": 0,
-        }
-
-        const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
-        if (res_have_result(teacher_res)) {
-            if(teacher_res.result[0].teacheractive == 1){
-                res.send(htapi_code(true));
-                return Promise.resolve(true);
-            }
-                
-            param.teacherid = teacher_res.result[0].teacherid;
-            const teacher_update_res = yield i_teachers.update_teacher_base(param);
-            if (!res_is_success(teacher_update_res)) {
-                res.send(htapi_code(false));
-                return Promise.resolve(null);
-            }
-            
-            res.send(htapi_code(true));
-            return Promise.resolve(true);
         }
 
         const teacher_add_res = yield i_teachers.add_teacher(param);

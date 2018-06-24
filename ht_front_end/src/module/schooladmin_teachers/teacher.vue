@@ -62,7 +62,7 @@
       </div>
 
       <div class="mui-button-row">
-        <button type="button" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
+        <button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
       </div>
       
     </div>
@@ -123,14 +123,14 @@ export default {
   },
   computed: {
     confirmText() {
-      if (this.updatestatus == 0)
-      {
+      if (this.updatestatus==0){
         if(document.getElementById("submitid"))
           document.getElementById("submitid").disabled = "";
-        return '更新1';
+        return '更新';
       }
       
-      document.getElementById("submitid").disabled = "disabled"
+      if(document.getElementById("submitid"))
+        document.getElementById("submitid").disabled = "disabled"
       return '提交成功';
     }
   },

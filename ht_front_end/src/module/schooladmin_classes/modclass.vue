@@ -140,26 +140,26 @@ export default {
   beforeRouteEnter (to, from, next) {
     console.log(from);
     next(vm => {
-    if(from.name == 'classes'){
-      if(vm.$route.params != undefined)
-        vm.cla = vm.$route.params;
-      else
-        return;
+      if(from.name == 'classes'){
+        if(vm.$route.params != undefined)
+          vm.cla = vm.$route.params;
+        else
+          return;
 
-      vm.teacherid = vm.$route.params.teacherid;
-      vm.teachername = vm.$route.params.teachername;
-      vm.courseid = vm.$route.params.courseid;
-      vm.coursename = vm.$route.params.coursename;
-      vm.schoolid = vm.$route.params.schoolid;
-      vm.schoolname = vm.$route.params.schoolname;
-
-    }else if(from.name == 'teacher'){
-      if(vm.$route.params.teacherid != undefined)
         vm.teacherid = vm.$route.params.teacherid;
-
-      if(vm.$route.params.teachername != undefined)
         vm.teachername = vm.$route.params.teachername;
-    }
+        vm.courseid = vm.$route.params.courseid;
+        vm.coursename = vm.$route.params.coursename;
+        vm.schoolid = vm.$route.params.schoolid;
+        vm.schoolname = vm.$route.params.schoolname;
+
+      }else if(from.name == 'teachers'){
+        if(vm.$route.params.teacherid != undefined)
+          vm.teacherid = vm.$route.params.teacherid;
+
+        if(vm.$route.params.teachername != undefined)
+          vm.teachername = vm.$route.params.teachername;
+      }
     });
   },
   activated: function () {

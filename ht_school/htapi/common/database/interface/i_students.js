@@ -86,7 +86,7 @@ exports.update_student_base = function(student) {
 
 exports.update_student_times = function(studenttimes,studentid) {
     return co(function*() {
-        if (is_empty(studenttimes) || 
+        if (studenttimes < 0 || 
             is_empty(studentid)) {
             return Promise.resolve(null);
         }
@@ -115,8 +115,7 @@ exports.delete_student = function(studentid) {
 
 exports.active_student = function(state,studentid) {
     return co(function*() {
-        if (is_empty(state) ||
-            verify_openid(studentid)) {
+        if (is_empty(studentid)) {
             return Promise.resolve(null);
         }
         return operate_db(state?sql.students.active_student:sql.students.deactive_student, [studentid]);

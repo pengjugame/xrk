@@ -57,14 +57,13 @@ exports.update_schooladmin_base = function(schooladmin) {
             return Promise.resolve(null);
         }
 
-        return operate_db(sql.schooladmins.update_schooladmin_base, [schooladmin.schooladminname,schooladmin.schooladminmobile,schooladmin.schooladminusex,schooladmin.schoolid,schooladmin.schooladminactive,schooladmin.schooladminid]);
+        return operate_db(sql.schooladmins.update_schooladmin_base, [schooladmin.schooladminname,schooladmin.schooladminmobile,schooladmin.schooladminusex,schooladmin.schooladmindetails,schooladmin.schoolid,schooladmin.schooladminactive,schooladmin.schooladminid]);
     });
 }
 
 exports.active_schooladmin = function(state,schooladminid) {
     return co(function * () {
-        if (is_empty(state) ||
-            is_empty(schooladminid)) {
+        if (is_empty(schooladminid)) {
             return Promise.resolve(null);
         }
         return operate_db(state?sql.schooladmins.active_schooladmin:sql.schooladmins.deactive_schooladmin, [schooladminid]);
