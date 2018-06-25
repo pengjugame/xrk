@@ -97,6 +97,7 @@
       <div class="mui-button-row">
         <button type="button" id="activepurchaseid" class="mui-btn mui-btn-warning" v-on:click="activepurchase" v-text="activeText" ></button>
         <button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="updateText" ></button>
+        <button type="button" id="delid" class="mui-btn mui-btn-warning mui-pull-right " v-on:click="del" v-text="delText" ></button>
       </div>
       
     </div>
@@ -157,6 +158,7 @@ export default {
       schools: [],
       updatestatus: 0,
       purchaseactive:0,
+      delstatus: 0,
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -176,6 +178,7 @@ export default {
       vm.schoolname = vm.$route.params.schoolname;
 
       vm.purchaseactive = vm.purchase.purchaseactive;
+      vm.delstatus = 0;
 
     }else if(from.name == 'schoolclasscards'){
       if(vm.$route.params.classcardid != undefined)
@@ -213,6 +216,19 @@ export default {
       
       document.getElementById("activepurchaseid").disabled = "disabled";
       document.getElementById("submitid").disabled = "disabled";
+      document.getElementById("delid").disabled = "disabled";
+      return '提交成功';
+    },
+    delText() {
+      if (this.delstatus == 0) {
+        if(document.getElementById("delid"))
+          document.getElementById("delid").disabled = ""
+        return '删除';
+      }
+
+      document.getElementById("activepurchaseid").disabled = "disabled";
+      document.getElementById("submitid").disabled = "disabled";
+      document.getElementById("delid").disabled = "disabled";
       return '提交成功';
     },
   },
@@ -233,6 +249,17 @@ export default {
     },
     activepurchase() {
       request.putpurchaseactive(this);
+    },
+    del() {
+      if (this.purchase.purchaseid == '')
+      {
+        mui.alert('不能删除预购！', '向日葵艺术预购管理', function() {
+              ;
+            });
+        return;
+      }
+
+      request.delpurchase(this);
     },
     selectcourse(course){
       this.courseid = course.courseid;

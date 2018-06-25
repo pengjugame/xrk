@@ -190,4 +190,32 @@ router.put('/teacheractive', function(req, res, next) {
     });
 });
 
+router.delete('/', function(req, res, next) {
+    return co(function*() {
+        const userinfo = get_userinfo(req.session);
+        if (!check_userinfo(userinfo)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
+        if (!res_have_result(admin_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const teacher_res = yield i_teachers.delete_teacher(req.query.teacherid);
+        if (!res_is_success(teacher_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        var response = ""
+        response = htapi_code(true);
+        response["delstatus"] = 1;
+        res.send(response);
+        return Promise.resolve(true);
+    });
+});
+
 module.exports = router;

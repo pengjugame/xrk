@@ -347,6 +347,20 @@ export const putpurchaseactive = (vm) => {
   })
 }
 
+export const delpurchase = (vm) => {
+  userInfo().then((res) => {
+    http.del(route.purchase, vm.purchase).then((res) => {
+      if (res_is_success(res)) {
+        vm.delstatus = res.data.delstatus;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
 /******************************************************/
 
 export const getschooladmin = (vm) => {

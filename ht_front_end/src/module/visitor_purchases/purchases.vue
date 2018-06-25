@@ -61,6 +61,12 @@
         <input type="text" v-model="purchase.purchasedetails" readonly>
       </div>
 
+      <div class="mui-input-row">
+        <label>状态：</label>
+        <input type="text" v-if="purchase.purchaseactive==0" value="未确认" readonly>
+        <input type="text" v-else value="已确认" style="color:#31e207" readonly>
+      </div>
+
     </div>
 
     <div class="mui-card-footer">

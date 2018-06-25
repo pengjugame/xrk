@@ -49,6 +49,15 @@ exports.add_teacher = function(teacher) {
     });
 }
 
+exports.delete_teacher = function(teacherid) {
+    return co(function*() {
+        if (is_empty(teacherid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.teachers.delete_teacher, [teacherid]);
+    });
+}
+
 exports.update_teacher_base = function(teacher) {
     return co(function*() {
         if (is_empty(teacher) || 

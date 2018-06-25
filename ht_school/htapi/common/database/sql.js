@@ -127,6 +127,7 @@ function deactive_schooladmin() {
     select_teacher_in_school: select_teacher_in_school(),
     select_teacher_in_school_active: select_teacher_in_school_active(),
     add_teacher: add_teacher(),
+    delete_teacher: delete_teacher(),
     update_teacher_base: update_teacher_base(),
     active_teacher: active_teacher(),
     deactive_teacher: deactive_teacher()
@@ -156,6 +157,10 @@ function select_teacher_in_school_active() {
 
 function add_teacher() {
     return "insert into xrk_teachers set  ? "
+}
+
+function delete_teacher() {
+    return "delete from xrk_teachers where teacherid = ? "
 }
 
 function update_teacher_base() {
@@ -698,6 +703,7 @@ module.exports = {
         select_teacher_in_school: select_teacher_in_school(),
         select_teacher_in_school_active: select_teacher_in_school_active(),
         add_teacher: add_teacher(),
+        delete_teacher: delete_teacher(),
         update_teacher_base: update_teacher_base(),
         active_teacher: active_teacher(),
         deactive_teacher: deactive_teacher()
