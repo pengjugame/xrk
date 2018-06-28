@@ -6,7 +6,7 @@
 //    : url;
 //};
 var get_url = function(url) {
-  return 'http://119.29.90.92' + url
+  return 'http://www.xiangrikuiyishu.club' + url
 };
 export const route = {
   userinfo: get_url('/userinfo'),
