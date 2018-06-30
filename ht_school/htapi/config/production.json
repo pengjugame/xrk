@@ -194,6 +194,10 @@
                     "name": "学生信息",
                     "type": "view",
                     "url": "http://www.xiangrikuiyishu.club/static/student_classes.html"
+                    },{
+                    "name": "购买课卡",
+                    "type": "view",
+                    "url": "http://www.xiangrikuiyishu.club/static/visitor_purchases.html"
                     }
                 ]
             }],

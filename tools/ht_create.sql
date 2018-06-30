@@ -4,7 +4,7 @@
 
 DROP TABLE IF EXISTS `xrk_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_users` (
   `openid` varchar(64) NOT NULL COMMENT '微信返回的openid 唯一key',
   `unionid` varchar(64) DEFAULT NULL COMMENT '微信返回的unionid 唯一key,',
@@ -21,7 +21,7 @@ CREATE TABLE `xrk_users` (
   `subscribe_time` bigint(20) NOT NULL COMMENT '用户关注时间戳',
   `privilege` varchar(128) DEFAULT NULL COMMENT '用户特权信息,json 数组,如微信沃卡用户为（chinaunicom） ',
   PRIMARY KEY (`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户信息';
 
 --
 -- Table structure for table `xrk_schools`
@@ -29,7 +29,7 @@ CREATE TABLE `xrk_users` (
 
 DROP TABLE IF EXISTS `xrk_schools`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_schools` (
   `schoolid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '教学点 id',
   `schoolname` varchar(64) NOT NULL COMMENT '名称',
@@ -39,7 +39,7 @@ CREATE TABLE `xrk_schools` (
   `schooldetails` varchar(1024) COMMENT '分校介绍',
   `schoolactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '已开学1,未开学0',
   UNIQUE (`schoolname`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学校';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='学校';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `xrk_schools` (
 
 DROP TABLE IF EXISTS `xrk_schooladmins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_schooladmins` (
   `schooladminid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT  COMMENT '管理员 id',
   `schooladminname` varchar(16) NOT NULL COMMENT '姓名',
@@ -60,7 +60,7 @@ CREATE TABLE `xrk_schooladmins` (
   `schooladminactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '在职1,离职0',
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
   FOREIGN KEY (`schooladminopenid`) REFERENCES xrk_users(`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学校管理员';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='学校管理员';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `xrk_schooladmins` (
 
 DROP TABLE IF EXISTS `xrk_teachers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_teachers` (
   `teacherid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '教师 id',
   `teachername` varchar(16) NOT NULL COMMENT '教师姓名',
@@ -81,7 +81,7 @@ CREATE TABLE `xrk_teachers` (
   `teacheractive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '在职1,离职0',
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
   FOREIGN KEY (`teacheropenid`) REFERENCES xrk_users(`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教师';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='教师';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,14 +90,14 @@ CREATE TABLE `xrk_teachers` (
 
 DROP TABLE IF EXISTS `xrk_courses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_courses` (
   `courseid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '课程 id',
   `coursename` varchar(64) NOT NULL COMMENT '名称',
   `coursedetails` varchar(1024) COMMENT '课程介绍',
   `courseactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '有效1,失效0',
   UNIQUE (`coursename`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `xrk_courses` (
 
 DROP TABLE IF EXISTS `xrk_classes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_classes` (
   `classid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '班级 id',
   `classname` varchar(64) NOT NULL COMMENT '名称',
@@ -123,7 +123,7 @@ CREATE TABLE `xrk_classes` (
   FOREIGN KEY (`courseid`) REFERENCES xrk_courses(`courseid`),
   FOREIGN KEY (`teacherid`) REFERENCES xrk_teachers(`teacherid`),
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='班级';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='班级';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +132,7 @@ CREATE TABLE `xrk_classes` (
 
 DROP TABLE IF EXISTS `xrk_classcards`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_classcards` (
   `classcardid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '课卡 id',
   `classcardname` varchar(100) NOT NULL COMMENT '名称',
@@ -144,7 +144,7 @@ CREATE TABLE `xrk_classcards` (
   `classcardactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '有效1,失效0',
   UNIQUE  (`classcardname`),
   FOREIGN KEY (`courseid`) REFERENCES xrk_courses(`courseid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课卡';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课卡';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -154,7 +154,7 @@ CREATE TABLE `xrk_classcards` (
 
 DROP TABLE IF EXISTS `xrk_purchases`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_purchases` (
   `purchaseid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT  COMMENT '预学生 id',
   `purchasename` varchar(16) NOT NULL COMMENT '预学生姓名',
@@ -173,7 +173,7 @@ CREATE TABLE `xrk_purchases` (
   FOREIGN KEY (`classcardid`) REFERENCES xrk_classcards(`classcardid`),
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
   FOREIGN KEY (`purchaseopenid`) REFERENCES xrk_users(`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='预学生';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='预学生';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +182,7 @@ CREATE TABLE `xrk_purchases` (
 
 DROP TABLE IF EXISTS `xrk_students`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xrk_students` (
   `studentid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '学生 id',
   `studentname` varchar(16) NOT NULL COMMENT '学生姓名',
@@ -203,8 +203,9 @@ CREATE TABLE `xrk_students` (
   FOREIGN KEY (`schoolid`) REFERENCES xrk_schools(`schoolid`),
   FOREIGN KEY (`studentopenid`) REFERENCES xrk_users(`openid`),
   FOREIGN KEY (`purchaseid`) REFERENCES xrk_purchases(`purchaseid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学生';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='学生';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 INSERT INTO `weapp`.`xrk_schools` (`schoolname`, `schooladdress`, `schoolleader`, `schoolmobile`, `schooldetails`, `schoolactive`) VALUES ('广州萝岗万达店', '广州萝岗万达广场室外步行街南区B250', '江星', '13570187950', '向日葵艺术旗舰店', '1');
 
