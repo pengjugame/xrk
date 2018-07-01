@@ -222,6 +222,7 @@ export default {
   },
   mounted() {
     mui.init();
+    mui(".mui-input-clear").input();
     mui('.mui-scroll-wrapper').scroll();
 
     var menuWrapper = document.getElementById("menu-wrapper");
@@ -460,82 +461,82 @@ export default {
     45% {
       opacity: 1;
       -webkit-transform: translate3d(0, 0px, 0);
-  		transform: translate3d(0, 0px, 0);
-		}
-		100% {
-			opacity: 0;
-			-webkit-transform: translate3d(0, -100%, 0);
-			transform: translate3d(0, -100%, 0);
-		}
-	}
-	.fade-out-up {
-		-webkit-animation-name: fadeOutUp;
-		animation-name: fadeOutUp;
-	}
-	.menu-open {
-		height: 100%;
-		width: 100%;
-	}
-	.menu-open .mui-scroll-wrapper {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		z-index: 1;
-		width: 100%;
-		overflow: hidden;
-		-webkit-backface-visibility: hidden;
-	}
-	.menu-backdrop {
-		display: none;
-	}
-	.menu-open .menu-backdrop {
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		height: 100%;
-		width: 100%;
-		display: block;
-		z-index: 998;
-	}
-	.menu-wrapper {
-		position: absolute;
-		top: 0px;
-		left: 0;
-		right: 0;
-		z-index: 999;
-		text-align: center;
-		background-color: rgba(238, 134, 15, 0.952);
-		width: 100%;
-	}
-	.menu-wrapper.hidden {
-		-webkit-transform: translate3d(0, -100%, 0);
-		transform: translate3d(0, -100%, 0);
-		z-index: -1;
-	}
-	.menu {
-		width: 100%;
-	}
-	.menu .mui-table-view-inverted {
-		color: rgba(238, 134, 15, 0.952);
-		font-size: 12px;
-		background: #efeff4;
-	}
-	.menu .mui-table-view-inverted .mui-table-view-cell:after {
-		height: 2px;
-		left: 0;
-		right: 0;
-	}
-	.menu-wrapper.mui-active,
-	.menu-wrapper.mui-active .menu {
-		-webkit-transform: translate3d(0, 0, 0);
-		transform: translate3d(0, 0, 0);
-	}
-	#info{
-		padding: 20px 10px ;
-	 }
+      transform: translate3d(0, 0px, 0);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+  }
+  .fade-out-up {
+    -webkit-animation-name: fadeOutUp;
+    animation-name: fadeOutUp;
+  }
+  .menu-open {
+    height: 100%;
+    width: 100%;
+  }
+  .menu-open .mui-scroll-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .menu-backdrop {
+    display: none;
+  }
+  .menu-open .menu-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    display: block;
+    z-index: 998;
+  }
+  .menu-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    text-align: center;
+    background-color: rgba(238, 134, 15, 0.952);
+    width: 100%;
+  }
+  .menu-wrapper.hidden {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    z-index: -1;
+  }
+  .menu {
+    width: 100%;
+  }
+  .menu .mui-table-view-inverted {
+    color: rgba(238, 134, 15, 0.952);
+    font-size: 12px;
+    background: #efeff4;
+  }
+  .menu .mui-table-view-inverted .mui-table-view-cell:after {
+    height: 2px;
+    left: 0;
+    right: 0;
+  }
+  .menu-wrapper.mui-active,
+  .menu-wrapper.mui-active .menu {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  #info{
+    padding: 20px 10px ;
+   }
 
-	.mui-popover {
-		height: 50px;
-	}
+  .mui-popover {
+    height: 50px;
+  }
 </style>

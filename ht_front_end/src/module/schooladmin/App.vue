@@ -33,10 +33,10 @@
         </div>
       </div>
 
-    <div class="mui-input-row" >
-      <label>备注：</label>
-      <input type="text" class="mui-input-clear" placeholder="备注" v-model.trim="form.schooladmindetails" >
-    </div>
+      <div class="mui-input-row" >
+        <label>备注：</label>
+        <input type="text" class="mui-input-clear" placeholder="备注" v-model.trim="form.schooladmindetails" >
+      </div>
 
       <div class="mui-input-row">
         <label>校区：</label>
@@ -45,7 +45,7 @@
       </div>
       
       <div class="mui-button-row">
-          <button type="button" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
+        <button type="button" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="confirmText" ></button>
       </div>
 
     </div>

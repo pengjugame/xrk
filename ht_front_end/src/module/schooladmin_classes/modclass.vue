@@ -165,6 +165,17 @@ export default {
   activated: function () {
     this.updatestatus = 0;
     this.delstatus = 0;
+
+    if (this.updatestatus == 0) {
+      if(document.getElementById("submitid"))
+        document.getElementById("submitid").disabled = ""
+    }
+
+    if (this.delstatus == 0) {
+      if(document.getElementById("delid"))
+        document.getElementById("delid").disabled = ""
+    }
+
   },
   created() {
     request.getcourses(this);
@@ -243,6 +254,7 @@ export default {
   },
   mounted() {
     mui.init();
+    mui(".mui-input-clear").input();
     mui('.mui-scroll-wrapper').scroll();
 
     var menuWrapper = document.getElementById("menu-wrapper");

@@ -63,6 +63,17 @@ export default {
   activated: function () {
     this.updatestatus = 0;
     this.delstatus = 0;
+
+    if (this.updatestatus == 0) {
+      if(document.getElementById("submitid"))
+        document.getElementById("submitid").disabled = ""
+    }
+
+    if (this.delstatus == 0) {
+      if(document.getElementById("delid"))
+        document.getElementById("delid").disabled = ""
+    }
+
     if(this.$route.params != undefined)
       this.course = this.$route.params;
     else
@@ -119,6 +130,7 @@ export default {
   },
   mounted() {
     mui.init();
+    mui(".mui-input-clear").input();
   }
 }
 </script>

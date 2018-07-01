@@ -154,6 +154,7 @@ export default {
   },
   mounted() {
     mui.init();
+    mui(".mui-input-clear").input();
 
     var menuWrapper = document.getElementById("menu-wrapper");
     var menu = document.getElementById("menu");

@@ -182,6 +182,7 @@ function deactive_teacher() {
     select_student: select_student(),
     select_student_by_class_openid: select_student_by_class_openid(),
     select_student_by_studentdetails_studentmobile: select_student_by_studentdetails_studentmobile(),
+    select_student_by_studentname_studentmobile_class: select_student_by_studentname_studentmobile_class(),
     select_student_in_class: select_student_in_class(),
     select_student_in_school: select_student_in_school(),
     add_student: add_student(),
@@ -228,11 +229,16 @@ function select_student_by_class_openid(){
             + "where a.classid = ? and a.studentopenid = ? "
 }
 
-
 function select_student_by_studentdetails_studentmobile(){
     return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentage , a.studentdetails , a.studenttimes , a.studentmaxtimes ,a.studentopenid , a.studentactive " 
             + "FROM xrk_students a "  
             + "where a.studentdetails = ? and a.studentmobile = ? "
+}
+
+function select_student_by_studentname_studentmobile_class(){
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentage , a.studentdetails , a.studenttimes , a.studentmaxtimes ,a.studentopenid , a.studentactive " 
+            + "FROM xrk_students a "  
+            + "where a.studentname = ? and a.studentmobile = ? and classid = ? "
 }
 
 function select_student_in_class() {
@@ -713,6 +719,7 @@ module.exports = {
         select_student: select_student(),
         select_student_by_class_openid: select_student_by_class_openid(),
         select_student_by_studentdetails_studentmobile: select_student_by_studentdetails_studentmobile(),
+        select_student_by_studentname_studentmobile_class: select_student_by_studentname_studentmobile_class(),
         select_student_in_class: select_student_in_class(),
         select_student_in_school: select_student_in_school(),
         add_student: add_student(),
@@ -768,6 +775,7 @@ module.exports = {
         select_purchase_in_school_active: select_purchase_in_school_active(),
         select_purchase_in_school_deactive: select_purchase_in_school_deactive(),
         add_purchase: add_purchase(),
+        delete_purchase: delete_purchase(),
         update_purchase_base: update_purchase_base(),
         active_purchase: active_purchase(),
         deactive_purchase: deactive_purchase()

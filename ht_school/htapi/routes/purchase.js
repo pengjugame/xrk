@@ -218,6 +218,13 @@ router.put('/purchaseactive', function(req, res, next) {
             return Promise.resolve(null);
         }
 
+        const student_old_res = yield i_students.select_student_by_studentname_studentmobile_class(
+            req.body.purchasename,req.body.purchasemobile,1);
+        if (res_have_result(student_old_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
         var param = {
             "studentname": req.body.purchasename,
             "studentmobile": req.body.purchasemobile,
@@ -295,7 +302,7 @@ router.delete('/purchase', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const purchase_res = yield i_purchases.delete_student(req.query.purchaseid);
+        const purchase_res = yield i_purchases.delete_purchase(req.query.purchaseid);
         if (!res_is_success(purchase_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

@@ -155,6 +155,7 @@ export default {
   },
   mounted() {
     mui.init();
+    mui(".mui-input-clear").input();
     mui('.mui-scroll-wrapper').scroll();
   }
 }

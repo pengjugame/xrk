@@ -94,6 +94,7 @@ export default {
   },
   mounted() {
     mui.init();
+    mui(".mui-input-clear").input();
   }
 }
 </script>

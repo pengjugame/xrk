@@ -38,6 +38,15 @@ exports.select_student_by_studentdetails_studentmobile = function(studentdetails
     });
 }
 
+exports.select_student_by_studentname_studentmobile_class = function(studentname,studentmobile,classid) {
+    return co(function*() {
+        if (is_empty(studentname) || is_empty(studentmobile) || is_empty(classid) ) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.students.select_student_by_studentname_studentmobile_class, [studentname,studentmobile,classid]);
+    });
+}
+
 exports.select_student = function(studentid) {
     return co(function*() {
         if (is_empty(studentid)) {

@@ -97,7 +97,7 @@
       <div class="mui-button-row">
         <button type="button" id="activepurchaseid" class="mui-btn mui-btn-warning" v-on:click="activepurchase" v-text="activeText" ></button>
         <button type="button" id="submitid" class="mui-btn mui-btn-warning" v-on:click="submit" v-text="updateText" ></button>
-        <button type="button" id="delid" class="mui-btn mui-btn-warning mui-pull-right " v-on:click="del" v-text="delText" ></button>
+        <button type="button" id="delid" class="mui-btn mui-btn-warning " v-on:click="del" v-text="delText" ></button>
       </div>
       
     </div>
@@ -191,6 +191,21 @@ export default {
   },
   activated: function () {
     this.updatestatus = 0;
+
+    if (this.updatestatus == 0) {
+      if(document.getElementById("submitid"))
+        document.getElementById("submitid").disabled = "";
+    }
+
+    if (this.purchaseactive == 0) {
+      if(document.getElementById("activepurchaseid"))
+        document.getElementById("activepurchaseid").disabled = "";
+    }
+
+    if (this.delstatus == 0) {
+      if(document.getElementById("delid"))
+        document.getElementById("delid").disabled = ""
+    }
   },
   created() {
     request.getcourses(this);
@@ -284,6 +299,7 @@ export default {
   },
   mounted() {
     mui.init();
+    mui(".mui-input-clear").input();
     mui('.mui-scroll-wrapper').scroll();
 
     var menuWrapper = document.getElementById("menu-wrapper");
