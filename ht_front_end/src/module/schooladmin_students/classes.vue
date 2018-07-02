@@ -35,7 +35,7 @@
     </div>
     
       <div class="mui-input-row">
-        <label>限制：</label>
+        <label>备注：</label>
         <input type="text" v-model="cla.classdetails" readonly>
       </div>
 

@@ -15,34 +15,34 @@
       </div>
 
       <div class="mui-input-row">
-        <label>上课时间：</label>
-        <input type="text" v-model="cla.classtime" readonly>
+        <label>上课日期：</label>
+        <input type="text" v-model="cla.classdate" readonly>
       </div>
     
       <div class="mui-input-row">
-        <label>上课地点：</label>
-        <input type="text" v-model="cla.classaddress" readonly>
+        <label>上课时间：</label>
+        <input type="text" v-model="cla.classtime" readonly>
       </div>
     
       <div class="mui-input-row" >
         <label>最大人数：</label>
         <input type="text" v-model="cla.classmaxnumusers" readonly>
-    </div>
+      </div>
 
       <div class="mui-input-row" >
         <label>当前人数：</label>
         <input type="text" v-model="cla.classnumusers" readonly>
-    </div>
+      </div>
     
       <div class="mui-input-row">
-        <label>限制：</label>
+        <label>备注：</label>
         <input type="text" v-model="cla.classdetails" readonly>
       </div>
 
       <div class="mui-input-row" >
         <label>教师：</label>
         <input type="text" v-model="cla.teachername" readonly>
-    </div>
+      </div>
 
       <div class="mui-input-row" >
         <label>校区：</label>
