@@ -42,8 +42,10 @@ router.put('/', function(req, res, next) {
             return Promise.resolve(null);
         }
     
+        var isadmin = 1;
         const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
         if (!res_have_result(admin_res)) {
+            isadmin = 0;
             const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
             if (!res_have_result(teacher_res)) {
                 res.send(htapi_code(false));
@@ -67,24 +69,26 @@ router.put('/', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        if (req.body.teacheractive == 1) {
-            wxapi.moveUserToGroup(req.body.teacheropenid, tags["教师"], function(err, data, res) {
-                console.log("teacher moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
-                wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
-                    if(!err){
-                      console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
-                    }
+        if(isadmin){
+            if (req.body.teacheractive == 1) {
+                wxapi.moveUserToGroup(req.body.teacheropenid, tags["教师"], function(err, data, res) {
+                    console.log("teacher moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
+                    wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
+                        if(!err){
+                        console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
+                        }
+                    });
                 });
-            });
-        } else {
-            wxapi.moveUserToGroup(req.body.teacheropenid, 0, function(err, data, res) {
-                console.log("delete moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
-                wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
-                    if(!err){
-                      console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
-                    }
+            } else {
+                wxapi.moveUserToGroup(req.body.teacheropenid, 0, function(err, data, res) {
+                    console.log("delete moveUserToGroup: " + req.body.teacheropenid + " err:" + err);
+                    wxapi.getWhichGroup(req.body.teacheropenid,function(err, result) {
+                        if(!err){
+                        console.log("getWhichGroup openid " + req.body.teacheropenid + " result:" + JSON.stringify(result));
+                        }
+                    });
                 });
-            });
+            }
         }
 
         var response = ""
