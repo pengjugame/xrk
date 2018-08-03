@@ -85,7 +85,10 @@ export const getclasses = (vm) => {
   userInfo().then((res) => {
     http.get(route.classes).then((res) => {
       if (res_is_success(res)) {
-        vm.classes = res.data
+        vm.classes = res.data;
+        vm.studentnum = 0;
+        for (var i in vm.classes)
+          vm.studentnum += vm.classes[i].classnumusers;
       }
     }, (err) => {
       console.log(err);
