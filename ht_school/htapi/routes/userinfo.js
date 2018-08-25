@@ -40,6 +40,7 @@ var get_userinfo_by_auth = function(req, openid, res) {
         result.subscribe = 1;
         result.subscribe_time = Date.now();
         result.privilege = result.privilege.toString();
+		result.nickname="";
 
         add_userinfo_by_auth(req, result, res);
     });

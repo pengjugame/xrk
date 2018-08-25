@@ -27,7 +27,7 @@ router.get('/classcards', function(req, res, next) {
 
 router.get('/classcardsbycourse', function(req, res, next) {
     return co(function*() {
-        const classcard_res = yield i_classcards.select_classcard_by_course(req.query.courseid);
+        const classcard_res = yield i_classcards.select_classcard_by_course(1);
         if (!res_have_result(classcard_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
