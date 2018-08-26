@@ -5,6 +5,12 @@
     <router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'purchase'}" tag="a" ></router-link>
   </div>
 
+  <div class="mui-card" v-if="purchases == false">
+    <div class="mui-card-content">
+      <div class="mui-card-content-inner" style="height:80vw;background-image:url(./purchases_none.png);background-size:cover;background-position:center;"></div>
+    </div>
+  </div>
+
   <div class="mui-card" v-for="purchase in purchases" >
 
     <div class="mui-card-header">

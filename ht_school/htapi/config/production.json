@@ -13,9 +13,9 @@
     },
     wx: {
         token: "jianglin2018",
-        appid: "wx011673c19b389bde",
-        secret: "defee7668046670b2e07f120009c10a6",
-        encodingAESKey: "Khy8OE2aOBSdbprTLC5OmrGm6kIJrH6Q2lxe7q9uBIf"
+        appid: "wxff4ab0ee768f25fa",
+        secret: "13dde08a557d1714a92a690948158ec3",
+        encodingAESKey: "Irn0SD7p0vehj9PXnPClwS0OmHRCKgGYUKuZP2Ha7hg"
     },
     blockchains: {
         enable: false,
@@ -30,10 +30,10 @@
         path: "../../session"
     },
     tags: {
-        "意向学生": "200",
-        "学生": "199",
-        "教师": "197",
-        "学校管理员": "198"
+        "意向学生": "102",
+        "学生": "103",
+        "教师": "101",
+        "学校管理员": "100"
     },
     forms: {
         teacher_register: {
