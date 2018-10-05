@@ -206,6 +206,51 @@ CREATE TABLE `xrk_students` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='学生';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+DROP TABLE IF EXISTS `xrk_workclasses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `xrk_workclasses` (
+  `workclassid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '工作流 id',
+  `classid` INT UNSIGNED COMMENT '班级ID',
+  `teacherid` INT UNSIGNED COMMENT '教师ID',
+  `workclasstime` varchar(1024) COMMENT '工作时间',
+  `workclassdetails` varchar(1024) COMMENT '工作备注',
+  `workclassactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '没上完1,上完了0',
+  FOREIGN KEY (`classid`) REFERENCES xrk_classes(`classid`),
+  FOREIGN KEY (`teacherid`) REFERENCES xrk_teachers(`teacherid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='工作班级流';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `xrk_workstudents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `xrk_workstudents` (
+  `workstudentid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '工作流 id',
+  `workclassid` INT UNSIGNED COMMENT '工作班级ID',
+  `studentid` INT UNSIGNED COMMENT '学生ID',
+  `workstudentstatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 上课 1 请假 2 缺勤',
+  `workstudentdetails` varchar(1024) COMMENT '工作备注',
+  FOREIGN KEY (`workclassid`) REFERENCES xrk_workclasses(`workclassid`),
+  FOREIGN KEY (`studentid`) REFERENCES xrk_students(`studentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='工作学生流';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `xrk_workstudenttimes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `xrk_workstudenttimes` (
+  `workstudenttimeid` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '工作流 id',
+  `studentid` INT UNSIGNED COMMENT '学生ID',
+  `teacherid` INT UNSIGNED COMMENT '教师ID',
+  `studentpretimes` int(1) NOT NULL DEFAULT '0' COMMENT '上次剩余次数',
+  `studentcurtimes` int(1) NOT NULL DEFAULT '0' COMMENT '当前剩余次数',
+  `workstudenttime` varchar(1024) COMMENT '工作时间',
+  `workstudenttimedetails` varchar(1024) COMMENT '工作备注',
+  FOREIGN KEY (`studentid`) REFERENCES xrk_students(`studentid`),
+  FOREIGN KEY (`teacherid`) REFERENCES xrk_teachers(`teacherid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='工作课次流';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 INSERT INTO `weapp`.`xrk_schools` (`schoolname`, `schooladdress`, `schoolleader`, `schoolmobile`, `schooldetails`, `schoolactive`) VALUES ('广州萝岗万达店', '广州萝岗万达广场室外步行街南区B250', '江星', '13570187950', '向日葵艺术旗舰店', '1');
 

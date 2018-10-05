@@ -36,9 +36,9 @@
         </form>
       </div>
 
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
         <label>备注：</label>
-        <input type="text" class="mui-input-clear" placeholder="备注" v-model.trim="teacher.teacherdetails" >
+        <textarea type="text" rows="2" class="mui-input-clear" placeholder="备注" v-model.trim="teacher.teacherdetails" />
       </div>
 
       <div class="mui-input-row">

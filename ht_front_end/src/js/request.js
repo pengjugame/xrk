@@ -65,8 +65,10 @@ export const putclasscard = (vm) => {
 }
 
 export const delclasscard = (vm) => {
+  let params = {}
+  params.classcardid = vm.classcard.classcardid
   userInfo().then((res) => {
-    http.del(route.classcard, vm.classcard).then((res) => {
+    http.del(route.classcard, params).then((res) => {
       if (res_is_success(res)) {
         vm.delstatus = res.data.delstatus;
       }
@@ -170,8 +172,10 @@ export const putclass = (vm) => {
 }
 
 export const delclass = (vm) => {
+  let params = {}
+  params.classid = vm.cla.classid
   userInfo().then((res) => {
-    http.del(route.class, vm.cla).then((res) => {
+    http.del(route.class, params).then((res) => {
       if (res_is_success(res)) {
         vm.delstatus = res.data.delstatus;
       }
@@ -232,8 +236,10 @@ export const putcourse = (vm) => {
 }
 
 export const delcourse = (vm) => {
+  let params = {}
+  params.courseid = vm.course.courseid
   userInfo().then((res) => {
-    http.del(route.course, vm.course).then((res) => {
+    http.del(route.course, params).then((res) => {
       if (res_is_success(res)) {
         vm.delstatus = res.data.delstatus;
       }
@@ -351,8 +357,10 @@ export const putpurchaseactive = (vm) => {
 }
 
 export const delpurchase = (vm) => {
+  let params = {}
+  params.purchaseid = vm.purchase.purchaseid
   userInfo().then((res) => {
-    http.del(route.purchase, vm.purchase).then((res) => {
+    http.del(route.purchase, params).then((res) => {
       if (res_is_success(res)) {
         vm.delstatus = res.data.delstatus;
       }
@@ -599,10 +607,128 @@ export const poststudent = (vm) => {
 }
 
 export const delstudent = (vm) => {
+  let params = {}
+  params.studentid = vm.student.studentid;
   userInfo().then((res) => {
-    http.del(route.student, vm.student).then((res) => {
+    http.del(route.student, params).then((res) => {
       if (res_is_success(res)) {
         vm.delstatus = res.data.delstatus;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getworkstudenttimes = (vm) => {
+  vm.workstudenttimes = [];
+  let params = {}
+  params.studentid = vm.student.studentid;
+  userInfo().then((res) => {
+    http.get(route.workstudenttimes,params).then((res) => {
+      if (res_is_success(res)) {
+        vm.workstudenttimes = res.data;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getworkclasses = (vm) => {
+  vm.workclasses = [];
+  let params = {}
+  params.classid = vm.classid;
+  userInfo().then((res) => {
+    http.get(route.workclasses,params).then((res) => {
+      if (res_is_success(res)) {
+        vm.workclasses = res.data;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const postworkclass = (vm,workclass) => {
+    http.post(route.workclass, workclass).then((res) => {
+      if (res_is_success(res)) {
+        getworkclasses(vm)
+      }
+    }, (err) => {
+      console.log(err);
+    })
+}
+
+export const delworkclass = (vm,workclass) => {
+  let params = {}
+  params.workclassid = workclass.workclassid;
+  userInfo().then((res) => {
+    http.del(route.workclass, params).then((res) => {
+      if (res_is_success(res)) {
+        getworkclasses(vm)
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const getworkstudents = (vm) => {
+  vm.workstudents = [];
+  let params = {}
+  params.workclassid = vm.workclass.workclassid;
+  userInfo().then((res) => {
+    http.get(route.workstudents,params).then((res) => {
+      if (res_is_success(res)) {
+        vm.workstudents = res.data;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
+export const putworkstudent = (workstudent) => {
+    http.put(route.workstudent, workstudent).then((res) => {
+      if (res_is_success(res)) {
+      }
+    }, (err) => {
+      console.log(err);
+    })
+}
+
+export const putworkclassactive = (vm) => {
+    let params = {}
+    params.workclassid = vm.workclass.workclassid;
+    http.put(route.workclassactive, params).then((res) => {
+      if (res_is_success(res)) {
+        vm.workclass.workclassactive = res.data.workclassactive;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+}
+
+export const getworkstudentbyworkclass = (vm) => {
+  vm.workstudents = [];
+  let params = {}
+  params.workclassid = vm.workclass.workclassid;
+  params.studentid = vm.student.studentid;
+  userInfo().then((res) => {
+    http.get(route.workstudentbyworkclass,params).then((res) => {
+      if (res_is_success(res)) {
+        vm.workstudents = res.data;
       }
     }, (err) => {
       console.log(err);

@@ -136,6 +136,15 @@ var route_list = [
     }, {
         url: '/purchase',
         handler: require('./routes/purchase')
+    }, {
+        url: '/workclass',
+        handler: require('./routes/workclass')
+    }, {
+        url: '/workstudent',
+        handler: require('./routes/workstudent')
+    }, {
+        url: '/workstudenttime',
+        handler: require('./routes/workstudenttime')
     },{
         url: '/wx',
         handler: require('./routes/wx_chat')

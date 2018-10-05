@@ -25,9 +25,9 @@
         <input type="number" v-model.number="classcard.classcardtime" class="mui-input-clear" placeholder="请输入课次时间">
       </div>
       
-      <div class="mui-input-row">
+      <div class="mui-input-row" style="height: 70px" >
         <label>课卡简介：</label>
-        <input type="text"  v-model.trim="classcard.classcarddetails" class="mui-input-clear" placeholder="请输入课卡简介">
+        <textarea type="text" rows="2" v-model.trim="classcard.classcarddetails" class="mui-input-clear" placeholder="请输入课卡简介" />
       </div>
 
       <div class="mui-input-row">

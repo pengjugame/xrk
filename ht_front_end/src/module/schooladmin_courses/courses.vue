@@ -18,9 +18,9 @@
         <input type="text"  v-model="course.coursename" readonly>
       </div>
       
-      <div class="mui-input-row">
+      <div class="mui-input-row" style="height: 70px" >
         <label>课程简介：</label>
-        <input type="text"  v-model="course.coursedetails" readonly>
+        <textarea type="text"  rows="2" v-model="course.coursedetails" readonly></textarea>
       </div>
 
     </div>

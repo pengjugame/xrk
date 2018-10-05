@@ -62,9 +62,9 @@
         <input type="text" v-model="purchase.paydetails" readonly>
       </div>
 
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
         <label>预购备注：</label>
-        <input type="text" v-model="purchase.purchasedetails" readonly>
+        <textarea type="text" rows="2" v-model="purchase.purchasedetails" readonly />
       </div>
 
       <div class="mui-input-row">

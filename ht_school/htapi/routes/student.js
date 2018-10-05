@@ -4,6 +4,7 @@ var htapi_code = require('../common/htapi_code');
 var i_students = require('../common/database/interface/i_students');
 var i_teachers = require('../common/database/interface/i_teachers');
 var i_school_admins = require('../common/database/interface/i_school_admins');
+var i_workstudenttimes = require('../common/database/interface/i_workstudenttimes');
 var i_classes = require('../common/database/interface/i_classes');
 var {
     res_have_result,
@@ -328,11 +329,42 @@ router.put('/studenttimes', function(req, res, next) {
 
         const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
         if (!res_have_result(teacher_res)) {
-            const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
-            if (!res_have_result(admin_res)) {
-                res.send(htapi_code(false));
-                return Promise.resolve(null);
-            }
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const student_old_res = yield i_students.select_student(req.body.studentid);
+        if (!res_have_result(student_old_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        if(student_old_res.result[0].studenttimes == req.body.studenttimes){
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        var today = new Date();
+        var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时'+ today.getMinutes() +'分';
+
+        var param = {
+            "studentid": req.body.studentid,
+            "teacherid": teacher_res.result[0].teacherid,
+            "studentpretimes": student_old_res.result[0].studenttimes,
+            "studentcurtimes": req.body.studenttimes,
+            "workstudenttime": time,
+        }
+
+        if(req.body.studenttimes > student_old_res.result[0].studenttimes){
+            param.workstudenttimedetails = "赠送 " + (req.body.studenttimes - student_old_res.result[0].studenttimes) + " 次课";
+        }else{
+            param.workstudenttimedetails = "用掉 " + (student_old_res.result[0].studenttimes - req.body.studenttimes) + " 次课";
+        }
+
+        const workstudenttime_res = yield i_workstudenttimes.add_workstudenttime(param);
+        if (!res_is_success(workstudenttime_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
         }
 
         const student_res = yield i_students.update_student_times(req.body.studenttimes,req.body.studentid);

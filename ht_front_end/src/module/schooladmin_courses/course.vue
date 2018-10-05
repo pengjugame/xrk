@@ -15,9 +15,9 @@
         <input type="text"  v-model.trim="form.coursename" class="mui-input-clear" placeholder="请输入课程名" >
       </div>
       
-      <div class="mui-input-row">
+      <div class="mui-input-row" style="height: 70px" >
         <label>课程简介：</label>
-        <input type="text"  v-model.trim="form.coursedetails" class="mui-input-clear" placeholder="请输入课程简介">
+        <textarea type="text" rows="2" v-model.trim="form.coursedetails" class="mui-input-clear" placeholder="请输入课程简介"></textarea>
       </div>
 
       <div class="mui-input-row" >

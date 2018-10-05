@@ -3,6 +3,7 @@
 
   <div class="mui-card">
     <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classstudents', params: {classid:oldclassid} }" tag="a" ></router-link>
+    <router-link class=" mui-icon mui-icon-settings mui-pull-right" :to="{ name:'workstudenttimes', params: student }" tag="a" ></router-link>
   </div>
 
   <div class="mui-card" >
@@ -42,9 +43,9 @@
         <input type="text"  v-model.trim="student.studentage" class="mui-input-clear" placeholder="请输入年龄">
       </div>
 
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
         <label>备注：</label>
-        <input type="text" v-model.trim="student.studentdetails" class="mui-input-clear" placeholder="请输入备注">
+        <textarea type="text" rows="2" v-model.trim="student.studentdetails" class="mui-input-clear" placeholder="请输入备注" />
       </div>
 
       <div class="mui-input-row">
@@ -164,19 +165,22 @@ export default {
 
         vm.oldclassid = vm.classid;
 
+        vm.updatestatus = 0;
+        vm.delstatus = 0;
+
       }else if(from.name == 'schoolclasses'){
         if(vm.$route.params.classid != undefined)
           vm.classid = vm.$route.params.classid;
 
         if(vm.$route.params.classname != undefined)
           vm.classname = vm.$route.params.classname;
+
+        if(vm.delstatus == 0)
+          vm.updatestatus = 0;
       }
     });
   },
   activated: function () {
-    this.updatestatus = 0;
-    this.delstatus = 0;
-
     if (this.updatestatus == 0) {
       if(document.getElementById("submitid"))
         document.getElementById("submitid").disabled = ""

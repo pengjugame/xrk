@@ -27,9 +27,9 @@
         <input type="text" v-model="classcard.classcardtime" readonly>
       </div>
     
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
         <label>备注：</label>
-        <input type="text" v-model="classcard.classcarddetails" readonly>
+        <textarea type="text" rows="2" v-model="classcard.classcarddetails" readonly />
       </div>
 
     </div>

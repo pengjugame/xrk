@@ -34,9 +34,9 @@
         <input type="text"  v-model.trim="form.studentage" class="mui-input-clear" placeholder="请输入年龄">
       </div>
       
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
         <label>收据编号：</label>
-        <input type="text" v-model.trim="form.studentdetails" class="mui-input-clear" placeholder="请输入收据编号">
+        <textarea type="text" rows="2" v-model.trim="form.studentdetails" class="mui-input-clear" placeholder="请输入收据编号" />
       </div>
       
       <div class="mui-input-row">

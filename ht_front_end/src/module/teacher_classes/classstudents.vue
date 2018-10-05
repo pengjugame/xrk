@@ -3,6 +3,7 @@
 
   <div class="mui-card">
     <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classes'}" tag="a" ></router-link>
+    <router-link class=" mui-icon mui-icon-star-filled mui-pull-right" :to="{ name:'workclasses', params: {classid:classid} }" tag="a" ></router-link>
   </div>
   
   <div class="mui-card" v-for="student in students" >
@@ -35,21 +36,21 @@
         <input type="text" v-model="student.classname" readonly>
       </div>
 
-      <div class="mui-input-row" >
-        <label>学生备注：</label>
-        <input type="text" v-model="student.studentdetails" readonly>
+      <div class="mui-input-row">
+        <label>剩余课次：</label>
+        <input type="text" v-model="student.studenttimes" readonly>
       </div>
-      
+
+      <div class="mui-input-row" style="height: 70px" >
+        <label>学生备注：</label>
+        <textarea type="text" rows="2" v-model="student.studentdetails" readonly />
+      </div>
+
     </div>
 
     <div class="mui-card-footer">
-      <label>剩余课次：</label>
-      <div class="mui-numbox mui-pull-right" data-numbox-min='0' v-bind:data-numbox-max="[student.studentmaxtimes]" >
-        <button class="mui-btn jl-mui-btn-numbox-minus" type="button" v-on:click="minusplusstudenttimes(0,student)">-</button>
-        <input class="mui-input-numbox" type="number" v-model="student.studenttimes" />
-        <button class="mui-btn jl-mui-btn-numbox-plus"  type="button" v-on:click="minusplusstudenttimes(1,student)">+</button>
-      </div>
-      <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="updatestudenttimes(student)" v-text="confirmText" ></button>
+      <label>课次记录：</label>
+      <router-link class="mui-navigate-right" :to="{ name:'workstudenttimes',params: student }" tag="a" ></router-link>
     </div>
   </div>
   </div>
@@ -64,43 +65,20 @@ export default {
   data() {
     return {
       students: [],
-      updatestudenttimesstatus: 0,
+      classid: "",
     }
   },
   activated: function () {
-    this.updatestudenttimesstatus = 0;
-    request.getclassstudents(this,this.$route.params.classid);
+    if(this.$route.params.classid != undefined){
+      this.classid = this.$route.params.classid;
+      request.getclassstudents(this,this.$route.params.classid);
+    }
   },
   created() {
   },
   computed: {
-    confirmText() {
-      if (this.updatestudenttimesstatus == 1) {
-        mui.toast('提交成功 :-)');
-        this.updatestudenttimesstatus = 0;
-      }
-
-      return '确认';
-    }
   },
   methods: {
-    updatestudenttimes(student) {
-      request.putstudenttimes(this,student);
-    },
-
-    minusplusstudenttimes(plus,student){
-      if(plus === 1){
-        if((student.studenttimes + 1) <= student.studentmaxtimes)
-          student.studenttimes += 1;
-        else
-          student.studenttimes = student.studentmaxtimes;
-      }else{
-        if((student.studenttimes - 1) >= 0)
-          student.studenttimes -= 1;
-        else
-          student.studenttimes = 0;
-      }
-    },
   },
   mounted() {
     mui.init();

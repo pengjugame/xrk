@@ -35,4 +35,11 @@ export const route = {
   classcardsbycourse: get_url('/classcard/classcardsbycourse'),
   studentpurchases: get_url('/purchase/studentpurchases'),
   allcourses: get_url('/course/allcourses'),
+  workstudenttimes: get_url('/workstudenttime/workstudenttimes'),
+  workclasses: get_url('/workclass/workclasses'),
+  workclass: get_url('/workclass/workclass'),
+  workclassactive: get_url('/workclass/workclassactive'),
+  workstudents: get_url('/workstudent/workstudents'),
+  workstudent: get_url('/workstudent/workstudent'),
+  workstudentbyworkclass: get_url('/workstudent/workstudentbyworkclass'),
 };

@@ -2,6 +2,7 @@ var express = require('express');
 const co = require('co');
 var htapi_code = require('../common/htapi_code');
 var i_school_admins = require('../common/database/interface/i_school_admins');
+var i_teachers = require('../common/database/interface/i_teachers');
 var {
     res_is_success,
     res_have_result,
@@ -64,6 +65,22 @@ router.post('/', function(req, res, next) {
                 }
             });
         });
+
+        var teacherparam = {
+            "teachername": req.body.schooladminname,
+            "teachermobile": req.body.schooladminmobile,
+            "teacherusex": req.body.schooladminusex,
+            "teacherdetails": req.body.schooladmindetails,
+            "schoolid": req.body.schoolid,
+            "teacheropenid": userinfo.openid,
+            "teacheractive": 1,
+        }
+
+        const teacher_add_res = yield i_teachers.add_teacher(teacherparam);
+        if (!res_is_success(teacher_add_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
 
         var response = ""
         response = htapi_code(true);

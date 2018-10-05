@@ -26,9 +26,9 @@
       <input type="text" v-else value="女" readonly>
       </div>
 
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
       <label>教师备注：</label>
-      <input type="text" v-model="teacher.teacherdetails" readonly>
+      <textarea type="text" rows="2" v-model="teacher.teacherdetails" readonly />
       </div>
 
     </div>

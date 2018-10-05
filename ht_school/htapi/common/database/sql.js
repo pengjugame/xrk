@@ -676,6 +676,157 @@ function deactive_purchase() {
     return "update xrk_purchases SET purchaseactive = 0 where purchaseid = ?  "
 }
 
+/**--workclasses表 操作---**/
+/*workclasses:{
+    select_workclasses: select_workclasses(),
+    add_workclass: add_workclass(),
+    delete_workclass: delete_workclass(),
+    update_workclass: update_workclass(),
+    active_workclass: active_workclass(),
+    deactive_workclass: deactive_workclass()
+}*/
+
+function select_workclasses() {
+    return "select a.workclassid , a.workclasstime , a.workclassdetails , a.workclassactive , " 
+            + "b.classid , b.classname , b.classdate , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , b.classdetails , " 
+            + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
+            + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive " 
+            + "FROM xrk_workclasses a " 
+            + "LEFT JOIN xrk_classes b ON a.classid = b.classid " 
+            + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
+            + "LEFT JOIN xrk_teachers d ON a.teacherid = d.teacherid " 
+            + "where a.classid = ? ORDER BY workclassid DESC "
+}
+
+function add_workclass() {
+    return "insert into xrk_workclasses set ? "
+}
+
+function delete_workclass() {
+    return "delete from xrk_workclasses where workclassid = ? "
+}
+
+function update_workclass() {
+    return "update xrk_workclasses SET workclasstime = ?, workclassdetails = ?, classid = ? , teacherid = ? where workclassid = ?  "
+}
+
+function active_workclass() {
+    return "update xrk_workclasses SET workclassactive = 1 where workclassid = ?  "
+}
+
+function deactive_workclass() {
+    return "update xrk_workclasses SET workclassactive = 0 where workclassid = ?  "
+}
+
+/**--workstudents表 操作---**/
+/*workstudents:{
+    select_workstudents: select_workstudents(),
+    select_workstudent: select_workstudent(),
+    select_workstudent_by_workclass: select_workstudent_by_workclass(),
+    add_workstudent: add_workstudent(),
+    delete_workstudent: delete_workstudent(),
+    delete_workstudent_by_workclass:delete_workstudent_by_workclass(),
+    update_workstudent: update_workstudent()
+}*/
+
+function select_workstudents() {
+    return "select a.workstudentid , a.workstudentstatus , a.workstudentdetails , " 
+            + "b.workclassid , b.workclasstime , b.workclassdetails , b.workclassactive , "
+            + "c.classid , c.classname , c.classdate , c.classtime , c.classactive , c.classmaxnumusers , c.classnumusers , c.classdetails , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , d.schoolactive , " 
+            + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive , " 
+            + "f.studentid , f.studentname , f.studentmobile , f.studentusex , f.studentage , f.studentdetails , f.studenttimes , f.studentmaxtimes , f.studentopenid , f.studentactive  "
+            + "FROM xrk_workstudents a " 
+            + "JOIN xrk_workclasses b ON a.workclassid = b.workclassid " 
+            + "JOIN xrk_classes c ON b.classid = c.classid " 
+            + "JOIN xrk_schools d ON c.schoolid = d.schoolid " 
+            + "JOIN xrk_teachers e ON b.teacherid = e.teacherid " 
+            + "JOIN xrk_students f ON a.studentid = f.studentid " 
+            + "where a.workclassid = ? "
+}
+
+function select_workstudent() {
+    return "select a.workstudentid , a.workstudentstatus , a.workstudentdetails , " 
+            + "b.workclassid , b.workclasstime , b.workclassdetails , b.workclassactive , "
+            + "c.classid , c.classname , c.classdate , c.classtime , c.classactive , c.classmaxnumusers , c.classnumusers , c.classdetails , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , d.schoolactive , " 
+            + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive , " 
+            + "f.studentid , f.studentname , f.studentmobile , f.studentusex , f.studentage , f.studentdetails , f.studenttimes , f.studentmaxtimes , f.studentopenid , f.studentactive  "
+            + "FROM xrk_workstudents a " 
+            + "JOIN xrk_workclasses b ON a.workclassid = b.workclassid " 
+            + "JOIN xrk_classes c ON b.classid = c.classid " 
+            + "JOIN xrk_schools d ON c.schoolid = d.schoolid " 
+            + "JOIN xrk_teachers e ON b.teacherid = e.teacherid " 
+            + "JOIN xrk_students f ON a.studentid = f.studentid " 
+            + "where f.studentid = ? "
+}
+
+function select_workstudent_by_workclass() {
+    return "select a.workstudentid , a.workstudentstatus , a.workstudentdetails , " 
+            + "b.workclassid , b.workclasstime , b.workclassdetails , b.workclassactive , "
+            + "c.classid , c.classname , c.classdate , c.classtime , c.classactive , c.classmaxnumusers , c.classnumusers , c.classdetails , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , d.schoolactive , " 
+            + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive , " 
+            + "f.studentid , f.studentname , f.studentmobile , f.studentusex , f.studentage , f.studentdetails , f.studenttimes , f.studentmaxtimes , f.studentopenid , f.studentactive  "
+            + "FROM xrk_workstudents a " 
+            + "JOIN xrk_workclasses b ON a.workclassid = b.workclassid " 
+            + "JOIN xrk_classes c ON b.classid = c.classid " 
+            + "JOIN xrk_schools d ON c.schoolid = d.schoolid " 
+            + "JOIN xrk_teachers e ON b.teacherid = e.teacherid " 
+            + "JOIN xrk_students f ON a.studentid = f.studentid " 
+            + "where a.workclassid = ? AND a.studentid = ? "
+}
+
+function add_workstudent() {
+    return "insert into xrk_workstudents set ? "
+}
+
+function delete_workstudent() {
+    return "delete from xrk_workstudents where workstudentid = ? "
+}
+
+function delete_workstudent_by_workclass() {
+    return "delete from xrk_workstudents where workclassid = ? "
+}
+
+function update_workstudent() {
+    return "update xrk_workstudents SET workstudentstatus = ?, workstudentdetails = ?, workclassid = ?, studentid = ? where workstudentid = ? "
+}
+
+/**--workstudenttimes表 操作---**/
+/*workstudenttimes:{
+    select_workstudenttimes: select_workstudenttimes(),
+    add_workstudenttime: add_workstudenttime(),
+    delete_workstudenttime: delete_workstudenttime(),
+    update_workstudenttime: update_workstudenttime()
+}*/
+
+function select_workstudenttimes() {
+    return "select a.workstudenttimeid , a.studentpretimes , a.studentcurtimes , a.workstudenttime , a.workstudenttimedetails , " 
+            + "b.studentid , b.studentname , b.studentmobile , b.studentusex , b.studentage , b.studentdetails , b.studenttimes , b.studentmaxtimes , b.studentopenid , b.studentactive , "
+            + "c.classid , c.classname , c.classdate , c.classtime , c.classactive , c.classmaxnumusers , c.classnumusers , c.classdetails , " 
+            + "d.schoolid , d.schoolname , d.schooladdress , d.schoolleader , d.schoolmobile , d.schooldetails , d.schoolactive , " 
+            + "e.teacherid , e.teachername , e.teachermobile , e.teacherusex , e.teacherdetails , e.teacheractive " 
+            + "FROM xrk_workstudenttimes a " 
+            + "JOIN xrk_students b ON a.studentid = b.studentid " 
+            + "JOIN xrk_classes c ON b.classid = c.classid " 
+            + "JOIN xrk_schools d ON b.schoolid = d.schoolid " 
+            + "JOIN xrk_teachers e ON a.teacherid = e.teacherid " 
+            + "where a.studentid = ? ORDER BY workstudenttimeid DESC "
+}
+
+function add_workstudenttime() {
+    return "insert into xrk_workstudenttimes set ? "
+}
+
+function delete_workstudenttime() {
+    return "delete from xrk_workstudenttimes where workstudenttimeid = ? "
+}
+
+function update_workstudenttime() {
+    return "update xrk_workstudenttimes SET studentpretimes = ?, studentcurtimes = ?, workstudenttime = ? , workstudenttimedetails = ? , studentid = ? , teacherid = ? where workstudenttimeid = ? "
+}
+
 //所有允许操作的SQL语句列表
 module.exports = {
     users: {
@@ -779,5 +930,28 @@ module.exports = {
         update_purchase_base: update_purchase_base(),
         active_purchase: active_purchase(),
         deactive_purchase: deactive_purchase()
+    },
+    workclasses:{
+        select_workclasses: select_workclasses(),
+        add_workclass: add_workclass(),
+        delete_workclass: delete_workclass(),
+        update_workclass: update_workclass(),
+        active_workclass: active_workclass(),
+        deactive_workclass: deactive_workclass()
+    },
+    workstudents:{
+        select_workstudents: select_workstudents(),
+        select_workstudent: select_workstudent(),
+        select_workstudent_by_workclass: select_workstudent_by_workclass(),
+        add_workstudent: add_workstudent(),
+        delete_workstudent: delete_workstudent(),
+        delete_workstudent_by_workclass:delete_workstudent_by_workclass(),
+        update_workstudent: update_workstudent()
+    },
+    workstudenttimes:{
+        select_workstudenttimes: select_workstudenttimes(),
+        add_workstudenttime: add_workstudenttime(),
+        delete_workstudenttime: delete_workstudenttime(),
+        update_workstudenttime: update_workstudenttime()
     }
 }

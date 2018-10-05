@@ -40,9 +40,9 @@
                   <input type="text" v-model="cla.classnumusers" readonly>
                 </div>
               
-                <div class="mui-input-row" >
+                <div class="mui-input-row" style="height: 70px" >
                   <label>班级备注：</label>
-                  <input type="text" v-model="cla.classdetails" readonly>
+                  <textarea type="text" rows="2" v-model="cla.classdetails" readonly />
                 </div>
 
                 <div class="mui-input-row" >

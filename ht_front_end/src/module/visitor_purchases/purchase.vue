@@ -71,9 +71,9 @@
         <input type="text" v-model.trim="form.paydetails" class="mui-input-clear" placeholder="请输入支付方式">
       </div>
 
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
         <label>预购备注：</label>
-        <input type="text" v-model.trim="form.purchasedetails" class="mui-input-clear" placeholder="请输入预购备注">
+        <textarea type="text" rows="2" v-model.trim="form.purchasedetails" class="mui-input-clear" placeholder="请输入预购备注" />
       </div>
       
       <div class="mui-button-row">

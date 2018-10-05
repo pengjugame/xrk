@@ -17,10 +17,25 @@ export default new VueRouter({
     name: 'classes',
     component: require("./classes.vue")
     },
-  {
-    path: '/student',
-    name: 'student',
-    component: require("./student.vue")
-  }  
+    {
+      path: '/student',
+      name: 'student',
+      component: require("./student.vue")
+    },
+    {
+      path: '/workstudenttimes',
+      name: 'workstudenttimes',
+      component: require("./workstudenttimes.vue")
+    },
+    {
+      path: '/workclasses',
+      name: 'workclasses',
+      component: require("./workclasses.vue")
+    },
+    {
+      path: '/workstudents',
+      name: 'workstudents',
+      component: require("./workstudents.vue")
+    }
   ]
 })

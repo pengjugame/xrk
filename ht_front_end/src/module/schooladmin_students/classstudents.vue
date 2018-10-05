@@ -3,6 +3,7 @@
 
   <div class="mui-card">
     <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classes'}" tag="a" ></router-link>
+    <router-link class=" mui-icon mui-icon-star-filled mui-pull-right" :to="{ name:'workclasses', params: {classid:classid} }" tag="a" ></router-link>
   </div>
   
   <div class="mui-card" v-for="student in students" >
@@ -35,9 +36,9 @@
         <input type="text" v-model="student.classname" readonly>
       </div>
 
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
         <label>学生备注：</label>
-        <input type="text" v-model="student.studentdetails" readonly>
+        <textarea type="text" rows="2" v-model="student.studentdetails" readonly />
       </div>
       
     </div>
@@ -64,12 +65,15 @@ export default {
   data() {
     return {
       students: [],
+      classid: "",
       updatestudenttimesstatus: 0,
     }
   },
   activated: function () {
-    if(this.$route.params.classid != undefined)
-      request.getclassstudents(this,this.$route.params.classid);
+    if(this.$route.params.classid != undefined){
+      this.classid = this.$route.params.classid;
+      request.getclassstudents(this,this.classid);
+    }
   },
   created() {
   },

@@ -34,9 +34,9 @@
         <input type="number" class="mui-input-clear" placeholder="请输入当前人数" v-model.number="cla.classnumusers" >
       </div>
 
-      <div class="mui-input-row" >
+      <div class="mui-input-row" style="height: 70px" >
         <label>班级备注：</label>
-        <input type="text" v-model.trim="cla.classdetails" class="mui-input-clear" placeholder="请输入班级备注">
+        <textarea type="text" rows="2" v-model.trim="cla.classdetails" class="mui-input-clear" placeholder="请输入班级备注" />
       </div>
 
       <div class="mui-input-row">
