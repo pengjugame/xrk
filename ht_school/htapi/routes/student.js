@@ -4,6 +4,7 @@ var htapi_code = require('../common/htapi_code');
 var i_students = require('../common/database/interface/i_students');
 var i_teachers = require('../common/database/interface/i_teachers');
 var i_school_admins = require('../common/database/interface/i_school_admins');
+var i_workstudents = require('../common/database/interface/i_workstudents');
 var i_workstudenttimes = require('../common/database/interface/i_workstudenttimes');
 var i_classes = require('../common/database/interface/i_classes');
 var {
@@ -345,7 +346,7 @@ router.put('/studenttimes', function(req, res, next) {
         }
 
         var today = new Date();
-        var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时'+ today.getMinutes() +'分';
+        var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时 '+ today.getMinutes() +'分';
 
         var param = {
             "studentid": req.body.studentid,
@@ -407,14 +408,26 @@ router.delete('/student', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const class_old_update_res = yield i_classes.update_class_numusers(class_old_res.result[0].classnumusers-1,student_old_res.result[0].classid);
-        if (!res_is_success(class_old_update_res)) {
+        const workstudent_res = yield i_workstudents.delete_workstudent_by_student(req.query.studentid);
+        if (!res_is_success(workstudent_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const workstudenttime_res = yield i_workstudenttimes.delete_workstudenttime_by_student(req.query.studentid);
+        if (!res_is_success(workstudenttime_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
 
         const student_res = yield i_students.delete_student(req.query.studentid);
         if (!res_is_success(student_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const class_old_update_res = yield i_classes.update_class_numusers(class_old_res.result[0].classnumusers-1,student_old_res.result[0].classid);
+        if (!res_is_success(class_old_update_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }

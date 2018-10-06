@@ -37,6 +37,24 @@ exports.delete_workstudenttime = function(workstudenttimeid) {
     });
 }
 
+exports.delete_workstudenttime_by_student = function(studentid) {
+    return co(function*() {
+        if (is_empty(studentid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.workstudenttimes.delete_workstudenttime_by_student, [studentid]);
+    });
+}
+
+exports.delete_workstudenttime_by_teacher = function(teacherid) {
+    return co(function*() {
+        if (is_empty(teacherid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.workstudenttimes.delete_workstudenttime_by_teacher, [teacherid]);
+    });
+}
+
 exports.update_workstudenttime = function(workstudenttime) {
     return co(function*() {
         if (is_empty(workstudenttime) || is_empty(workstudenttime.workstudenttimeid)) {

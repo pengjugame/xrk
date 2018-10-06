@@ -56,7 +56,7 @@ export default {
     }
   },
   activated: function () {
-    if(this.$route.params != undefined){
+    if(this.$route.params.classid != undefined){
       this.student = this.$route.params;
       this.classid = this.student.classid;
     }else

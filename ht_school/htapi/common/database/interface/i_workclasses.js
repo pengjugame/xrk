@@ -37,6 +37,24 @@ exports.delete_workclass = function(workclassid) {
     });
 }
 
+exports.delete_workclass_by_teacher = function(teacherid) {
+    return co(function*() {
+        if (is_empty(teacherid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.workclasses.delete_workclass_by_teacher, [teacherid]);
+    });
+}
+
+exports.delete_workclass_by_class = function(classid) {
+    return co(function*() {
+        if (is_empty(classid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.workclasses.delete_workclass_by_class, [classid]);
+    });
+}
+
 exports.update_workclass = function(workclass) {
     return co(function*() {
         if (is_empty(workclass) || is_empty(workclass.workclassid)) {

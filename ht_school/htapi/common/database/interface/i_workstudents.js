@@ -64,6 +64,15 @@ exports.delete_workstudent_by_workclass = function(workclassid) {
     });
 }
 
+exports.delete_workstudent_by_student = function(studentid) {
+    return co(function*() {
+        if (is_empty(studentid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.workstudents.delete_workstudent_by_student, [studentid]);
+    });
+}
+
 exports.update_workstudent = function(workstudent) {
     return co(function*() {
         if (is_empty(workstudent) || is_empty(workstudent.workstudentid)) {

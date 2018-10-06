@@ -65,6 +65,15 @@ exports.select_student_in_class = function(classid) {
     });
 }
 
+exports.select_student_in_class_active = function(classid) {
+    return co(function*() {
+        if (is_empty(classid)) {
+            return Promise.resolve(null);
+        }
+        return operate_db(sql.students.select_student_in_class_active, [classid]);
+    });
+}
+
 exports.select_student_in_school = function(schoolid) {
     return co(function*() {
         if (is_empty(schoolid)) {

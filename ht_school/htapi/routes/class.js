@@ -3,6 +3,7 @@ var express = require('express');
 var htapi_code = require('../common/htapi_code');
 var i_students = require('../common/database/interface/i_students');
 var i_teachers = require('../common/database/interface/i_teachers');
+var i_workclasses = require('../common/database/interface/i_workclasses');
 var i_school_admins = require('../common/database/interface/i_school_admins');
 var i_classes = require('../common/database/interface/i_classes');
 var {
@@ -219,6 +220,12 @@ router.delete('/class', function(req, res, next) {
 
         const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
         if (!res_have_result(admin_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
+        const workclass_res = yield i_workclasses.delete_workclass_by_class(req.query.classid);
+        if (!res_is_success(workclass_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }

@@ -72,7 +72,7 @@ router.post('/workclass', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const student_res = yield i_students.select_student_in_class(req.body.classid);
+        const student_res = yield i_students.select_student_in_class_active(req.body.classid);
         if (!res_have_result(student_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);

@@ -184,6 +184,7 @@ function deactive_teacher() {
     select_student_by_studentdetails_studentmobile: select_student_by_studentdetails_studentmobile(),
     select_student_by_studentname_studentmobile_class: select_student_by_studentname_studentmobile_class(),
     select_student_in_class: select_student_in_class(),
+    select_student_in_class_active: select_student_in_class_active(),
     select_student_in_school: select_student_in_school(),
     add_student: add_student(),
     update_student_base: update_student_base(),
@@ -254,6 +255,21 @@ function select_student_in_class() {
             + "LEFT JOIN xrk_courses e ON d.courseid = e.courseid " 
             + "LEFT JOIN xrk_users f ON a.studentopenid = f.openid " 
             + "where a.classid = ? "
+}
+
+function select_student_in_class_active() {
+    return "select a.studentid , a.studentname , a.studentmobile , a.studentusex , a.studentage , a.studentdetails , a.studenttimes , a.studentmaxtimes ,a.studentopenid , a.studentactive , " 
+            + "b.classid , b.classname , b.classdate , b.classtime , b.classactive , b.classmaxnumusers , b.classnumusers , b.classdetails , " 
+            + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
+            + "d.classcardid , d.classcardname , d.classcardprice , d.classcardactive , d.classcarddetails , " 
+            + "e.courseid , e.coursename , e.coursedetails , e.courseactive , f.headimgurl " 
+            + "FROM xrk_students a " 
+            + "JOIN xrk_classes b ON a.classid = b.classid " 
+            + "LEFT JOIN xrk_schools c ON a.schoolid = c.schoolid " 
+            + "LEFT JOIN xrk_classcards d ON a.classcardid = d.classcardid " 
+            + "LEFT JOIN xrk_courses e ON d.courseid = e.courseid " 
+            + "LEFT JOIN xrk_users f ON a.studentopenid = f.openid " 
+            + "where a.classid = ? AND a.studentactive = 1 "
 }
 
 function select_student_in_school() {
@@ -681,6 +697,8 @@ function deactive_purchase() {
     select_workclasses: select_workclasses(),
     add_workclass: add_workclass(),
     delete_workclass: delete_workclass(),
+    delete_workclass_by_class(): delete_workclass_by_class(),
+    delete_workclass_by_teacher: delete_workclass_by_teacher(),
     update_workclass: update_workclass(),
     active_workclass: active_workclass(),
     deactive_workclass: deactive_workclass()
@@ -706,6 +724,14 @@ function delete_workclass() {
     return "delete from xrk_workclasses where workclassid = ? "
 }
 
+function delete_workclass_by_class() {
+    return "delete from xrk_workclasses where classid = ? "
+}
+
+function delete_workclass_by_teacher() {
+    return "delete from xrk_workclasses where teacherid = ? "
+}
+
 function update_workclass() {
     return "update xrk_workclasses SET workclasstime = ?, workclassdetails = ?, classid = ? , teacherid = ? where workclassid = ?  "
 }
@@ -726,6 +752,7 @@ function deactive_workclass() {
     add_workstudent: add_workstudent(),
     delete_workstudent: delete_workstudent(),
     delete_workstudent_by_workclass:delete_workstudent_by_workclass(),
+    delete_workstudent_by_student:delete_workstudent_by_student(),
     update_workstudent: update_workstudent()
 }*/
 
@@ -789,6 +816,10 @@ function delete_workstudent_by_workclass() {
     return "delete from xrk_workstudents where workclassid = ? "
 }
 
+function delete_workstudent_by_student() {
+    return "delete from xrk_workstudents where studentid = ? "
+}
+
 function update_workstudent() {
     return "update xrk_workstudents SET workstudentstatus = ?, workstudentdetails = ?, workclassid = ?, studentid = ? where workstudentid = ? "
 }
@@ -798,6 +829,8 @@ function update_workstudent() {
     select_workstudenttimes: select_workstudenttimes(),
     add_workstudenttime: add_workstudenttime(),
     delete_workstudenttime: delete_workstudenttime(),
+    delete_workstudenttime_by_student: delete_workstudenttime_by_student(),
+    delete_workstudenttime_by_teacher: delete_workstudenttime_by_teacher(),
     update_workstudenttime: update_workstudenttime()
 }*/
 
@@ -821,6 +854,14 @@ function add_workstudenttime() {
 
 function delete_workstudenttime() {
     return "delete from xrk_workstudenttimes where workstudenttimeid = ? "
+}
+
+function delete_workstudenttime_by_student() {
+    return "delete from xrk_workstudenttimes where studentid = ? "
+}
+
+function delete_workstudenttime_by_teacher() {
+    return "delete from xrk_workstudenttimes where teacherid = ? "
 }
 
 function update_workstudenttime() {
@@ -872,6 +913,7 @@ module.exports = {
         select_student_by_studentdetails_studentmobile: select_student_by_studentdetails_studentmobile(),
         select_student_by_studentname_studentmobile_class: select_student_by_studentname_studentmobile_class(),
         select_student_in_class: select_student_in_class(),
+        select_student_in_class_active: select_student_in_class_active(),
         select_student_in_school: select_student_in_school(),
         add_student: add_student(),
         update_student_base: update_student_base(),
@@ -935,6 +977,8 @@ module.exports = {
         select_workclasses: select_workclasses(),
         add_workclass: add_workclass(),
         delete_workclass: delete_workclass(),
+        delete_workclass_by_class: delete_workclass_by_class(),
+        delete_workclass_by_teacher: delete_workclass_by_teacher(),
         update_workclass: update_workclass(),
         active_workclass: active_workclass(),
         deactive_workclass: deactive_workclass()
@@ -946,12 +990,15 @@ module.exports = {
         add_workstudent: add_workstudent(),
         delete_workstudent: delete_workstudent(),
         delete_workstudent_by_workclass:delete_workstudent_by_workclass(),
+        delete_workstudent_by_student:delete_workstudent_by_student(),
         update_workstudent: update_workstudent()
     },
     workstudenttimes:{
         select_workstudenttimes: select_workstudenttimes(),
         add_workstudenttime: add_workstudenttime(),
         delete_workstudenttime: delete_workstudenttime(),
+        delete_workstudenttime_by_student: delete_workstudenttime_by_student(),
+        delete_workstudenttime_by_teacher: delete_workstudenttime_by_teacher(),
         update_workstudenttime: update_workstudenttime()
     }
 }
