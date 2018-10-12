@@ -2,7 +2,7 @@
 
   <div>
 
-  <div class="mui-card" v-if="classes == false">
+  <div class="mui-card-header" style="height: 40px" v-if="classes == false">
     <router-link class=" mui-icon mui-icon-left-nav mui-pull-left " style="font-size:16px;" :to="{ name:'student' }" tag="a" >返回</router-link>
   </div>
 

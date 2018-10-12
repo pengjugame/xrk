@@ -56,7 +56,7 @@ router.post('/workclass', function(req, res, next) {
         }
 
         var today = new Date();
-        var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时';
+        var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时'+ today.getMinutes() +'分';
 
         var param = {
             "classid": req.body.classid,
