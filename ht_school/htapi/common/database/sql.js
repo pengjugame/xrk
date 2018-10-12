@@ -710,9 +710,9 @@ function select_workclasses() {
             + "c.schoolid , c.schoolname , c.schooladdress , c.schoolleader , c.schoolmobile , c.schooldetails , c.schoolactive , " 
             + "d.teacherid , d.teachername , d.teachermobile , d.teacherusex , d.teacherdetails , d.teacheractive " 
             + "FROM xrk_workclasses a " 
-            + "LEFT JOIN xrk_classes b ON a.classid = b.classid " 
+            + "JOIN xrk_classes b ON a.classid = b.classid " 
             + "JOIN xrk_schools c ON b.schoolid = c.schoolid " 
-            + "LEFT JOIN xrk_teachers d ON a.teacherid = d.teacherid " 
+            + "JOIN xrk_teachers d ON a.teacherid = d.teacherid " 
             + "where a.classid = ? ORDER BY workclassid DESC "
 }
 

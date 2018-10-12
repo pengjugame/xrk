@@ -34,7 +34,7 @@
     </div>
 
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
+      <label>向舞</label>
       <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:fromname, params: teacher }" tag="button" >选择</router-link>
     </div>
   </div>

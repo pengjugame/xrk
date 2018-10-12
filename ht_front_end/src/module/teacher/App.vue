@@ -8,7 +8,7 @@
   </div>
 
   <div class="mui-card">
-    <div class="mui-card-header">向日葵艺术教师注冊</div>
+    <div class="mui-card-header">向舞教师注冊</div>
     
     <div class="mui-card-content mui-input-group ">
       <div class="mui-input-row">
@@ -51,7 +51,7 @@
 
     </div>
     
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
 
   <div id="middlePopover" class="mui-popover">
@@ -130,7 +130,7 @@ export default {
       
       if (this.form.teachername == '' || this.form.teachermobile == '')
       {
-        mui.alert('姓名、电话不能为空！', '向日葵艺术教师注冊', function() {
+        mui.alert('姓名、电话不能为空！', '向舞教师注冊', function() {
           ;
         });
         return;

@@ -6,7 +6,7 @@
   </div>
 
   <div class="mui-card" >
-    <div class="mui-card-header">向日葵艺术课程修改</div>
+    <div class="mui-card-header">向舞课程修改</div>
 
     <div class="mui-card-content mui-input-group ">
 
@@ -40,7 +40,7 @@
       
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
   
   </div>
@@ -108,7 +108,7 @@ export default {
     submit() {    
     if (this.course.coursename == '')
     {
-      mui.alert('课程名不能为空！', '向日葵艺术课程修改', function() {
+      mui.alert('课程名不能为空！', '向舞课程修改', function() {
             ;
           });
       return;
@@ -119,7 +119,7 @@ export default {
     del() {    
     if (this.course.courseid == '')
     {
-      mui.alert('不能删除课程！', '向日葵艺术课程修改', function() {
+      mui.alert('不能删除课程！', '向舞课程修改', function() {
             ;
           });
       return;

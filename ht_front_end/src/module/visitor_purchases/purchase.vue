@@ -6,7 +6,7 @@
   </div>
 
   <div class="mui-card" >
-    <div class="mui-card-header">向日葵艺术课卡预购</div>
+    <div class="mui-card-header">向舞课卡预购</div>
 
     <div class="mui-card-content mui-input-group ">
 
@@ -82,7 +82,7 @@
       
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
   
   <div id="middlePopover" class="mui-popover">
@@ -191,7 +191,7 @@ export default {
     
     if (this.form.purchasename == '' || this.form.purchasemobile == '' || this.form.classcardid == '')
     {
-      mui.alert('姓名、电话、课程卡不能为空！', '向日葵艺术课卡预购', function() {
+      mui.alert('姓名、电话、课程卡不能为空！', '向舞课卡预购', function() {
             ;
           });
       return;

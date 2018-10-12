@@ -682,6 +682,20 @@ export const delworkclass = (vm,workclass) => {
   })
 }
 
+export const putworkclass = (vm,workclass) => {
+  userInfo().then((res) => {
+    http.put(route.workclass, workclass).then((res) => {
+      if (res_is_success(res)) {
+        ;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
 export const getworkstudents = (vm) => {
   vm.workstudents = [];
   let params = {}

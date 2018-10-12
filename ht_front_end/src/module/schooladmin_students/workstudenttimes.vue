@@ -40,7 +40,7 @@
     </div>
 
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
+      <label>向舞</label>
     </div>
 
   </div>

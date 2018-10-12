@@ -87,7 +87,7 @@
 
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
   
   <div id="middlePopover" class="mui-popover">
@@ -226,7 +226,7 @@ export default {
       
       if (this.student.studentname == '' || this.student.studentmobile == '' || this.student.classid == '')
       {
-        mui.alert('姓名、电话、班级不能为空！', '向日葵艺术学生管理', function() {
+        mui.alert('姓名、电话、班级不能为空！', '向舞学生管理', function() {
               ;
             });
         return;
@@ -237,7 +237,7 @@ export default {
     del() {
       if (this.student.studentid == '')
       {
-        mui.alert('不能删除学生！', '向日葵艺术学生管理', function() {
+        mui.alert('不能删除学生！', '向舞学生管理', function() {
               ;
             });
         return;

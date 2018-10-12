@@ -29,7 +29,7 @@
     </div>
 
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
+      <label>向舞</label>
       <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="submit(teacher)" v-if="teacher.teacheractive==0" >确认</button>
       <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'teacher', params: teacher }" tag="button" >教师管理</router-link>
     </div>

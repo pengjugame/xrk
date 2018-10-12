@@ -7,7 +7,7 @@
 
   <div class="mui-card" >
     <div class="mui-card-header">
-      <label>向日葵艺术课卡预购修改</label>
+      <label>向舞课卡预购修改</label>
       <img class="mui-media-object mui-pull-right round_icon" v-bind:src="purchase.headimgurl">
     </div>
 
@@ -85,7 +85,7 @@
       
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
   
   <div id="middlePopover" class="mui-popover">
@@ -195,7 +195,7 @@ export default {
       
       if (this.purchase.purchasename == '' || this.purchase.purchasemobile == '' || this.purchase.classcardid == '')
       {
-        mui.alert('姓名、电话、课程卡不能为空！', '向日葵艺术课卡预购', function() {
+        mui.alert('姓名、电话、课程卡不能为空！', '向舞课卡预购', function() {
               ;
             });
         return;

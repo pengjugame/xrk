@@ -27,16 +27,22 @@
         <input type="text"  v-model="workclass.teachername" readonly>
       </div>
 
+      <div class="mui-input-row">
+        <label>上课状态：</label>
+        <input type="text" v-if="workclass.workclassactive==0" value="已上课" readonly>
+        <input type="text" v-else value="未上课" style="color:#31e207" readonly>
+      </div>
+
       <div class="mui-input-row" style="height: 70px" >
-        <label>开课备注：</label>
+        <label>上课备注：</label>
         <textarea type="text"  rows="2" v-model="workclass.workclassdetails" readonly></textarea>
       </div>
 
     </div>
 
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
-      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'workstudents', params: {workclass:workclass,student:student} }" tag="button" >编辑</router-link>
+      <label>向舞</label>
+      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'workstudents', params: {workclass:workclass,student:student} }" tag="button" >查看</router-link>
     </div>
 
   </div>

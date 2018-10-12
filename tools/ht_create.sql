@@ -252,7 +252,7 @@ CREATE TABLE `xrk_workstudenttimes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-INSERT INTO `weapp`.`xrk_schools` (`schoolname`, `schooladdress`, `schoolleader`, `schoolmobile`, `schooldetails`, `schoolactive`) VALUES ('广州萝岗万达店', '广州萝岗万达广场室外步行街南区B250', '江星', '13570187950', '向日葵艺术旗舰店', '1');
+INSERT INTO `weapp`.`xrk_schools` (`schoolname`, `schooladdress`, `schoolleader`, `schoolmobile`, `schooldetails`, `schoolactive`) VALUES ('广州萝岗万达店', '广州萝岗万达广场室外步行街南区B250', '江星', '13570187950', '向舞旗舰店', '1');
 
 INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursedetails`, `courseactive`) VALUES ('综合', '', '1');
 INSERT INTO `weapp`.`xrk_courses` (`coursename`, `coursedetails`, `courseactive`) VALUES ('少儿拉丁舞', '', '1');

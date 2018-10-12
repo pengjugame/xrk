@@ -24,11 +24,11 @@ router.get('/workclasses', function(req, res, next) {
             return Promise.resolve(null);
         }
 
-        const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
+        /*const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
         if (!res_have_result(teacher_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
-        }
+        }*/
 
         const workclass_res = yield i_workclasses.select_workclasses(req.query.classid);
         if (!res_have_result(workclass_res)) {
@@ -108,8 +108,8 @@ router.put('/workclass', function(req, res, next) {
             return Promise.resolve(null);
         }
         
-        const admin_res = yield i_school_admins.exist_schooladmin(userinfo.openid);
-        if (!res_have_result(admin_res)) {
+        const teacher_res = yield i_teachers.exist_teacher(userinfo.openid)
+        if (!res_have_result(teacher_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }

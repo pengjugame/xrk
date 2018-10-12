@@ -1,7 +1,7 @@
 //产品环境配置
 {
     xrk:{
-        welcome: "你好!\n欢迎来到向日葵艺术，向日葵艺术拥有一批优秀的师资，重视培养学员的综合素养，提高身体柔软度、协调性及舞台表现力.\n回复关键字查看详细:“表演”、“活动”、“课表”、“芭蕾”、“跆拳道”、“中国舞”、“拉丁摩登”、“艺术体操” ...",
+        welcome: "你好!\n欢迎来到向舞，向舞拥有一批优秀的师资，重视培养学员的综合素养，提高身体柔软度、协调性及舞台表现力.\n回复关键字查看详细:“表演”、“活动”、“课表”、“芭蕾”、“跆拳道”、“中国舞”、“拉丁摩登”、“艺术体操” ...",
     },
     db: {
         host: "localhost",
@@ -100,7 +100,7 @@
     menu: {
         "user": {
             "button": [{
-                "name": "向日葵艺术",
+                "name": "向舞",
                 "sub_button": [
                     {
                     "type": "view",
@@ -150,7 +150,7 @@
         },
         "parent": {
             "button": [{
-                "name": "向日葵艺术",
+                "name": "向舞",
                 "sub_button": [
                     {
                     "type": "view",
@@ -207,7 +207,7 @@
         },
         "teacher": {
             "button": [{
-                "name": "向日葵艺术",
+                "name": "向舞",
                 "sub_button": [
                     {
                     "type": "view",
@@ -260,7 +260,7 @@
         },
         "admin": {
             "button": [{
-                "name": "向日葵艺术",
+                "name": "向舞",
                 "sub_button": [
                     {
                     "type": "view",
@@ -328,13 +328,13 @@
     },
     "articles": {
         "1": {
-            "title": "【风采展示】4月15日向日葵艺术萝岗万达演出精彩瞬间！",
-            "description": "2018年4月15日向日葵艺术培训中心接受萝岗万达广场邀请参与演出。",
+            "title": "【风采展示】4月15日向舞萝岗万达演出精彩瞬间！",
+            "description": "2018年4月15日向舞培训中心接受萝岗万达广场邀请参与演出。",
             "picurl": "https://mmbiz.qpic.cn/mmbiz_png/9ZQkrH84FFN6MeOYtLUfQibWfvcMBSC7xwsQ8Sent5LlCsQ4Zk97ic7eUccp1jJcIkevas7NJiaxYqDQX5ms0wL8g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1",
             "url": "https://mp.weixin.qq.com/s/IBEpFlZgUL-ba9RfZeryMg"
         },
         "2": {
-            "title": "向日葵艺术舞蹈开年福利！",
+            "title": "向舞舞蹈开年福利！",
             "description": "新春五重礼！！",
             "picurl": "https://mmbiz.qpic.cn/mmbiz_jpg/9ZQkrH84FFPklD7ibEuxLm91M8R0UsvxBeMLbTcbsFkUrS5gaJ7pEoWShQy1nP369EOg3vboQHDXa8Gicwye89RQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
             "url": "https://mp.weixin.qq.com/s/wgR0TjpbMF7lULmNvTGXmQ"

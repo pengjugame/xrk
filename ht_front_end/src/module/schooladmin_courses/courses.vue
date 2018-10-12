@@ -26,7 +26,7 @@
     </div>
 
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
+      <label>向舞</label>
       <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'modcourse', params: course }" tag="button" >修改课程</router-link>
     </div>
 

@@ -76,7 +76,7 @@
     </div>
 
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
+      <label>向舞</label>
       <router-link v-if="purchase.purchaseactive == 0 " class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'modpurchase', params: purchase }" tag="button" >修改预购</router-link>
     </div>
 

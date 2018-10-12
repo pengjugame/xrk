@@ -7,7 +7,7 @@
 
   <div class="mui-card" >
     <div class="mui-card-header">
-      <label>向日葵艺术教师修改</label>
+      <label>向舞教师修改</label>
       <img class="mui-media-object mui-pull-right round_icon" v-bind:src="teacher.headimgurl">
     </div>
 
@@ -67,7 +67,7 @@
       
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
   
   <div id="middlePopover" class="mui-popover">
@@ -140,7 +140,7 @@ export default {
       
       if (this.teacher.teachername == '' || this.teacher.teachermobile == '' || this.teacher.schoolid == '')
       {
-        mui.alert('姓名、电话、学校不能为空！', '向日葵艺术教师修改', function() {
+        mui.alert('姓名、电话、学校不能为空！', '向舞教师修改', function() {
               ;
             });
         return;

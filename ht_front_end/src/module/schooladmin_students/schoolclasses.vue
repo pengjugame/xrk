@@ -51,7 +51,7 @@
     </div>
   
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
+      <label>向舞</label>
       <router-link v-if="cla.classnumusers < cla.classmaxnumusers " class="mui-btn mui-btn-warning mui-pull-right" :to="{ name: fromname , params: cla }" tag="button" >选择</router-link>
     </div>
   </div>

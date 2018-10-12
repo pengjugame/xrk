@@ -6,7 +6,7 @@
   </div>
 
   <div class="mui-card" >
-    <div class="mui-card-header">向日葵艺术课卡修改</div>
+    <div class="mui-card-header">向舞课卡修改</div>
 
     <div class="mui-card-content mui-input-group ">
 
@@ -61,7 +61,7 @@
       
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
 
   <div id="menu-wrapper" class="menu-wrapper hidden">
@@ -154,7 +154,7 @@ export default {
 
       if (this.classcard.classcardname == '')
       {
-        mui.alert('课卡名不能为空！', '向日葵艺术课卡修改', function() {
+        mui.alert('课卡名不能为空！', '向舞课卡修改', function() {
               ;
             });
         return;
@@ -165,7 +165,7 @@ export default {
     del() {
       if (this.classcard.classcardid == '')
       {
-        mui.alert('不能删除课卡！', '向日葵艺术课卡修改', function() {
+        mui.alert('不能删除课卡！', '向舞课卡修改', function() {
               ;
             });
         return;

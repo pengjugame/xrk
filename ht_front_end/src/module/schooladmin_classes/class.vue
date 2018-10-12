@@ -6,7 +6,7 @@
   </div>
 
   <div class="mui-card" >
-    <div class="mui-card-header">向日葵艺术班级新建</div>
+    <div class="mui-card-header">向舞班级新建</div>
     
     <div class="mui-card-content mui-input-group ">
       <div class="mui-input-row">
@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
 
   <div id="middlePopover" class="mui-popover">
@@ -159,7 +159,7 @@ export default {
       
       if (this.form.classname == '')
       {
-        mui.alert('班级名称不能为空！', '向日葵艺术班级新建', function() {
+        mui.alert('班级名称不能为空！', '向舞班级新建', function() {
               ;
             });
         return;

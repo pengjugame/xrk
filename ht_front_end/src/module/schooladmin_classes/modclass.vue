@@ -6,7 +6,7 @@
   </div>
 
   <div class="mui-card" >
-    <div class="mui-card-header">向日葵艺术班级修改</div>
+    <div class="mui-card-header">向舞班级修改</div>
     
     <div class="mui-card-content mui-input-group ">
       <div class="mui-input-row">
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
 
   <div id="middlePopover" class="mui-popover">
@@ -212,7 +212,7 @@ export default {
       
       if (this.cla.classname == '')
       {
-        mui.alert('班级名称不能为空！', '向日葵艺术班级修改', function() {
+        mui.alert('班级名称不能为空！', '向舞班级修改', function() {
               ;
             });
         return;
@@ -223,7 +223,7 @@ export default {
     del() {
       if (this.cla.classid == '')
       {
-        mui.alert('不能删除班级！', '向日葵艺术班级修改', function() {
+        mui.alert('不能删除班级！', '向舞班级修改', function() {
               ;
             });
         return;

@@ -28,17 +28,24 @@
         <input type="text"  v-model="workclass.teachername" readonly>
       </div>
 
+      <div class="mui-input-row">
+        <label>上课状态：</label>
+        <input type="text" v-if="workclass.workclassactive==0" value="已上课" readonly>
+        <input type="text" v-else value="未上课" style="color:#31e207" readonly>
+      </div>
+
       <div class="mui-input-row" style="height: 70px" >
-        <label>开课备注：</label>
-        <textarea type="text"  rows="2" v-model="workclass.workclassdetails" readonly></textarea>
+        <label>上课备注：</label>
+        <textarea type="text"  rows="2" v-model="workclass.workclassdetails" ></textarea>
       </div>
 
     </div>
 
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
+      <label>向舞</label>
       <button type="button" id="delid" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="del(workclass)" >删除</button>
-      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'workstudents', params: workclass }" tag="button" >编辑</router-link>
+      <button type="button" id="updateid" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="update(workclass)" >更新</button>
+      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'workstudents', params: workclass }" tag="button" >查看</router-link>
     </div>
 
   </div>
@@ -70,6 +77,10 @@ export default {
   methods: {
     del(workclass) {
       request.delworkclass(this,workclass);
+    },
+    update(workclass) {
+      request.putworkclass(this,workclass);
+      mui.toast('提交成功 :-)');
     },
     add(){
       var workclass = {};

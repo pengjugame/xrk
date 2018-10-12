@@ -3,9 +3,9 @@
 
   <div class="mui-card">
     <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classes'}" tag="a" ></router-link>
-    <router-link class=" mui-icon mui-icon-settings mui-pull-right" :to="{ name:'workstudenttimes', params: student }" tag="a" ></router-link>
+    <router-link class=" mui-icon mui-icon-paperclip mui-pull-right" :to="{ name:'workclasses', params: student }" tag="a" ></router-link>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <router-link class=" mui-icon mui-icon-star-filled mui-pull-right" :to="{ name:'workclasses', params: student }" tag="a" ></router-link>
+    <router-link class=" mui-icon mui-icon-settings mui-pull-right" :to="{ name:'workstudenttimes', params: student }" tag="a" ></router-link>
   </div>
   
   <div class="mui-card" >
@@ -61,7 +61,7 @@
     </div>
 
     <div class="mui-card-footer">
-      <label>向日葵艺术</label>
+      <label>向舞</label>
     </div>
   </div>
   </div>

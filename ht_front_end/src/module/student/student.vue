@@ -63,7 +63,7 @@
       
     </div>
 
-    <div class="mui-card-footer">向日葵艺术</div>
+    <div class="mui-card-footer">向舞</div>
   </div>
   
   <div id="middlePopover" class="mui-popover">
@@ -151,7 +151,7 @@ export default {
       }
 
       if (this.form.studentid == -1 ) {
-        mui.alert('电话、收据重复！', '向日葵艺术学生注册', function() {
+        mui.alert('电话、收据重复！', '向舞学生注册', function() {
           ;
         });
         return '确定';
@@ -174,7 +174,7 @@ export default {
       
       if (this.form.studentname == '' || this.form.studentmobile == '' || this.form.classid == '')
       {
-        mui.alert('姓名、电话、班级不能为空！', '向日葵艺术学生注册', function() {
+        mui.alert('姓名、电话、班级不能为空！', '向舞学生注册', function() {
               ;
             });
         return;
