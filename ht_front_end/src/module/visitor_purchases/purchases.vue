@@ -1,8 +1,8 @@
 <template>
   <div>
 
-  <div class="mui-card">
-    <router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'purchase'}" tag="a" ></router-link>
+  <div class="mui-card-header" style="height: 40px" >
+    <router-link class="mui-btn mui-btn-success mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'purchase'}" tag="button" >申请预购</router-link>
   </div>
 
   <div class="mui-card" v-if="purchases == false">
@@ -35,16 +35,6 @@
       <div class="mui-input-row">
         <label>年龄：</label>
         <input type="text"  v-model="purchase.purchaseage" readonly>
-      </div>
-
-      <div class="mui-input-row" >
-        <label>上课时间：</label>
-        <input type="text" v-model="purchase.purchasedatatime" readonly>
-      </div>
-
-      <div class="mui-input-row" >
-        <label>上课地点：</label>
-        <input type="text" v-model="purchase.purchaseaddress" readonly>
       </div>
 
       <div class="mui-input-row">

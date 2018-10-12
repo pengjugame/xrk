@@ -1,8 +1,8 @@
 <template>
   <div>
 
-  <div class="mui-card">
-    <router-link class="mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'purchases'}" tag="a" ></router-link>
+  <div class="mui-card-header" style="height: 40px" >
+    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left " style="font-size:16px;" :to="{ name:'purchases'}" tag="a" >返回</router-link>
   </div>
 
   <div class="mui-card" >
@@ -36,16 +36,6 @@
       <div class="mui-input-row">
         <label>年龄：</label>
         <input type="text"  v-model.trim="form.purchaseage" class="mui-input-clear" placeholder="请输入年龄">
-      </div>
-
-      <div class="mui-input-row" >
-        <label>上课时间：</label>
-        <input type="text" v-model.trim="form.purchasedatatime" class="mui-input-clear" placeholder="请输入希望上课时间">
-      </div>
-
-      <div class="mui-input-row" >
-        <label>上课地点：</label>
-        <input type="text" v-model.trim="form.purchaseaddress" class="mui-input-clear" placeholder="请输入希望上课地点">
       </div>
       
       <div class="mui-input-row">

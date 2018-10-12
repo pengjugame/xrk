@@ -1,8 +1,8 @@
 <template>
 
   <div>
-  <div class="mui-card" v-if="classcards == false">
-    <router-link class="mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:fromname }" tag="a" ></router-link>
+  <div class="mui-card-header" style="height: 40px" v-if="classcards == false">
+    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left " style="font-size:16px;" :to="{ name: fromname }" tag="a" >返回</router-link>
   </div>
 
   <div class="mui-card" v-for="cla in classcards" >

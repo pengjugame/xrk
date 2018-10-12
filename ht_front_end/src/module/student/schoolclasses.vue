@@ -3,7 +3,7 @@
   <div>
 
   <div class="mui-card" v-if="classes == false">
-    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'student' }" tag="a" ></router-link>
+    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left " style="font-size:16px;" :to="{ name:'student' }" tag="a" >返回</router-link>
   </div>
 
   <div class="mui-card" v-for="cla in classes" >

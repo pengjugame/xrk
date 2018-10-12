@@ -1,7 +1,7 @@
 <template>
   <div>
-  <div class="mui-card">
-    <router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'classcard' }" tag="a" ></router-link>
+  <div class="mui-card-header" style="height: 40px" >
+    <router-link class=" mui-btn mui-btn-success mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'classcard' }" tag="button" >添加课卡</router-link>
   </div>
 
   <div class="mui-card" v-for="classcard in classcards" >

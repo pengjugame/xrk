@@ -1,7 +1,7 @@
 <template>
   <div>
 
-  <div class="mui-card">
+  <div class="mui-card-header" style="height: 40px">
     <span class="mui-pull-left mui-badge mui-badge-success">{{studentnum}}</span>
   </div>
 

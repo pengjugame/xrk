@@ -713,6 +713,23 @@ export const getworkstudents = (vm) => {
   })
 }
 
+export const getworkstudent = (vm) => {
+  vm.workstudentclasses = [];
+  let params = {}
+  params.studentid = vm.student.studentid;
+  userInfo().then((res) => {
+    http.get(route.workstudent,params).then((res) => {
+      if (res_is_success(res)) {
+        vm.workstudentclasses = res.data;
+      }
+    }, (err) => {
+      console.log(err);
+    })
+  }, (err) => {
+    console.log(err);
+  })
+}
+
 export const putworkstudent = (workstudent) => {
     http.put(route.workstudent, workstudent).then((res) => {
       if (res_is_success(res)) {

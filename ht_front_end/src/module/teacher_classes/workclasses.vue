@@ -1,8 +1,8 @@
 <template>
   <div>
-  <div class="mui-card">
-    <router-link class="mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classstudents' }" tag="a" ></router-link>
-    <a class="active mui-icon mui-icon-plusempty mui-pull-right" v-on:click="add()" />
+  <div class="mui-card-header" style="height: 40px" >
+    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left " style="font-size:16px;" :to="{ name:'classstudents' }" tag="a" >返回</router-link>
+    <button class="mui-btn mui-btn-success mui-icon mui-icon-plusempty mui-pull-right" v-on:click="add()" >开课</button>
   </div>
 
   <div class="mui-card" v-for="workclass in workclasses" >

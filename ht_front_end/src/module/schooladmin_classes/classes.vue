@@ -1,9 +1,9 @@
 <template>
   <div>
 
-  <div class="mui-card">
+  <div class="mui-card-header" style="height: 40px" >
     <span class="mui-pull-left mui-badge mui-badge-success">{{studentnum}}</span>
-    <router-link class="mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'class'}" tag="a" ></router-link>
+    <router-link class="mui-btn mui-btn-success mui-icon mui-icon-plusempty mui-pull-right" :to="{ name:'class'}" tag="button" >添加班级</router-link>
   </div>
 
   <div class="mui-content">

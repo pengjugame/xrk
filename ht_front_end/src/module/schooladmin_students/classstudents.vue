@@ -1,9 +1,9 @@
 <template>
   <div>
 
-  <div class="mui-card">
-    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'classes'}" tag="a" ></router-link>
-    <router-link class=" mui-icon mui-icon-paperclip mui-pull-right" :to="{ name:'workclasses', params: {classid:classid} }" tag="a" ></router-link>
+  <div class="mui-card-header" style="height: 40px" >
+    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left " style="font-size:16px;" :to="{ name:'classes'}" tag="a" >返回</router-link>
+    <router-link class=" mui-btn mui-btn-success mui-icon mui-icon-paperclip mui-pull-right" :to="{ name:'workclasses', params: {classid:classid} }" tag="button" >开课记录</router-link>
   </div>
   
   <div class="mui-card" v-for="student in students" >

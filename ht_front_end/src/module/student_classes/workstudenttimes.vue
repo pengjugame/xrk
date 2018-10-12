@@ -1,7 +1,7 @@
 <template>
   <div>
-  <div class="mui-card">
-    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left" :to="{ name:'student' }" tag="a" ></router-link>
+  <div class="mui-card-header" style="height: 40px" >
+    <router-link class=" mui-icon mui-icon-left-nav mui-pull-left " style="font-size:16px;" :to="{ name:'student' }" tag="a" >返回</router-link>
   </div>
 
   <div class="mui-card" v-for="workstudenttime in workstudenttimes" >
