@@ -64,6 +64,7 @@ export default {
     return {
       workclasses: [],
       classid: "",
+      picker: new mui.DtPicker({"type":"datetime"}),
     }
   },
   activated: function () {
@@ -94,8 +95,7 @@ export default {
       request.postworkclass(this,workclass);
     },
     gettime(workclass){
-      var picker = new mui.DtPicker({"type":"datetime"});
-      picker.show(function(rs) {
+      this.picker.show(function(rs) {
           workclass.workclassdetails = rs.y.text +'年 '+ rs.m.text +'月 '+ rs.d.text +'日 '+ rs.h.text +'时 '+ rs.i.text +'分';
       });
     },

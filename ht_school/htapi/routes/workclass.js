@@ -55,6 +55,12 @@ router.post('/workclass', function(req, res, next) {
             return Promise.resolve(null);
         }
 
+        const student_res = yield i_students.select_student_in_class_active(req.body.classid);
+        if (!res_have_result(student_res)) {
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
         var today = new Date();
         var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时 '+ today.getMinutes() +'分';
 
@@ -68,12 +74,6 @@ router.post('/workclass', function(req, res, next) {
 
         const workclass_res = yield i_workclasses.add_workclass(param);
         if (!res_is_success(workclass_res)) {
-            res.send(htapi_code(false));
-            return Promise.resolve(null);
-        }
-
-        const student_res = yield i_students.select_student_in_class_active(req.body.classid);
-        if (!res_have_result(student_res)) {
             res.send(htapi_code(false));
             return Promise.resolve(null);
         }
