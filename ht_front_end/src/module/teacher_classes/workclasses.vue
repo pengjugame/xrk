@@ -34,9 +34,10 @@
         <input type="text" v-else value="未上课" style="color:#31e207" readonly>
       </div>
 
-      <div class="mui-input-row" style="height: 70px" >
-        <label>上课备注：</label>
-        <textarea type="text"  rows="2" v-model="workclass.workclassdetails" ></textarea>
+      <div class="mui-input-row" >
+        <label>上课时间：</label>
+        <a class=" active mui-icon-extra mui-icon-extra-outline " style="width:10%;float:right;padding-top:8px"  v-on:click="gettime(workclass)" ></a>
+        <input type="text" style="width:55%;float:right" v-model="workclass.workclassdetails" readonly>
       </div>
 
     </div>
@@ -55,6 +56,8 @@
 <script>
 import * as request from 'src/js/request'
 import * as tool from 'src/js/util'
+import "vue-awesome-mui/mui/examples/hello-mui/css/mui.picker.min.css";
+import "vue-awesome-mui/mui/examples/hello-mui/js/mui.picker.min.js";
 
 export default {
   data() {
@@ -85,15 +88,16 @@ export default {
     add(){
       var workclass = {};
       workclass.classid = this.classid;
-      var vm = this;
-
-      var btnArray = ['取消', '确定'];
-      mui.prompt('请输入开课备注：', '上课时间、地点', '开  课', btnArray, function(e) {
-        if (e.index == 1) {
-          workclass.workclassdetails = e.value;
-          request.postworkclass(vm,workclass);
-        }
-      })
+      var today = new Date();
+      var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时 '+ today.getMinutes() +'分';
+      workclass.workclassdetails = time;
+      request.postworkclass(this,workclass);
+    },
+    gettime(workclass){
+      var picker = new mui.DtPicker({"type":"datetime"});
+      picker.show(function(rs) {
+          workclass.workclassdetails = rs.y.text +'年 '+ rs.m.text +'月 '+ rs.d.text +'日 '+ rs.h.text +'时 '+ rs.i.text +'分';
+      });
     },
   },
   mounted() {

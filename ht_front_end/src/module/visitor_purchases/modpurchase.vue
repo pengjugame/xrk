@@ -41,16 +41,6 @@
         <input type="text"  v-model.trim="purchase.purchaseage" class="mui-input-clear" placeholder="请输入年龄">
       </div>
 
-      <div class="mui-input-row" >
-        <label>上课时间：</label>
-        <input type="text" v-model.trim="purchase.purchasedatatime" class="mui-input-clear" placeholder="请输入希望上课时间">
-      </div>
-
-      <div class="mui-input-row" >
-        <label>上课地点：</label>
-        <input type="text" v-model.trim="purchase.purchaseaddress" class="mui-input-clear" placeholder="请输入希望上课地点">
-      </div>
-      
       <div class="mui-input-row">
         <label>选择课程：</label>
         <input type="text" v-model="coursename" readonly>

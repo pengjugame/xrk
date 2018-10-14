@@ -56,7 +56,7 @@ router.post('/workclass', function(req, res, next) {
         }
 
         var today = new Date();
-        var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时'+ today.getMinutes() +'分';
+        var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时 '+ today.getMinutes() +'分';
 
         var param = {
             "classid": req.body.classid,
@@ -185,6 +185,11 @@ router.put('/workclassactive', function(req, res, next) {
             return Promise.resolve(null);
         }
 
+        if(req.body.workclassactive == 0){
+            res.send(htapi_code(false));
+            return Promise.resolve(null);
+        }
+
         {
             const workstudent_res = yield i_workstudents.select_workstudents(req.body.workclassid);
             if (!res_have_result(workstudent_res)) {
@@ -215,16 +220,27 @@ router.put('/workclassactive', function(req, res, next) {
                     param.studentcurtimes = workstudent_res.result[i].studenttimes - 1;
                 }
 
-                const workstudenttime_res = yield i_workstudenttimes.add_workstudenttime(param);
-                if (!res_is_success(workstudenttime_res)) {
-                    res.send(htapi_code(false));
-                    return Promise.resolve(null);
-                }
+                if(param.studentcurtimes < 0){
+                    param.workstudenttimedetails = "没有剩余课次了 扣掉 " + 0 + " 次课";
+                    param.studentcurtimes = 0;
 
-                const student_res = yield i_students.update_student_times(param.studentcurtimes,workstudent_res.result[i].studentid);
-                if (!res_is_success(student_res)) {
-                    res.send(htapi_code(false));
-                    return Promise.resolve(null);
+                    const workstudenttime_res = yield i_workstudenttimes.add_workstudenttime(param);
+                    if (!res_is_success(workstudenttime_res)) {
+                        res.send(htapi_code(false));
+                        return Promise.resolve(null);
+                    }
+                }else{
+                    const workstudenttime_res = yield i_workstudenttimes.add_workstudenttime(param);
+                    if (!res_is_success(workstudenttime_res)) {
+                        res.send(htapi_code(false));
+                        return Promise.resolve(null);
+                    }
+
+                    const student_res = yield i_students.update_student_times(param.studentcurtimes,workstudent_res.result[i].studentid);
+                    if (!res_is_success(student_res)) {
+                        res.send(htapi_code(false));
+                        return Promise.resolve(null);
+                    }
                 }
             }
         }

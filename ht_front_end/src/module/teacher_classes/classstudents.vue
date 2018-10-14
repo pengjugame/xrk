@@ -38,7 +38,9 @@
 
       <div class="mui-input-row">
         <label>剩余课次：</label>
-        <input type="text" v-model="student.studenttimes" readonly>
+        <input type="text" v-if="student.studenttimes <= 10" style="color:#FF4500" v-model="student.studenttimes" readonly>
+        <input type="text" v-else-if="student.studenttimes <= 50" style="color:#FFD700" v-model="student.studenttimes" readonly>
+        <input type="text" v-else style="color:#31e207" v-model="student.studenttimes" readonly>
       </div>
 
       <div class="mui-input-row" style="height: 70px" >

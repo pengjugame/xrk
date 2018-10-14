@@ -47,7 +47,9 @@
       <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'student', params: student }" tag="button" >详细信息</router-link>
       <div class="mui-numbox mui-pull-right" data-numbox-min='0' v-bind:data-numbox-max="[student.studentmaxtimes]" >
         <button class="mui-btn jl-mui-btn-numbox-minus" type="button" v-on:click="minusplusstudenttimes(0,student)">-</button>
-        <input class="mui-input-numbox" type="number" v-model="student.studenttimes" />
+        <input class="mui-input-numbox" type="number" v-if="student.studenttimes <= 10" style="color:#FF4500" v-model="student.studenttimes" />
+        <input class="mui-input-numbox" type="number" v-else-if="student.studenttimes <= 50" style="color:#FFD700" v-model="student.studenttimes" />
+        <input class="mui-input-numbox" type="number" v-else style="color:#31e207" v-model="student.studenttimes" />
         <button class="mui-btn jl-mui-btn-numbox-plus"  type="button" v-on:click="minusplusstudenttimes(1,student)">+</button>
       </div>
       <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="updatestudenttimes(student)" v-text="confirmText" ></button>

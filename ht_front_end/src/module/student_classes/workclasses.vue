@@ -33,12 +33,12 @@
         <input type="text" v-else value="未上课" style="color:#31e207" readonly>
       </div>
 
-      <div class="mui-input-row" style="height: 70px" >
-        <label>上课备注：</label>
-        <textarea type="text"  rows="2" v-model="workstudentclass.workclassdetails" readonly></textarea>
+      <div class="mui-input-row" >
+        <label>上课时间：</label>
+        <input type="text" v-model="workstudentclass.workclassdetails" readonly></input>
       </div>
 
-      <div class="mui-input-row" style="height: 70px" >
+      <div class="mui-input-row" >
         <label>学生状态：</label>
         <input type="text" v-if="workstudentclass.workstudentstatus==0" value="正常" style="color:#31e207" readonly>
         <input type="text" v-else-if="workstudentclass.workstudentstatus==1" value="请假" style="color:#FFD700" readonly>
