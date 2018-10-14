@@ -36,7 +36,7 @@
 
     <div class="mui-card-footer">
       <label>向舞</label>
-      <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="submit(workstudent)" v-if="workclass.workclassactive==1" >更新</button>
+      <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="submit(workstudent)" v-if="workclass.workclassactive==1" >更新状态</button>
     </div>
 
   </div>

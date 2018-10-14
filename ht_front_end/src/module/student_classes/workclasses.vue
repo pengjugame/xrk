@@ -17,14 +17,14 @@
         <input type="text"  v-model="workstudentclass.classname" readonly>
       </div>
 
-      <div class="mui-input-row">
-        <label>开课时间：</label>
-        <input type="text"  v-model="workstudentclass.workclasstime" readonly>
+      <div class="mui-input-row" >
+        <label>上课时间：</label>
+        <input type="text" v-model="workstudentclass.workclasstime" readonly>
       </div>
 
       <div class="mui-input-row">
-        <label>开课老师：</label>
-        <input type="text"  v-model="workstudentclass.teachername" readonly>
+        <label>结束时间：</label>
+        <input type="text"  v-model="workstudentclass.workclassdetails" readonly>
       </div>
 
       <div class="mui-input-row">
@@ -33,9 +33,9 @@
         <input type="text" v-else value="未上课" style="color:#31e207" readonly>
       </div>
 
-      <div class="mui-input-row" >
-        <label>上课时间：</label>
-        <input type="text" v-model="workstudentclass.workclassdetails" readonly></input>
+      <div class="mui-input-row">
+        <label>开课老师：</label>
+        <input type="text"  v-model="workstudentclass.teachername" readonly>
       </div>
 
       <div class="mui-input-row" >

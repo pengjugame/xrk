@@ -2,7 +2,7 @@
   <div>
   <div class="mui-card-header" style="height: 40px" >
     <router-link class=" mui-icon mui-icon-left-nav mui-pull-left " style="font-size:16px;" :to="{ name:'workclasses' }" tag="a" >返回</router-link>
-    <button class="mui-btn mui-btn-success mui-icon mui-icon-plus-filled mui-pull-right" v-if="workclass.workclassactive==1" v-on:click="active()" >确认上课</button>
+    <button class="mui-btn mui-btn-success mui-icon mui-icon-plus-filled mui-pull-right" v-if="workclass.workclassactive==1" v-on:click="active()" >归档</button>
   </div>
 
   <div class="mui-card" v-for="workstudent in workstudents" >
@@ -37,7 +37,7 @@
 
     <div class="mui-card-footer">
       <label>向舞</label>
-      <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="submit(workstudent)" v-if="workclass.workclassactive==1" >更新</button>
+      <button type="button" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="submit(workstudent)" v-if="workclass.workclassactive==1" >更新状态</button>
     </div>
 
   </div>
@@ -75,7 +75,7 @@ export default {
     active(){
       var btnArray = ['否', '是'];
       var vm = this;
-      mui.confirm('确定开课，确认？', '开  课', btnArray, function(e) {
+      mui.confirm('确定上课，确认？ 确认后学生信息不可更改!', '归  档', btnArray, function(e) {
         if (e.index == 1) {
           request.putworkclassactive(vm);
           mui.toast('提交成功 :-)');

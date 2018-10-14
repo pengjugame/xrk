@@ -18,14 +18,16 @@
         <input type="text"  v-model="workclass.classname" readonly>
       </div>
 
-      <div class="mui-input-row">
-        <label>开课时间：</label>
-        <input type="text"  v-model="workclass.workclasstime" readonly>
+      <div class="mui-input-row" >
+        <label>上课时间：</label>
+        <a class=" active mui-icon-extra mui-icon-extra-outline " style="width:10%;float:right;padding-top:8px"  v-on:click="gettime(workclass,0)" ></a>
+        <input type="text" style="width:55%;float:right" v-model="workclass.workclasstime" readonly>
       </div>
 
-      <div class="mui-input-row">
-        <label>开课老师：</label>
-        <input type="text"  v-model="workclass.teachername" readonly>
+      <div class="mui-input-row" >
+        <label>结束时间：</label>
+        <a class=" active mui-icon-extra mui-icon-extra-outline " style="width:10%;float:right;padding-top:8px"  v-on:click="gettime(workclass,1)" ></a>
+        <input type="text" style="width:55%;float:right" v-model="workclass.workclassdetails" readonly>
       </div>
 
       <div class="mui-input-row">
@@ -34,10 +36,9 @@
         <input type="text" v-else value="未上课" style="color:#31e207" readonly>
       </div>
 
-      <div class="mui-input-row" >
-        <label>上课时间：</label>
-        <a class=" active mui-icon-extra mui-icon-extra-outline " style="width:10%;float:right;padding-top:8px"  v-on:click="gettime(workclass)" ></a>
-        <input type="text" style="width:55%;float:right" v-model="workclass.workclassdetails" readonly>
+      <div class="mui-input-row">
+        <label>开课老师：</label>
+        <input type="text"  v-model="workclass.teachername" readonly>
       </div>
 
     </div>
@@ -46,7 +47,7 @@
       <label>向舞</label>
       <button type="button" id="delid" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="del(workclass)" >删除</button>
       <button type="button" id="updateid" class="mui-btn mui-btn-warning mui-pull-right" v-on:click="update(workclass)" >更新</button>
-      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'workstudents', params: workclass }" tag="button" >查看</router-link>
+      <router-link class="mui-btn mui-btn-warning mui-pull-right" :to="{ name:'workstudents', params: workclass }" tag="button" >学生状态</router-link>
     </div>
 
   </div>
@@ -91,12 +92,17 @@ export default {
       workclass.classid = this.classid;
       var today = new Date();
       var time = today.getFullYear() +'年 '+ (today.getMonth()+1) +'月 '+ today.getDate() +'日 '+ today.getHours() +'时 '+ today.getMinutes() +'分';
+      workclass.workclasstime = time;
       workclass.workclassdetails = time;
       request.postworkclass(this,workclass);
     },
-    gettime(workclass){
+    gettime(workclass,v){
       this.picker.show(function(rs) {
-          workclass.workclassdetails = rs.y.text +'年 '+ rs.m.text +'月 '+ rs.d.text +'日 '+ rs.h.text +'时 '+ rs.i.text +'分';
+          if(v == 0){
+            workclass.workclasstime = rs.y.text +'年 '+ rs.m.text +'月 '+ rs.d.text +'日 '+ rs.h.text +'时 '+ rs.i.text +'分';
+          }else{
+            workclass.workclassdetails = rs.y.text +'年 '+ rs.m.text +'月 '+ rs.d.text +'日 '+ rs.h.text +'时 '+ rs.i.text +'分';
+          }
       });
     },
   },
